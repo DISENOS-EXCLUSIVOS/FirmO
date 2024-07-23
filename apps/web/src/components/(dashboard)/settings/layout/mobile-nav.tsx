@@ -35,7 +35,7 @@ export const MobileNav = ({ className, ...props }: MobileNavProps) => {
           )}
         >
           <User className="mr-2 h-5 w-5" />
-          Profile
+          Perfil
         </Button>
       </Link>
 
@@ -49,7 +49,7 @@ export const MobileNav = ({ className, ...props }: MobileNavProps) => {
             )}
           >
             <Globe2Icon className="mr-2 h-5 w-5" />
-            Public Profile
+            Perfil público
           </Button>
         </Link>
       )}
@@ -63,7 +63,7 @@ export const MobileNav = ({ className, ...props }: MobileNavProps) => {
           )}
         >
           <Users className="mr-2 h-5 w-5" />
-          Teams
+          Equipos
         </Button>
       </Link>
 
@@ -76,7 +76,7 @@ export const MobileNav = ({ className, ...props }: MobileNavProps) => {
           )}
         >
           <Lock className="mr-2 h-5 w-5" />
-          Security
+          Seguridad
         </Button>
       </Link>
 
@@ -116,7 +116,7 @@ export const MobileNav = ({ className, ...props }: MobileNavProps) => {
             )}
           >
             <CreditCard className="mr-2 h-5 w-5" />
-            Billing
+            Facturación
           </Button>
         </Link>
       )}

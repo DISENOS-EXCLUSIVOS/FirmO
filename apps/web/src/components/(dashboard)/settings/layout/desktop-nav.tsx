@@ -32,7 +32,7 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
           )}
         >
           <User className="mr-2 h-5 w-5" />
-          Profile
+          Perfil
         </Button>
       </Link>
 
@@ -46,7 +46,7 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
             )}
           >
             <Globe2Icon className="mr-2 h-5 w-5" />
-            Public Profile
+            Perfíl público
           </Button>
         </Link>
       )}
@@ -60,7 +60,7 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
           )}
         >
           <Users className="mr-2 h-5 w-5" />
-          Teams
+          Equipos
         </Button>
       </Link>
 
@@ -73,7 +73,7 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
           )}
         >
           <Lock className="mr-2 h-5 w-5" />
-          Security
+          Seguridad
         </Button>
       </Link>
 
@@ -113,7 +113,7 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
             )}
           >
             <CreditCard className="mr-2 h-5 w-5" />
-            Billing
+            Facturación
           </Button>
         </Link>
       )}

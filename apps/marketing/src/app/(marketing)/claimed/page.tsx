@@ -101,14 +101,14 @@ export default async function ClaimedPlanPage({ searchParams = {} }: ClaimedPlan
                 fontCaveat.className,
               )}
             >
-              Timur
+              FirmO
             </p>
 
             <p className="text-muted-foreground text-sm md:text-lg">
-              Timur Ercan
+              FirmO
               <span className="block lg:hidden" />
               <span className="hidden lg:inline"> - </span>
-              Co Founder
+              FirmO
             </p>
           </div>
 
@@ -119,14 +119,14 @@ export default async function ClaimedPlanPage({ searchParams = {} }: ClaimedPlan
                 fontCaveat.className,
               )}
             >
-              Lucas
+              FirmO
             </p>
 
             <p className="text-muted-foreground text-sm md:text-lg">
-              Lucas Smith
+              FirmO
               <span className="block lg:hidden" />
               <span className="hidden lg:inline"> - </span>
-              Co Founder
+              FirmO
             </p>
           </div>
 
@@ -153,33 +153,33 @@ export default async function ClaimedPlanPage({ searchParams = {} }: ClaimedPlan
               {user.name}
               <span className="block lg:hidden" />
               <span className="hidden lg:inline"> - </span>
-              Our new favourite customer
+              FirmO
             </p>
           </div>
         </div>
       </div>
 
       <div className="mt-12">
-        <h2 className="text-foreground text-2xl font-bold">Your sign in details</h2>
+        <h2 className="text-foreground text-2xl font-bold">Tus detalles de inicio de sesión</h2>
 
         <div className="mt-4">
           <p className="text-muted-foreground text-lg">
-            <span className="font-bold">Email:</span> {user.email}
+            <span className="font-bold">Correo:</span> {user.email}
           </p>
 
           <p className="text-muted-foreground mt-2 text-lg">
-            <span className="font-bold">Password:</span>{' '}
+            <span className="font-bold">Contraseña:</span>{' '}
             <PasswordReveal password={password ?? 'password'} />
           </p>
         </div>
 
         <p className="text-muted-foreground mt-4 text-sm italic">
-          This is a temporary password. Please change it as soon as possible.
+          Esta es una contraseña temporal. Por favor cámbielo lo antes posible.
         </p>
 
         <Link href={`${NEXT_PUBLIC_WEBAPP_URL()}/signin`} target="_blank" className="mt-4 block">
           <Button size="lg" className="text-base">
-            Let's get started!
+            ¡Empecemos!
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </Link>

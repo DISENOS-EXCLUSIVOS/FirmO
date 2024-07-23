@@ -2,10 +2,10 @@ import { RecipientRole } from '@documenso/prisma/client';
 
 export const RECIPIENT_ROLES_DESCRIPTION = {
   [RecipientRole.APPROVER]: {
-    actionVerb: 'Approve',
-    actioned: 'Approved',
-    progressiveVerb: 'Approving',
-    roleName: 'Approver',
+    actionVerb: 'Aprobar',
+    actioned: 'Aprobado',
+    progressiveVerb: 'Aprobando',
+    roleName: 'Aprobador',
   },
   [RecipientRole.CC]: {
     actionVerb: 'CC',
@@ -14,16 +14,16 @@ export const RECIPIENT_ROLES_DESCRIPTION = {
     roleName: 'Cc',
   },
   [RecipientRole.SIGNER]: {
-    actionVerb: 'Sign',
-    actioned: 'Signed',
-    progressiveVerb: 'Signing',
-    roleName: 'Signer',
+    actionVerb: 'Firma',
+    actioned: 'Firmado',
+    progressiveVerb: 'Firmando',
+    roleName: 'Firmante',
   },
   [RecipientRole.VIEWER]: {
-    actionVerb: 'View',
-    actioned: 'Viewed',
-    progressiveVerb: 'Viewing',
-    roleName: 'Viewer',
+    actionVerb: 'Visualiza',
+    actioned: 'Visto',
+    progressiveVerb: 'visualizando',
+    roleName: 'Observador',
   },
 } satisfies Record<keyof typeof RecipientRole, unknown>;
 
@@ -34,8 +34,8 @@ export const RECIPIENT_ROLE_TO_EMAIL_TYPE = {
 } as const;
 
 export const RECIPIENT_ROLE_SIGNING_REASONS = {
-  [RecipientRole.SIGNER]: 'I am a signer of this document',
-  [RecipientRole.APPROVER]: 'I am an approver of this document',
-  [RecipientRole.CC]: 'I am required to recieve a copy of this document',
-  [RecipientRole.VIEWER]: 'I am a viewer of this document',
+  [RecipientRole.SIGNER]: 'Soy firmante de este documento',
+  [RecipientRole.APPROVER]: 'Soy un aprobador de este documento.',
+  [RecipientRole.CC]: 'Debo recibir una copia de este documento',
+  [RecipientRole.VIEWER]: 'Soy un espectador de este documento.',
 } satisfies Record<keyof typeof RecipientRole, string>;

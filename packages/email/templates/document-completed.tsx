@@ -15,7 +15,7 @@ export const DocumentCompletedEmailTemplate = ({
   assetBaseUrl = 'http://localhost:3002',
   customBody,
 }: DocumentCompletedEmailTemplateProps) => {
-  const previewText = `Completed Document`;
+  const previewText = `Documento Completado`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();

@@ -49,9 +49,9 @@ export const ForgotPasswordForm = ({ className }: ForgotPasswordFormProps) => {
     await forgotPassword({ email }).catch(() => null);
 
     toast({
-      title: 'Reset email sent',
+      title: 'Reenviar Correo Electrónico',
       description:
-        'A password reset email has been sent, if you have an account you should see it in your inbox shortly.',
+        'Se ha enviado un correo electrónico para restablecer la contraseña. Si tiene una cuenta, debería verlo en su bandeja de entrada en breve.',
       duration: 5000,
     });
 
@@ -72,7 +72,7 @@ export const ForgotPasswordForm = ({ className }: ForgotPasswordFormProps) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Correo</FormLabel>
                 <FormControl>
                   <Input type="email" {...field} />
                 </FormControl>

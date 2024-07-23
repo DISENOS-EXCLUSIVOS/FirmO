@@ -38,8 +38,8 @@ export const DocumentInviteEmailTemplate = ({
   const action = RECIPIENT_ROLES_DESCRIPTION[role].actionVerb.toLowerCase();
 
   const previewText = selfSigner
-    ? `Please ${action} your document ${documentName}`
-    : `${inviterName} has invited you to ${action} ${documentName}`;
+    ? `Por favor ${action} tu documento ${documentName}`
+    : `${inviterName} te ha invitado a ${action} ${documentName}`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
@@ -62,11 +62,7 @@ export const DocumentInviteEmailTemplate = ({
           <Section>
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img
-                  src={getAssetUrl('/static/logo.png')}
-                  alt="Documenso Logo"
-                  className="mb-4 h-6"
-                />
+                <Img src={getAssetUrl('/static/logo.png')} alt="FirmO Logo" className="mb-4 h-6" />
 
                 <TemplateDocumentInvite
                   inviterName={inviterName}
@@ -93,7 +89,7 @@ export const DocumentInviteEmailTemplate = ({
                   {customBody ? (
                     <pre className="font-sans text-base text-slate-400">{customBody}</pre>
                   ) : (
-                    `${inviterName} has invited you to ${action} the document "${documentName}".`
+                    `${inviterName} te ha invitado a ${action} el documento "${documentName}".`
                   )}
                 </Text>
               </Section>

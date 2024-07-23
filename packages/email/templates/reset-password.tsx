@@ -24,7 +24,7 @@ export const ResetPasswordTemplate = ({
   userEmail = 'lucas@documenso.com',
   assetBaseUrl = 'http://localhost:3002',
 }: ResetPasswordTemplateProps) => {
-  const previewText = `Password Reset Successful`;
+  const previewText = `Restablecimiento de contraseña exitoso`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
@@ -47,11 +47,7 @@ export const ResetPasswordTemplate = ({
           <Section>
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img
-                  src={getAssetUrl('/static/logo.png')}
-                  alt="Documenso Logo"
-                  className="mb-4 h-6"
-                />
+                <Img src={getAssetUrl('/static/logo.png')} alt="FirmO Logo" className="mb-4 h-6" />
 
                 <TemplateResetPassword
                   userName={userName}
@@ -64,21 +60,20 @@ export const ResetPasswordTemplate = ({
             <Container className="mx-auto mt-12 max-w-xl">
               <Section>
                 <Text className="my-4 text-base font-semibold">
-                  Hi, {userName}{' '}
+                  Hola, {userName}{' '}
                   <Link className="font-normal text-slate-400" href={`mailto:${userEmail}`}>
                     ({userEmail})
                   </Link>
                 </Text>
 
                 <Text className="mt-2 text-base text-slate-400">
-                  We've changed your password as you asked. You can now sign in with your new
-                  password.
+                  Cambio exitoso. Ahora puedes iniciar sesión con tu nueva contraseña.
                 </Text>
                 <Text className="mt-2 text-base text-slate-400">
-                  Didn't request a password change? We are here to help you secure your account,
-                  just{' '}
+                  ¿No solicitaste un cambio de contraseña? Estamos aquí para ayudarle a proteger su
+                  cuenta{' '}
                   <Link className="text-documenso-700 font-normal" href="mailto:hi@documenso.com">
-                    contact us.
+                    Contacta con Desarrollo TI
                   </Link>
                 </Text>
               </Section>

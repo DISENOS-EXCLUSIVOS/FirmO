@@ -77,7 +77,7 @@ export const MobileNavigation = ({ isMenuOpen, onMenuOpenChange }: MobileNavigat
               })
             }
           >
-            Sign Out
+            Cerrar sesión
           </button>
         </div>
 
@@ -87,7 +87,7 @@ export const MobileNavigation = ({ isMenuOpen, onMenuOpenChange }: MobileNavigat
           </div>
 
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Documenso, Inc. <br /> All rights reserved.
+            © {new Date().getFullYear()} FirmO, Inc. <br /> All rights reserved.
           </p>
         </div>
       </SheetContent>

@@ -137,10 +137,10 @@ export const ManagePublicTemplateDialog = ({
       handleOnOpenChange(false);
     } catch {
       toast({
-        title: 'An unknown error occurred',
+        title: 'A ocurrido un error desconocido',
         variant: 'destructive',
         description:
-          'We encountered an unknown error while attempting to remove this template from your profile. Please try again later.',
+          'Encontramos un error desconocido al intentar eliminar esta plantilla de su perfil. Por favor, inténtelo de nuevo más tarde.',
       });
     }
   };
@@ -165,18 +165,18 @@ export const ManagePublicTemplateDialog = ({
       });
 
       toast({
-        title: 'Success',
-        description: 'Template has been updated.',
+        title: 'Éxito',
+        description: 'La plantilla ha sido actualizada',
         duration: 5000,
       });
 
       onOpenChange(false);
     } catch {
       toast({
-        title: 'An unknown error occurred',
+        title: 'Un error desconocido ha ocurrido',
         variant: 'destructive',
         description:
-          'We encountered an unknown error while attempting to update the template. Please try again later.',
+          'Encontramos un error desconocido al intentar actualizar la plantilla. Por favor, inténtelo de nuevo más tarde.',
       });
     }
   };
@@ -241,11 +241,11 @@ export const ManagePublicTemplateDialog = ({
             .with({ currentStep: 'SELECT_TEMPLATE' }, () => (
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>{team?.name || 'Your'} direct signing templates</DialogTitle>
+                  <DialogTitle>{team?.name || 'Your'} plantillas de firma directa</DialogTitle>
 
                   <DialogDescription>
-                    Select a template you'd like to display on your {team && `team's`} public
-                    profile
+                    Seleccione una plantilla que le gustaría mostrar en su {team && `team's`} perfil
+                    público
                   </DialogDescription>
                 </DialogHeader>
 
@@ -253,8 +253,8 @@ export const ManagePublicTemplateDialog = ({
                   <Table overflowHidden>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Template</TableHead>
-                        <TableHead>Created</TableHead>
+                        <TableHead>Plantilla</TableHead>
+                        <TableHead>Creado</TableHead>
                         <TableHead></TableHead>
                       </TableRow>
                     </TableHeader>
@@ -262,7 +262,9 @@ export const ManagePublicTemplateDialog = ({
                       {directTemplates.length === 0 && (
                         <TableRow>
                           <TableCell colSpan={3} className="h-16 text-center">
-                            <p className="text-muted-foreground">No valid direct templates found</p>
+                            <p className="text-muted-foreground">
+                              No se encontraron plantillas directas válidas
+                            </p>
                           </TableCell>
                         </TableRow>
                       )}
@@ -296,7 +298,7 @@ export const ManagePublicTemplateDialog = ({
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button type="button" variant="secondary">
-                      Close
+                      Cerrar
                     </Button>
                   </DialogClose>
 
@@ -313,9 +315,11 @@ export const ManagePublicTemplateDialog = ({
             .with({ templateId: P.number, currentStep: 'MANAGE' }, () => (
               <DialogContent className="relative">
                 <DialogHeader>
-                  <DialogTitle>Configure template</DialogTitle>
+                  <DialogTitle>Configurar plantilla</DialogTitle>
 
-                  <DialogDescription>Manage details for this public template</DialogDescription>
+                  <DialogDescription>
+                    Administrar detalles para esta plantilla pública
+                  </DialogDescription>
                 </DialogHeader>
 
                 <Form {...form}>
@@ -348,7 +352,7 @@ export const ManagePublicTemplateDialog = ({
 
                         return (
                           <FormItem>
-                            <FormLabel required>Description</FormLabel>
+                            <FormLabel required>Descripción</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder="The public description that will be displayed with this template"
@@ -377,16 +381,16 @@ export const ManagePublicTemplateDialog = ({
                           className="mr-auto w-full sm:w-auto"
                           onClick={() => setCurrentStep('CONFIRM_DISABLE')}
                         >
-                          Disable
+                          Desactivado
                         </Button>
                       )}
 
                       <DialogClose asChild>
-                        <Button variant="secondary">Close</Button>
+                        <Button variant="secondary">Cerrar</Button>
                       </DialogClose>
 
                       <Button type="submit" loading={isUpdatingTemplateSettings}>
-                        Update
+                        Actualizar
                       </Button>
                     </DialogFooter>
                   </form>
@@ -396,17 +400,15 @@ export const ManagePublicTemplateDialog = ({
             .with({ templateId: P.number, currentStep: 'CONFIRM_DISABLE' }, ({ templateId }) => (
               <DialogContent className="relative">
                 <DialogHeader>
-                  <DialogTitle>Are you sure?</DialogTitle>
+                  <DialogTitle>¿Estás seguro?</DialogTitle>
 
-                  <DialogDescription>
-                    The template will be removed from your profile
-                  </DialogDescription>
+                  <DialogDescription>La plantilla será eliminada de tu perfil.</DialogDescription>
                 </DialogHeader>
 
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button type="button" variant="secondary">
-                      Cancel
+                      Cancelar
                     </Button>
                   </DialogClose>
 
@@ -416,7 +418,7 @@ export const ManagePublicTemplateDialog = ({
                     loading={isUpdatingTemplateSettings}
                     onClick={() => void setTemplateToPrivate(templateId)}
                   >
-                    Confirm
+                    Confirmar
                   </Button>
                 </DialogFooter>
               </DialogContent>

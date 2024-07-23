@@ -100,8 +100,8 @@ export const AvatarImageForm = ({ className, user, team }: AvatarImageFormProps)
       });
 
       toast({
-        title: 'Avatar Updated',
-        description: 'Your avatar has been updated successfully.',
+        title: 'Avatar actualizado',
+        description: 'Tu avatar se ha actualizado correctamente.',
         duration: 5000,
       });
 
@@ -109,16 +109,16 @@ export const AvatarImageForm = ({ className, user, team }: AvatarImageFormProps)
     } catch (err) {
       if (err instanceof TRPCClientError && err.data?.code === 'BAD_REQUEST') {
         toast({
-          title: 'An error occurred',
+          title: 'Un error a ocurrido',
           description: err.message,
           variant: 'destructive',
         });
       } else {
         toast({
-          title: 'An unknown error occurred',
+          title: 'A ocurrido un error desconocido',
           variant: 'destructive',
           description:
-            'We encountered an unknown error while attempting to update the avatar. Please try again later.',
+            'Encontramos un error desconocido al intentar actualizar el avatar. Por favor, inténtelo de nuevo más tarde',
         });
       }
     }
@@ -159,7 +159,7 @@ export const AvatarImageForm = ({ className, user, team }: AvatarImageFormProps)
                           disabled={form.formState.isSubmitting}
                           onClick={() => void onFormSubmit({ bytes: null })}
                         >
-                          Remove
+                          Eliminar
                         </button>
                       )}
                     </div>
@@ -172,7 +172,7 @@ export const AvatarImageForm = ({ className, user, team }: AvatarImageFormProps)
                       loading={form.formState.isSubmitting}
                       disabled={form.formState.isSubmitting}
                     >
-                      Upload Avatar
+                      Actualizar Avatar
                       <input {...getInputProps()} />
                     </Button>
                   </div>

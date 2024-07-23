@@ -49,10 +49,10 @@ export const PeriodSelector = () => {
       </SelectTrigger>
 
       <SelectContent position="popper">
-        <SelectItem value="all">All Time</SelectItem>
-        <SelectItem value="7d">Last 7 days</SelectItem>
-        <SelectItem value="14d">Last 14 days</SelectItem>
-        <SelectItem value="30d">Last 30 days</SelectItem>
+        <SelectItem value="all">Todo el tiempo</SelectItem>
+        <SelectItem value="7d">últimos 7 días</SelectItem>
+        <SelectItem value="14d">últimos 14 días</SelectItem>
+        <SelectItem value="30d">últimos 30 días</SelectItem>
       </SelectContent>
     </Select>
   );
