@@ -18,17 +18,15 @@ export default function EmailVerificationWithoutTokenPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold md:text-4xl">
-            Uh oh! Looks like you're missing a token
-          </h2>
+          <h2 className="text-2xl font-bold md:text-4xl">¡UH oh! Parece que te falta una ficha</h2>
 
           <p className="text-muted-foreground mt-4">
-            It seems that there is no token provided, if you are trying to verify your email please
-            follow the link in your email.
+            Parece que no se ha proporcionado ningún token. Si estás intentando verificar tu correo
+            electrónico, por favor sigue el enlace en tu correo electrónico.
           </p>
 
           <Button className="mt-4" asChild>
-            <Link href="/">Go back home</Link>
+            <Link href="/">Inicio</Link>
           </Button>
         </div>
       </div>

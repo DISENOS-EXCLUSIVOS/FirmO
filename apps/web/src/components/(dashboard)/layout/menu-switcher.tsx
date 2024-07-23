@@ -65,11 +65,11 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
 
   const formatSecondaryAvatarText = (team?: typeof selectedTeam) => {
     if (!team) {
-      return 'Personal Account';
+      return 'Cuenta personal';
     }
 
     if (team.ownerUserId === user.id) {
-      return 'Owner';
+      return 'Dueño';
     }
 
     return TEAM_MEMBER_ROLE_MAP[team.currentTeamMember.role];
@@ -147,12 +147,12 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
 
             <DropdownMenuLabel>
               <div className="flex flex-row items-center justify-between">
-                <p>Teams</p>
+                <p>Equipos</p>
 
                 <div className="flex flex-row space-x-2">
                   <DropdownMenuItem asChild>
                     <Button
-                      title="Manage teams"
+                      title="Gestionar equipos"
                       variant="ghost"
                       className="text-muted-foreground flex h-5 w-5 items-center justify-center p-0"
                       asChild
@@ -165,7 +165,7 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
 
                   <DropdownMenuItem asChild>
                     <Button
-                      title="Create team"
+                      title="Crear equipo"
                       variant="ghost"
                       className="text-muted-foreground flex h-5 w-5 items-center justify-center p-0"
                       asChild
@@ -234,7 +234,7 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
               href="/settings/teams?action=add-team"
               className="flex items-center justify-between"
             >
-              Create team
+              Crear Equipo
               <Plus className="ml-2 h-4 w-4" />
             </Link>
           </DropdownMenuItem>
@@ -244,18 +244,18 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
 
         {isUserAdmin && (
           <DropdownMenuItem className="text-muted-foreground px-4 py-2" asChild>
-            <Link href="/admin">Admin panel</Link>
+            <Link href="/admin"> Panel Administrador</Link>
           </DropdownMenuItem>
         )}
 
         <DropdownMenuItem className="text-muted-foreground px-4 py-2" asChild>
-          <Link href="/settings/profile">User settings</Link>
+          <Link href="/settings/profile">Configuración</Link>
         </DropdownMenuItem>
 
         {selectedTeam &&
           canExecuteTeamAction('MANAGE_TEAM', selectedTeam.currentTeamMember.role) && (
             <DropdownMenuItem className="text-muted-foreground px-4 py-2" asChild>
-              <Link href={`/t/${selectedTeam.url}/settings/`}>Team settings</Link>
+              <Link href={`/t/${selectedTeam.url}/settings/`}>Configuración de equipo</Link>
             </DropdownMenuItem>
           )}
 
@@ -267,7 +267,7 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
             })
           }
         >
-          Sign Out
+          Cerrar sesión
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

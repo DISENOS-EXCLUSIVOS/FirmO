@@ -73,26 +73,25 @@ export default async function ClaimedPlanPage({ searchParams = {} }: ClaimedPlan
   return (
     <div className="mt-12">
       <h1 className="text-foreground text-3xl font-bold md:text-4xl">
-        Welcome to the <span className="text-primary">open signing</span> revolution{' '}
-        <u>{user.name}</u>
+        Bienvenido a <span className="text-primary">FirmO</span> <u>{user.name}</u>
       </h1>
 
-      <p className="text-muted-foreground mt-4 max-w-prose text-base md:text-lg">
+      {/* <p className="text-muted-foreground mt-4 max-w-prose text-base md:text-lg">
         It's not every day you get to be part of a revolution.
-      </p>
+      </p> */}
 
-      <p className="text-muted-foreground mt-4 max-w-prose text-base md:text-lg">
+      {/* <p className="text-muted-foreground mt-4 max-w-prose text-base md:text-lg">
         But today is that day, by signing up to Documenso, you're joining a movement of people who
         want to make the world a better place.
-      </p>
+      </p> */}
 
-      <p className="text-muted-foreground mt-4 max-w-prose text-base md:text-lg">
+      {/* <p className="text-muted-foreground mt-4 max-w-prose text-base md:text-lg">
         We're going to change the way people sign documents. We're going to make it easier, faster,
         and more secure. And we're going to do it together.
-      </p>
+      </p> */}
 
       <div className="mt-12">
-        <h2 className="text-foreground text-2xl font-bold">Let's do it together</h2>
+        {/* <h2 className="text-foreground text-2xl font-bold">Let's do it together</h2> */}
 
         <div className="-mx-4 mt-8 flex md:-mx-8">
           <div className="flex flex-1 flex-col justify-end gap-y-4 border-r px-4 last:border-r-0 md:px-8 lg:flex-none">

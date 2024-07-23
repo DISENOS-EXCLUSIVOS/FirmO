@@ -81,7 +81,7 @@ export class LocalJobProvider extends BaseJobProvider {
   public getApiHandler() {
     return async (req: NextApiRequest, res: NextApiResponse) => {
       if (req.method !== 'POST') {
-        res.status(405).send('Method not allowed');
+        res.status(405).send('Método no permitido');
       }
 
       const jobId = req.headers['x-job-id'];
@@ -96,7 +96,7 @@ export class LocalJobProvider extends BaseJobProvider {
         .catch(() => null);
 
       if (!options) {
-        res.status(400).send('Bad request');
+        res.status(400).send('Solicitud incorrecta');
         return;
       }
 
@@ -107,24 +107,24 @@ export class LocalJobProvider extends BaseJobProvider {
         typeof signature !== 'string' ||
         typeof options !== 'object'
       ) {
-        res.status(400).send('Bad request');
+        res.status(400).send('Solicitud incorrecta');
         return;
       }
 
       if (!definition) {
-        res.status(404).send('Job not found');
+        res.status(404).send('Trabajo no encontrado');
         return;
       }
 
       if (definition && !definition.enabled) {
         console.log('Attempted to trigger a disabled job', options.name);
 
-        res.status(404).send('Job not found');
+        res.status(404).send('Trabajo no encontrado');
         return;
       }
 
       if (!signature || !verify(options, signature)) {
-        res.status(401).send('Unauthorized');
+        res.status(401).send('No autorizado');
         return;
       }
 
@@ -132,7 +132,7 @@ export class LocalJobProvider extends BaseJobProvider {
         const result = definition.trigger.schema.safeParse(options.payload);
 
         if (!result.success) {
-          res.status(400).send('Bad request');
+          res.status(400).send('Solicitud incorrecta');
           return;
         }
       }
@@ -156,7 +156,7 @@ export class LocalJobProvider extends BaseJobProvider {
         .catch(() => null);
 
       if (!backgroundJob) {
-        res.status(404).send('Job not found');
+        res.status(404).send('Trabajo no encontrado');
         return;
       }
 
@@ -196,7 +196,7 @@ export class LocalJobProvider extends BaseJobProvider {
             },
           });
 
-          res.status(500).send('Task exceeded retries');
+          res.status(500).send('La tarea superó los reintentos');
           return;
         }
 
@@ -242,7 +242,7 @@ export class LocalJobProvider extends BaseJobProvider {
       headers['X-Job-Retry'] = '1';
     }
 
-    console.log('Submitting job to endpoint:', endpoint);
+    console.log('Envío de trabajo al punto final', endpoint);
     await Promise.race([
       fetch(endpoint, {
         method: 'POST',
@@ -284,7 +284,7 @@ export class LocalJobProvider extends BaseJobProvider {
         }
 
         if (task.retried >= 3) {
-          throw new BackgroundTaskExceededRetriesError('Task exceeded retries');
+          throw new BackgroundTaskExceededRetriesError('La tarea superó los reintentos');
         }
 
         try {
@@ -317,7 +317,7 @@ export class LocalJobProvider extends BaseJobProvider {
             },
           });
 
-          throw new BackgroundTaskFailedError('Task failed');
+          throw new BackgroundTaskFailedError('Tarea fallida');
         }
       },
       triggerJob: async (_cacheKey, payload) => await this.triggerJob(payload),
@@ -330,7 +330,7 @@ export class LocalJobProvider extends BaseJobProvider {
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       wait: async () => {
-        throw new Error('Not implemented');
+        throw new Error('No se ha implementado');
       },
     };
   }

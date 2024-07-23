@@ -15,7 +15,7 @@ export async function GET(_request: Request) {
   const author = url.searchParams.get('author');
 
   if (!title || !author) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    return NextResponse.json({ error: 'No encontrado' }, { status: 404 });
   }
 
   // The long urls are needed for a compiler optimisation on the Next.js side, lifting this up
@@ -48,7 +48,7 @@ export async function GET(_request: Request) {
           {title}
         </h1>
 
-        <p tw="font-normal">Written by {author}</p>
+        <p tw="font-normal">Escrito por {author}</p>
       </div>
     ),
     {

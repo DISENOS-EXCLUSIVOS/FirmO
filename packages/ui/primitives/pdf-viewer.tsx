@@ -38,7 +38,7 @@ const PDFLoader = () => (
   <>
     <Loader className="text-documenso h-12 w-12 animate-spin" />
 
-    <p className="text-muted-foreground mt-4">Loading document...</p>
+    <p className="text-muted-foreground mt-4">Cargando documento...</p>
   </>
 );
 
@@ -159,7 +159,7 @@ export const PDFViewer = ({
 
         toast({
           title: 'Error',
-          description: 'An error occurred while loading the document.',
+          description: 'Se produjo un error al cargar el documento.',
           variant: 'destructive',
         });
       }
@@ -211,8 +211,10 @@ export const PDFViewer = ({
               <div className="dark:bg-background flex h-[80vh] max-h-[60rem] flex-col items-center justify-center bg-white/50">
                 {pdfError ? (
                   <div className="text-muted-foreground text-center">
-                    <p>Something went wrong while loading the document.</p>
-                    <p className="mt-1 text-sm">Please try again or contact our support.</p>
+                    <p>Algo salió mal al cargar el documento.</p>
+                    <p className="mt-1 text-sm">
+                      Inténtelo de nuevo o comuníquese con nuestro soporte.
+                    </p>
                   </div>
                 ) : (
                   <PDFLoader />
@@ -222,8 +224,10 @@ export const PDFViewer = ({
             error={
               <div className="dark:bg-background flex h-[80vh] max-h-[60rem] flex-col items-center justify-center bg-white/50">
                 <div className="text-muted-foreground text-center">
-                  <p>Something went wrong while loading the document.</p>
-                  <p className="mt-1 text-sm">Please try again or contact our support.</p>
+                  <p>Algo salió mal al cargar el documento.</p>
+                  <p className="mt-1 text-sm">
+                    Inténtelo de nuevo o comuníquese con nuestro soporte.
+                  </p>
                 </div>
               </div>
             }
@@ -243,7 +247,7 @@ export const PDFViewer = ({
                     />
                   </div>
                   <p className="text-muted-foreground/80 my-2 text-center text-[11px]">
-                    Page {i + 1} of {numPages}
+                    Pagina{i + 1} de {numPages}
                   </p>
                 </div>
               ))}

@@ -91,7 +91,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -105,7 +105,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 500,
           body: {
-            message: 'Please make sure the storage transport is set to S3.',
+            message: 'Asegúrese de que el transporte de almacenamiento esté configurado en S3.',
           },
         };
       }
@@ -120,7 +120,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 404,
           body: {
-            message: 'Document not found',
+            message: 'Documento no encontrado',
           },
         };
       }
@@ -129,7 +129,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 400,
           body: {
-            message: 'Invalid document data type',
+            message: 'Tipo de datos de documento no válido',
           },
         };
       }
@@ -138,7 +138,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 400,
           body: {
-            message: 'Document is not completed yet.',
+            message: 'El documento aún no está completo.',
           },
         };
       }
@@ -153,7 +153,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 500,
         body: {
-          message: 'Error downloading the document. Please try again.',
+          message: 'Error al descargar el documento. Inténtalo de nuevo.',
         },
       };
     }
@@ -173,7 +173,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 404,
           body: {
-            message: 'Document not found',
+            message: 'Documento no encontrado',
           },
         };
       }
@@ -192,7 +192,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -206,7 +206,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 500,
           body: {
-            message: 'Create document is not available without S3 transport.',
+            message: 'Crear documento no está disponible sin transporte S3.',
           },
         };
       }
@@ -217,7 +217,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
         return {
           status: 400,
           body: {
-            message: 'You have reached the maximum number of documents allowed for this month',
+            message: 'Has alcanzado el número máximo de documentos permitidos para este mes.',
           },
         };
       }
@@ -276,7 +276,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'An error has occured while uploading the file',
+          message: 'Se ha producido un error al cargar el archivo.',
         },
       };
     }
@@ -300,7 +300,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Template not found',
+          message: 'Plantilla no encontrada',
         },
       };
     }
@@ -358,7 +358,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'You have reached the maximum number of documents allowed for this month',
+          message: 'Has alcanzado el número máximo de documentos permitidos para este mes.',
         },
       };
     }
@@ -444,7 +444,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'You have reached the maximum number of documents allowed for this month',
+          message: 'Has alcanzado el número máximo de documentos permitidos para este mes.',
         },
       };
     }
@@ -527,7 +527,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -536,7 +536,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already complete',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -586,7 +586,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 200,
         body: {
-          message: 'Document sent for signing successfully',
+          message: 'Documento enviado para firmar con éxito',
           ...sentDocument,
           recipients: recipients.map((recipient) => ({
             ...recipient,
@@ -598,7 +598,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 500,
         body: {
-          message: 'An error has occured while sending the document for signing',
+          message: 'Se ha producido un error al enviar el documento para firmar',
         },
       };
     }
@@ -620,14 +620,14 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 200,
         body: {
-          message: 'Document resend successfully initiated',
+          message: 'Reenvío de documentos iniciado exitosamente',
         },
       };
     } catch (err) {
       return {
         status: 500,
         body: {
-          message: 'An error has occured while resending the document',
+          message: 'Se ha producido un error al enviar el documento.',
         },
       };
     }
@@ -647,7 +647,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -656,7 +656,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already completed',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -673,7 +673,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Recipient already exists',
+          message: 'El destinatario ya existe',
         },
       };
     }
@@ -697,7 +697,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       const newRecipient = newRecipients.find((recipient) => recipient.email === email);
 
       if (!newRecipient) {
-        throw new Error('Recipient not found');
+        throw new Error('Destinatario no encontrado');
       }
 
       return {
@@ -712,7 +712,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 500,
         body: {
-          message: 'An error has occured while creating the recipient',
+          message: 'Se ha producido un error al crear el destinatario.',
         },
       };
     }
@@ -732,7 +732,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -741,7 +741,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already completed',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -761,7 +761,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Recipient not found',
+          message: 'Destinatario no encontrado',
         },
       };
     }
@@ -789,7 +789,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -798,7 +798,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already completed',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -815,7 +815,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Unable to delete recipient',
+          message: 'No se puede eliminar el destinatario',
         },
       };
     }
@@ -844,7 +844,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -853,7 +853,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already completed',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -867,7 +867,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Recipient not found',
+          message: 'Destinatario no encontrado',
         },
       };
     }
@@ -876,7 +876,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Recipient has already signed the document',
+          message: 'El destinatario ya ha firmado el documento.',
         },
       };
     }
@@ -932,7 +932,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -941,7 +941,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already completed',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -955,7 +955,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Recipient not found',
+          message: 'Destinatario no encontrado',
         },
       };
     }
@@ -964,7 +964,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Recipient has already signed the document',
+          message: 'El destinatario ya ha firmado el documento.',
         },
       };
     }
@@ -1019,7 +1019,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Document not found',
+          message: 'Documento no encontrado',
         },
       };
     }
@@ -1028,7 +1028,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Document is already completed',
+          message: 'El documento ya está completo.',
         },
       };
     }
@@ -1042,7 +1042,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 404,
         body: {
-          message: 'Field not found',
+          message: 'Campo no encontrado',
         },
       };
     }
@@ -1056,7 +1056,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Recipient has already signed the document',
+          message: 'El destinatario ya ha firmado el documento.',
         },
       };
     }
@@ -1073,7 +1073,7 @@ export const ApiContractV1Implementation = createNextRoute(ApiContractV1, {
       return {
         status: 400,
         body: {
-          message: 'Unable to delete field',
+          message: 'No se puede eliminar el campo',
         },
       };
     }

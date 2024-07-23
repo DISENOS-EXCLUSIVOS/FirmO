@@ -25,7 +25,7 @@ export function generateMetadata() {
   return {
     title: {
       template: '%s - Documenso',
-      default: 'Documenso',
+      default: 'FirmO',
     },
     description:
       'Join Documenso, the open signing infrastructure, and get a 10x better signing experience. Pricing starts at $30/mo. forever! Sign in now and enjoy a faster, smarter, and more beautiful document signing process. Integrates with your favorite tools, customizable, and expandable. Support our mission and become a part of our open-source community.',

@@ -36,19 +36,20 @@ type DirectTemplate = FindTemplateRow & {
 };
 
 const userProfileText = {
-  settingsTitle: 'Public Profile',
-  settingsSubtitle: 'You can choose to enable or disable your profile for public view.',
-  templatesTitle: 'My templates',
+  settingsTitle: 'Perfil público',
+  settingsSubtitle: 'Puede optar por habilitar o deshabilitar su perfil para la vista pública.',
+  templatesTitle: 'Mis plantillas',
   templatesSubtitle:
-    'Show templates in your public profile for your audience to sign and get started quickly',
+    'Muestre plantillas en su perfil público para que su audiencia las firme y comience rápidamente',
 };
 
 const teamProfileText = {
-  settingsTitle: 'Team Public Profile',
-  settingsSubtitle: 'You can choose to enable or disable your team profile for public view.',
-  templatesTitle: 'Team templates',
+  settingsTitle: 'Perfil público del equipo',
+  settingsSubtitle:
+    'Puede optar por habilitar o deshabilitar el perfil de su equipo para la vista pública.',
+  templatesTitle: 'Plantillas de equipo',
   templatesSubtitle:
-    'Show templates in your team public profile for your audience to sign and get started quickly',
+    'Muestre plantillas en el perfil público de su equipo para que su audiencia las firme y comience rápidamente',
 };
 
 export const PublicProfilePageView = ({ user, team, profile }: PublicProfilePageViewOptions) => {
@@ -104,7 +105,7 @@ export const PublicProfilePageView = ({ user, team, profile }: PublicProfilePage
 
     if (isVisible && !user.url) {
       toast({
-        title: 'You must set a profile URL before enabling your public profile.',
+        title: 'Debes configurar una URL de perfil antes de habilitar tu perfil público.',
         variant: 'destructive',
       });
 
@@ -119,8 +120,8 @@ export const PublicProfilePageView = ({ user, team, profile }: PublicProfilePage
       });
     } catch {
       toast({
-        title: 'Something went wrong',
-        description: 'We were unable to set your public profile to public. Please try again.',
+        title: 'Algo salió mal',
+        description: 'No pudimos configurar su perfil público como público. Inténtalo de nuevo.',
         variant: 'destructive',
       });
 
@@ -146,13 +147,13 @@ export const PublicProfilePageView = ({ user, team, profile }: PublicProfilePage
                 },
               )}
             >
-              <span>Hide</span>
+              <span>ocultar</span>
               <Switch
                 disabled={isUpdating}
                 checked={isPublicProfileVisible}
                 onCheckedChange={togglePublicProfileVisibility}
               />
-              <span>Show</span>
+              <span>Mostrar</span>
             </div>
           </TooltipTrigger>
 
@@ -160,18 +161,18 @@ export const PublicProfilePageView = ({ user, team, profile }: PublicProfilePage
             {isPublicProfileVisible ? (
               <>
                 <p>
-                  Profile is currently <strong>visible</strong>.
+                  El perfil es actualmente <strong>visible</strong>.
                 </p>
 
-                <p>Toggle the switch to hide your profile from the public.</p>
+                <p>Mueva el interruptor para ocultar su perfil al público</p>
               </>
             ) : (
               <>
                 <p>
-                  Profile is currently <strong>hidden</strong>.
+                  El perfil es actualmente <strong>oculto</strong>.
                 </p>
 
-                <p>Toggle the switch to show your profile to the public.</p>
+                <p>Mueva el interruptor para mostrar su perfil al público.</p>
               </>
             )}
           </TooltipContent>
@@ -194,7 +195,7 @@ export const PublicProfilePageView = ({ user, team, profile }: PublicProfilePage
         >
           <ManagePublicTemplateDialog
             directTemplates={enabledPrivateDirectTemplates}
-            trigger={<Button variant="outline">Link template</Button>}
+            trigger={<Button variant="outline">Link de Plantilla</Button>}
           />
         </SettingsHeader>
 

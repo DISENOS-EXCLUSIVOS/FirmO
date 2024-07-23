@@ -23,12 +23,12 @@ export const TeamMembers = ({ className, ...props }: TeamMembersProps) => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="">Name</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Salary</TableHead>
+              <TableHead className="">Nombre</TableHead>
+              <TableHead>Rol</TableHead>
+              <TableHead>Salario</TableHead>
               <TableHead>Engagement</TableHead>
-              <TableHead>Location</TableHead>
-              <TableHead className="w-[100px] text-right">Join Date</TableHead>
+              <TableHead>Ubicación</TableHead>
+              <TableHead className="w-[100px] text-right">Fecha de Ingreso</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

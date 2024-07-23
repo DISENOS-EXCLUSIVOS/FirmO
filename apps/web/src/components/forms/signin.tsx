@@ -43,8 +43,10 @@ import { PinInput, PinInputGroup, PinInputSlot } from '@documenso/ui/primitives/
 import { useToast } from '@documenso/ui/primitives/use-toast';
 
 const ERROR_MESSAGES: Partial<Record<keyof typeof ErrorCode, string>> = {
-  [ErrorCode.CREDENTIALS_NOT_FOUND]: 'The email or password provided is incorrect',
-  [ErrorCode.INCORRECT_EMAIL_PASSWORD]: 'The email or password provided is incorrect',
+  [ErrorCode.CREDENTIALS_NOT_FOUND]:
+    'El correo electrónico o la contraseña proporcionada son incorrectos',
+  [ErrorCode.INCORRECT_EMAIL_PASSWORD]:
+    'El correo electrónico o la contraseña proporcionada son incorrectos',
   [ErrorCode.USER_MISSING_PASSWORD]:
     'This account appears to be using a social login method, please sign in using that method',
   [ErrorCode.INCORRECT_TWO_FACTOR_CODE]: 'The two-factor authentication code provided is incorrect',
@@ -134,8 +136,8 @@ export const SignInForm = ({
   const onSignInWithPasskey = async () => {
     if (!browserSupportsWebAuthn()) {
       toast({
-        title: 'Not supported',
-        description: 'Passkeys are not supported on this browser',
+        title: 'No soportado',
+        description: 'Las claves de acceso no son compatibles con este navegador',
         duration: 10000,
         variant: 'destructive',
       });
@@ -174,13 +176,13 @@ export const SignInForm = ({
         .with(
           AppErrorCode.NOT_SETUP,
           () =>
-            'This passkey is not configured for this application. Please login and add one in the user settings.',
+            'Esta clave de acceso no está configurada para esta aplicación. Inicie sesión y agregue uno en la configuración de usuario.',
         )
-        .with(AppErrorCode.EXPIRED_CODE, () => 'This session has expired. Please try again.')
-        .otherwise(() => 'Please try again later or login using your normal details');
+        .with(AppErrorCode.EXPIRED_CODE, () => 'Esta sesión ha caducado. Inténtalo de nuevo.')
+        .otherwise(() => 'Inténtelo de nuevo más tarde o inicie sesión con sus datos habituales.');
 
       toast({
-        title: 'Something went wrong',
+        title: 'Algo salió mal',
         description: errorMessage,
         duration: 10000,
         variant: 'destructive',
@@ -221,8 +223,8 @@ export const SignInForm = ({
           router.push(`/unverified-account`);
 
           toast({
-            title: 'Unable to sign in',
-            description: errorMessage ?? 'An unknown error occurred',
+            title: 'No fue posible iniciar sesión',
+            description: errorMessage ?? 'A ocurrido un Error!',
           });
 
           return;
@@ -230,23 +232,23 @@ export const SignInForm = ({
 
         toast({
           variant: 'destructive',
-          title: 'Unable to sign in',
-          description: errorMessage ?? 'An unknown error occurred',
+          title: 'No fue posible iniciar sesión',
+          description: errorMessage ?? 'A ocurrido un Error!',
         });
 
         return;
       }
 
       if (!result?.url) {
-        throw new Error('An unknown error occurred');
+        throw new Error('A ocurrido un Error!');
       }
 
       window.location.href = result.url;
     } catch (err) {
       toast({
-        title: 'An unknown error occurred',
+        title: 'A ocurrido un Error!',
         description:
-          'We encountered an unknown error while attempting to sign you In. Please try again later.',
+          'Encontramos un error desconocido al intentar iniciar sesión. Por favor, inténtelo de nuevo más tarde.',
       });
     }
   };
@@ -256,9 +258,9 @@ export const SignInForm = ({
       await signIn('google', { callbackUrl: LOGIN_REDIRECT_PATH });
     } catch (err) {
       toast({
-        title: 'An unknown error occurred',
+        title: 'A ocurrido un error desconocido',
         description:
-          'We encountered an unknown error while attempting to sign you In. Please try again later.',
+          'Encontramos un error desconocido al intentar iniciar sesión. Por favor, inténtelo de nuevo más tarde.',
         variant: 'destructive',
       });
     }
@@ -269,9 +271,9 @@ export const SignInForm = ({
       await signIn('oidc', { callbackUrl: LOGIN_REDIRECT_PATH });
     } catch (err) {
       toast({
-        title: 'An unknown error occurred',
+        title: 'A ocurrido un error desconocido',
         description:
-          'We encountered an unknown error while attempting to sign you In. Please try again later.',
+          'Encontramos un error desconocido al intentar iniciar sesión. Por favor, inténtelo de nuevo más tarde.',
         variant: 'destructive',
       });
     }
@@ -292,7 +294,7 @@ export const SignInForm = ({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Correo</FormLabel>
 
                 <FormControl>
                   <Input type="email" {...field} />
@@ -308,7 +310,7 @@ export const SignInForm = ({
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Contraseña</FormLabel>
 
                 <FormControl>
                   <PasswordInput {...field} />
@@ -321,7 +323,7 @@ export const SignInForm = ({
                     href="/forgot-password"
                     className="text-muted-foreground text-sm duration-200 hover:opacity-70"
                   >
-                    Forgot your password?
+                    ¿Olvidaste tu contraseña?
                   </Link>
                 </p>
               </FormItem>
@@ -340,7 +342,7 @@ export const SignInForm = ({
           {(isGoogleSSOEnabled || isPasskeyEnabled || isOIDCSSOEnabled) && (
             <div className="relative flex items-center justify-center gap-x-4 py-2 text-xs uppercase">
               <div className="bg-border h-px flex-1" />
-              <span className="text-muted-foreground bg-transparent">Or continue with</span>
+              <span className="text-muted-foreground bg-transparent">o continua con</span>
               <div className="bg-border h-px flex-1" />
             </div>
           )}
@@ -384,7 +386,7 @@ export const SignInForm = ({
               onClick={onSignInWithPasskey}
             >
               {!isPasskeyLoading && <KeyRoundIcon className="-ml-1 mr-1 h-5 w-5" />}
-              Passkey
+              Llave de acceso
             </Button>
           )}
         </fieldset>
@@ -396,7 +398,7 @@ export const SignInForm = ({
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Two-Factor Authentication</DialogTitle>
+            <DialogTitle>Autenticación de dos pasos</DialogTitle>
           </DialogHeader>
 
           <form onSubmit={form.handleSubmit(onFormSubmit)}>

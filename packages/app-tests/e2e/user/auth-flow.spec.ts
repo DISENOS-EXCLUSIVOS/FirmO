@@ -10,7 +10,11 @@ import {
 
 test.use({ storageState: { cookies: [], origins: [] } });
 
-test('[USER] can sign up with email and password', async ({ page }: { page: Page }) => {
+test('[USER] puede registrarse con correo electrónico y contraseña', async ({
+  page,
+}: {
+  page: Page;
+}) => {
   const username = 'Test User';
   const email = seedTestEmail();
   const password = 'Password123#';

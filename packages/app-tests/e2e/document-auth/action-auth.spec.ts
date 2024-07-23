@@ -33,7 +33,7 @@ test('[DOCUMENT_AUTH]: should allow signing when no auth setup', async ({ page }
     const signUrl = `/sign/${token}`;
 
     await page.goto(signUrl);
-    await expect(page.getByRole('heading', { name: 'Sign Document' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Firmar documento' })).toBeVisible();
 
     // Add signature.
     const canvas = page.locator('canvas');
@@ -65,7 +65,9 @@ test('[DOCUMENT_AUTH]: should allow signing when no auth setup', async ({ page }
   await unseedUser(recipientWithAccount.id);
 });
 
-test('[DOCUMENT_AUTH]: should allow signing with valid global auth', async ({ page }) => {
+test('[DOCUMENT_AUTH]: debería permitir la firma con autenticación global válida', async ({
+  page,
+}) => {
   const user = await seedUser();
 
   const recipientWithAccount = await seedUser();
@@ -93,7 +95,7 @@ test('[DOCUMENT_AUTH]: should allow signing with valid global auth', async ({ pa
     redirectPath: signUrl,
   });
 
-  await expect(page.getByRole('heading', { name: 'Sign Document' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Firmar documento' })).toBeVisible();
 
   // Add signature.
   const canvas = page.locator('canvas');
@@ -125,7 +127,7 @@ test('[DOCUMENT_AUTH]: should allow signing with valid global auth', async ({ pa
 });
 
 // Currently document auth for signing/approving/viewing is not required.
-test.skip('[DOCUMENT_AUTH]: should deny signing document when required for global auth', async ({
+test.skip('[DOCUMENT_AUTH]: debería permitir la firma con autenticación global válida', async ({
   page,
 }) => {
   const user = await seedUser();
@@ -148,7 +150,7 @@ test.skip('[DOCUMENT_AUTH]: should deny signing document when required for globa
   const { token } = recipient;
 
   await page.goto(`/sign/${token}`);
-  await expect(page.getByRole('heading', { name: 'Sign Document' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Firmar documento' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Complete' }).click();
   await expect(page.getByRole('paragraph')).toContainText(

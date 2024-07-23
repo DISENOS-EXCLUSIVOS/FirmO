@@ -233,7 +233,7 @@ export const Carousel = () => {
                       src={resolvedTheme === 'dark' ? slide.srcDark : slide.srcLight}
                       type="video/webm"
                     />
-                    Your browser does not support the video tag.
+                    Su navegador no soporta la etiqueta de vídeo.
                   </video>
                 )}
               </div>

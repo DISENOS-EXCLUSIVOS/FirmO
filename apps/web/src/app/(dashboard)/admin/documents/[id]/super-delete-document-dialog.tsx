@@ -52,17 +52,17 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
     } catch (err) {
       if (err instanceof TRPCClientError && err.data?.code === 'BAD_REQUEST') {
         toast({
-          title: 'An error occurred',
+          title: 'A ocurrido un error',
           description: err.message,
           variant: 'destructive',
         });
       } else {
         toast({
-          title: 'An unknown error occurred',
+          title: 'A ocurrido un error desconocido',
           variant: 'destructive',
           description:
             err.message ??
-            'We encountered an unknown error while attempting to delete your document. Please try again later.',
+            'Encontramos un error desconocido al intentar eliminar su documento. Por favor, inténtelo de nuevo más tarde.',
         });
       }
     }
@@ -76,31 +76,33 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
           variant="neutral"
         >
           <div>
-            <AlertTitle>Delete Document</AlertTitle>
+            <AlertTitle>Eliminar el Documento</AlertTitle>
             <AlertDescription className="mr-2">
-              Delete the document. This action is irreversible so proceed with caution.
+              Eliminar el documento. Esta acción es irreversible así que proceda con precaución.
             </AlertDescription>
           </div>
 
           <div className="flex-shrink-0">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="destructive">Delete Document</Button>
+                <Button variant="destructive">Eliminar el Documento</Button>
               </DialogTrigger>
 
               <DialogContent>
                 <DialogHeader className="space-y-4">
-                  <DialogTitle>Delete Document</DialogTitle>
+                  <DialogTitle>Eliminar el Documento</DialogTitle>
 
                   <Alert variant="destructive">
                     <AlertDescription className="selection:bg-red-100">
-                      This action is not reversible. Please be certain.
+                      Esta acción no es reversible. Por favor esté seguro.
                     </AlertDescription>
                   </Alert>
                 </DialogHeader>
 
                 <div>
-                  <DialogDescription>To confirm, please enter the reason</DialogDescription>
+                  <DialogDescription>
+                    Para confirmar, por favor introduce el motivo.
+                  </DialogDescription>
 
                   <Input
                     className="mt-2"

@@ -29,7 +29,7 @@ test('[DOCUMENT_AUTH]: should grant access when not required', async ({ page }) 
 
   for (const token of tokens) {
     await page.goto(`/sign/${token}`);
-    await expect(page.getByRole('heading', { name: 'Sign Document' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Firmar documento' })).toBeVisible();
   }
 
   await unseedUser(user.id);
@@ -64,7 +64,7 @@ test('[DOCUMENT_AUTH]: should allow or deny access when required', async ({ page
     const { email, token } = recipient;
 
     await page.goto(`/sign/${token}`);
-    await expect(page.getByRole('heading', { name: 'Authentication required' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Autenticacion requerida' })).toBeVisible();
     await expect(page.getByRole('paragraph')).toContainText(email);
   }
 
@@ -81,12 +81,12 @@ test('[DOCUMENT_AUTH]: should allow or deny access when required', async ({ page
 
     // Recipient should be granted access.
     if (recipient.email === recipientWithAccount.email) {
-      await expect(page.getByRole('heading', { name: 'Sign Document' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Firmar documento' })).toBeVisible();
     }
 
     // Recipient should still be denied.
     if (recipient.email !== recipientWithAccount.email) {
-      await expect(page.getByRole('heading', { name: 'Authentication required' })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Autenticacion requerida' })).toBeVisible();
       await expect(page.getByRole('paragraph')).toContainText(email);
     }
   }

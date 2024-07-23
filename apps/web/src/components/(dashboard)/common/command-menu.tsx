@@ -31,22 +31,22 @@ import { THEMES_TYPE } from '@documenso/ui/primitives/constants';
 
 const DOCUMENTS_PAGES = [
   {
-    label: 'All documents',
+    label: 'Todos los documentos',
     path: '/documents?status=ALL',
     shortcut: DOCUMENTS_PAGE_SHORTCUT.replace('+', ''),
   },
-  { label: 'Draft documents', path: '/documents?status=DRAFT' },
+  { label: 'Borradores de documentos', path: '/documents?status=DRAFT' },
   {
-    label: 'Completed documents',
+    label: 'Documentos completados',
     path: '/documents?status=COMPLETED',
   },
-  { label: 'Pending documents', path: '/documents?status=PENDING' },
-  { label: 'Inbox documents', path: '/documents?status=INBOX' },
+  { label: 'Documentos pendientes', path: '/documents?status=PENDING' },
+  { label: 'Documentos de la bandeja de entrada', path: '/documents?status=INBOX' },
 ];
 
 const TEMPLATES_PAGES = [
   {
-    label: 'All templates',
+    label: 'Todas las plantillas',
     path: '/templates',
     shortcut: TEMPLATES_PAGE_SHORTCUT.replace('+', ''),
   },
@@ -54,12 +54,12 @@ const TEMPLATES_PAGES = [
 
 const SETTINGS_PAGES = [
   {
-    label: 'Settings',
+    label: 'Configuraciones',
     path: '/settings',
     shortcut: SETTINGS_PAGE_SHORTCUT.replace('+', ''),
   },
-  { label: 'Profile', path: '/settings/profile' },
-  { label: 'Password', path: '/settings/password' },
+  { label: 'Perfil', path: '/settings/profile' },
+  { label: 'Contraseña', path: '/settings/password' },
 ];
 
 export type CommandMenuProps = {
@@ -171,11 +171,7 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
       open={open}
       onOpenChange={setOpen}
     >
-      <CommandInput
-        value={search}
-        onValueChange={setSearch}
-        placeholder="Type a command or search..."
-      />
+      <CommandInput value={search} onValueChange={setSearch} placeholder="Buscar..." />
 
       <CommandList>
         {isSearchingDocuments ? (
@@ -187,26 +183,26 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
             </div>
           </CommandEmpty>
         ) : (
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>Sin resultados encontrados</CommandEmpty>
         )}
         {!currentPage && (
           <>
-            <CommandGroup className="mx-2 p-0 pb-2" heading="Documents">
+            <CommandGroup className="mx-2 p-0 pb-2" heading="Documentos">
               <Commands push={push} pages={DOCUMENTS_PAGES} />
             </CommandGroup>
-            <CommandGroup className="mx-2 p-0 pb-2" heading="Templates">
+            <CommandGroup className="mx-2 p-0 pb-2" heading="Plantillas">
               <Commands push={push} pages={TEMPLATES_PAGES} />
             </CommandGroup>
-            <CommandGroup className="mx-2 p-0 pb-2" heading="Settings">
+            <CommandGroup className="mx-2 p-0 pb-2" heading="Configuraciones">
               <Commands push={push} pages={SETTINGS_PAGES} />
             </CommandGroup>
-            <CommandGroup className="mx-2 p-0 pb-2" heading="Preferences">
+            <CommandGroup className="mx-2 p-0 pb-2" heading="Preferencias">
               <CommandItem className="-mx-2 -my-1 rounded-lg" onSelect={() => addPage('theme')}>
-                Change theme
+                Cambiar Tema
               </CommandItem>
             </CommandGroup>
             {searchResults.length > 0 && (
-              <CommandGroup className="mx-2 p-0 pb-2" heading="Your documents">
+              <CommandGroup className="mx-2 p-0 pb-2" heading="Tus documentos">
                 <Commands push={push} pages={searchResults} />
               </CommandGroup>
             )}
@@ -241,9 +237,9 @@ const Commands = ({
 const ThemeCommands = ({ setTheme }: { setTheme: (_theme: string) => void }) => {
   const THEMES = useMemo(
     () => [
-      { label: 'Light Mode', theme: THEMES_TYPE.LIGHT, icon: Sun },
-      { label: 'Dark Mode', theme: THEMES_TYPE.DARK, icon: Moon },
-      { label: 'System Theme', theme: THEMES_TYPE.SYSTEM, icon: Monitor },
+      { label: 'Modo claro', theme: THEMES_TYPE.LIGHT, icon: Sun },
+      { label: 'Modo oscuro', theme: THEMES_TYPE.DARK, icon: Moon },
+      { label: 'Tema del sistema', theme: THEMES_TYPE.SYSTEM, icon: Monitor },
     ],
     [],
   );

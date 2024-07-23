@@ -100,7 +100,7 @@ export default function SignatureDisclosure() {
 
       <div className="mt-8">
         <Button asChild>
-          <Link href="/documents">Back to Documents</Link>
+          <Link href="/documents">Volver a Documentos</Link>
         </Button>
       </div>
     </div>

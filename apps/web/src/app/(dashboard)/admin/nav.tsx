@@ -61,7 +61,7 @@ export const AdminNav = ({ className, ...props }: AdminNavProps) => {
       >
         <Link href="/admin/documents">
           <FileStack className="mr-2 h-5 w-5" />
-          Documents
+          Documentos
         </Link>
       </Button>
 
@@ -75,7 +75,7 @@ export const AdminNav = ({ className, ...props }: AdminNavProps) => {
       >
         <Link href="/admin/subscriptions">
           <Wallet2 className="mr-2 h-5 w-5" />
-          Subscriptions
+          Suscripciones
         </Link>
       </Button>
 
@@ -89,7 +89,7 @@ export const AdminNav = ({ className, ...props }: AdminNavProps) => {
       >
         <Link href="/admin/site-settings">
           <Settings className="mr-2 h-5 w-5" />
-          Site Settings
+          Configuración del sitio
         </Link>
       </Button>
     </div>
