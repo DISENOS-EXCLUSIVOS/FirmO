@@ -9,6 +9,7 @@ export const TemplateDocumentImage = ({ assetBaseUrl, className }: TemplateDocum
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
   };
+  // getAssetUrl('/static/document.png')
 
   return (
     <Section className={className}>
@@ -16,7 +17,7 @@ export const TemplateDocumentImage = ({ assetBaseUrl, className }: TemplateDocum
         <Column />
 
         <Column>
-          <Img className="h-42 mx-auto" src={getAssetUrl('/static/document.png')} alt="Documenso" />
+          <Img className="h-42 mx-auto" src={'https://ibb.co/f0T5w3j'} alt="Firmo Logo" />
         </Column>
 
         <Column />

@@ -269,7 +269,7 @@ export const formatDocumentAuditLogActionString = (
  * Provide a userId to prefix the action with the user, example 'X did Y'.
  */
 export const formatDocumentAuditLogAction = (auditLog: TDocumentAuditLog, userId?: number) => {
-  let prefix = userId === auditLog.userId ? 'You' : auditLog.name || auditLog.email || '';
+  let prefix = userId === auditLog.userId ? 'Tú' : auditLog.name || auditLog.email || '';
 
   const description = match(auditLog)
     .with({ type: DOCUMENT_AUDIT_LOG_TYPE.FIELD_CREATED }, () => ({

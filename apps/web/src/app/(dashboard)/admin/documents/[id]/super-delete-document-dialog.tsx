@@ -43,8 +43,8 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
       await deleteDocument({ id: document.id, reason });
 
       toast({
-        title: 'Document deleted',
-        description: 'The Document has been deleted successfully.',
+        title: 'Documento eliminado',
+        description: 'El documento se ha eliminado correctamente.',
         duration: 5000,
       });
 
@@ -119,7 +119,7 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
                     variant="destructive"
                     disabled={!reason}
                   >
-                    {isDeletingDocument ? 'Deleting document...' : 'Delete Document'}
+                    {isDeletingDocument ? 'Eliminando documento...' : 'Eliminar documento'}
                   </Button>
                 </DialogFooter>
               </DialogContent>

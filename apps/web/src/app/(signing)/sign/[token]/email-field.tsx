@@ -78,7 +78,7 @@ export const EmailField = ({ field, recipient, onSignField, onUnsignField }: Ema
 
       toast({
         title: 'Error',
-        description: 'An error occurred while signing the document.',
+        description: 'Se produjo un error al firmar el documento.',
         variant: 'destructive',
       });
     }
@@ -104,7 +104,7 @@ export const EmailField = ({ field, recipient, onSignField, onUnsignField }: Ema
 
       toast({
         title: 'Error',
-        description: 'An error occurred while removing the signature.',
+        description: 'Se produjo un error al eliminar la firma.',
         variant: 'destructive',
       });
     }

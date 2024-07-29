@@ -123,18 +123,18 @@ export const DocumentShareButton = ({
             loading={isLoading}
           >
             {!isLoading && <Sparkles className="mr-2 h-5 w-5" />}
-            Share Signature Card
+            Compartir tarjeta de firma
           </Button>
         )}
       </DialogTrigger>
 
       <DialogContent position="end">
         <DialogHeader>
-          <DialogTitle>Share your signing experience!</DialogTitle>
+          <DialogTitle>¡Comparte tu experiencia de firma!</DialogTitle>
 
           <DialogDescription className="mt-4">
-            Don't worry, the document you signed or sent wont be shared; only your signing
-            experience is. Share your signing card and showcase your signature!
+            No te preocupes, el documento que firmaste o enviaste no será compartido; sólo lo es tu
+            experiencia de firma. ¡Comparte tu tarjeta de firma y muestra tu firma!
           </DialogDescription>
         </DialogHeader>
 
@@ -177,7 +177,7 @@ export const DocumentShareButton = ({
 
             <Button variant="outline" className="flex-1" onClick={onCopyClick}>
               <Copy className="mr-2 h-4 w-4" />
-              Copy Link
+              Copiar enlace
             </Button>
           </div>
         </div>

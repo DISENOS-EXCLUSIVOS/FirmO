@@ -72,11 +72,11 @@ export const setRecipientsForDocument = async ({
   });
 
   if (!document) {
-    throw new Error('Document not found');
+    throw new Error('Documento no encontrado');
   }
 
   if (document.completedAt) {
-    throw new Error('Document already complete');
+    throw new Error('Documento ya completo');
   }
 
   const recipientsHaveActionAuth = recipients.some((recipient) => recipient.actionAuth);

@@ -19,7 +19,7 @@ export class TriggerJobProvider extends BaseJobProvider {
   static getInstance() {
     if (!this._instance) {
       const client = new TriggerClient({
-        id: 'documenso-app',
+        id: 'FirmO-app',
         apiKey: process.env.NEXT_PRIVATE_TRIGGER_API_KEY,
         apiUrl: process.env.NEXT_PRIVATE_TRIGGER_API_URL,
       });

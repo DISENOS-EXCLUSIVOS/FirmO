@@ -36,7 +36,7 @@ const SEND_SIGNING_EMAIL_JOB_DEFINITION_SCHEMA = z.object({
 
 export const SEND_SIGNING_EMAIL_JOB_DEFINITION = {
   id: SEND_SIGNING_EMAIL_JOB_DEFINITION_ID,
-  name: 'Send Signing Email',
+  name: 'Enviar correo electrónico de firma',
   version: '1.0.0',
   trigger: {
     name: SEND_SIGNING_EMAIL_JOB_DEFINITION_ID,
@@ -84,15 +84,15 @@ export const SEND_SIGNING_EMAIL_JOB_DEFINITION = {
     const recipientActionVerb = actionVerb.toLowerCase();
 
     let emailMessage = customEmail?.message || '';
-    let emailSubject = `Please ${recipientActionVerb} this document`;
+    let emailSubject = `Por favor ${recipientActionVerb} este documento`;
 
     if (selfSigner) {
-      emailMessage = `You have initiated the document ${`"${document.title}"`} that requires you to ${recipientActionVerb} it.`;
+      emailMessage = `You have initiated the document ${`"${document.title}"`} that requires you to ${recipientActionVerb}`;
       emailSubject = `Please ${recipientActionVerb} your document`;
     }
 
     if (isDirectTemplate) {
-      emailMessage = `A document was created by your direct template that requires you to ${recipientActionVerb} it.`;
+      emailMessage = `A document was created by your direct template that requires you to ${recipientActionVerb}`;
       emailSubject = `Please ${recipientActionVerb} this document created by your direct template`;
     }
 

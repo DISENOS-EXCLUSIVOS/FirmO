@@ -20,7 +20,7 @@ export const ZMapNegativeOneToUndefinedSchema = z
   });
 
 export const ZAddSettingsFormSchema = z.object({
-  title: z.string().trim().min(1, { message: "Title can't be empty" }),
+  title: z.string().trim().min(1, { message: 'El título no puede estar vacío.' }),
   externalId: z.string().optional(),
   globalAccessAuth: ZMapNegativeOneToUndefinedSchema.pipe(
     ZDocumentAccessAuthTypesSchema.optional(),
@@ -35,7 +35,7 @@ export const ZAddSettingsFormSchema = z.object({
       .string()
       .optional()
       .refine((value) => value === undefined || value === '' || URL_REGEX.test(value), {
-        message: 'Please enter a valid URL',
+        message: 'Por favor introduzca un URL válido',
       }),
   }),
 });

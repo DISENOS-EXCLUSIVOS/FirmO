@@ -58,8 +58,8 @@ export const SinglePlayerClient = () => {
       onNextStep: () => setStep('sign'),
     },
     sign: {
-      title: 'Sign',
-      description: 'Enter your details.',
+      title: 'Firmar',
+      description: 'Introduce tus detalles.',
       stepIndex: 2,
       onBackStep: () => setStep('fields'),
     },
@@ -141,8 +141,8 @@ export const SinglePlayerClient = () => {
       router.push(`/singleplayer/${documentToken}/success`);
     } catch {
       toast({
-        title: 'Something went wrong',
-        description: 'Please try again later.',
+        title: 'Algo salió mal',
+        description: 'Por favor, inténtelo de nuevo más tarde.',
         variant: 'destructive',
       });
     }

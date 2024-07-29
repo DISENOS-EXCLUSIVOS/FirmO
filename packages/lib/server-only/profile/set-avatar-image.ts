@@ -29,7 +29,7 @@ export const setAvatarImage = async ({
   });
 
   if (!user) {
-    throw new Error('User not found');
+    throw new Error('Usuario no encontrado');
   }
 
   oldAvatarImageId = user.avatarImageId;
@@ -47,7 +47,7 @@ export const setAvatarImage = async ({
     });
 
     if (!team) {
-      throw new Error('Team not found');
+      throw new Error('Equipo no encontrado');
     }
 
     oldAvatarImageId = team.avatarImageId;

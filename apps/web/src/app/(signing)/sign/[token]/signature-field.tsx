@@ -143,7 +143,7 @@ export const SignatureField = ({
 
       toast({
         title: 'Error',
-        description: 'An error occurred while signing the document.',
+        description: 'Se produjo un error al firmar el documento.',
         variant: 'destructive',
       });
     }
@@ -169,7 +169,7 @@ export const SignatureField = ({
 
       toast({
         title: 'Error',
-        description: 'An error occurred while removing the signature.',
+        description: 'Se produjo un error al eliminar la firma.',
         variant: 'destructive',
       });
     }
@@ -191,7 +191,7 @@ export const SignatureField = ({
 
       {state === 'empty' && (
         <p className="group-hover:text-primary font-signature text-muted-foreground text-lg duration-200 sm:text-xl md:text-2xl lg:text-3xl">
-          Signature
+          Firma
         </p>
       )}
 
@@ -213,12 +213,12 @@ export const SignatureField = ({
       <Dialog open={showSignatureModal} onOpenChange={setShowSignatureModal}>
         <DialogContent>
           <DialogTitle>
-            Sign as {recipient.name}{' '}
+            Firmar como {recipient.name}{' '}
             <span className="text-muted-foreground">({recipient.email})</span>
           </DialogTitle>
 
           <div className="">
-            <Label htmlFor="signature">Signature</Label>
+            <Label htmlFor="signature">Firma</Label>
 
             <SignaturePad
               id="signature"
@@ -240,7 +240,7 @@ export const SignatureField = ({
                   setLocalSignature(null);
                 }}
               >
-                Cancel
+                Cancelar
               </Button>
 
               <Button
@@ -249,7 +249,7 @@ export const SignatureField = ({
                 disabled={!localSignature}
                 onClick={() => onDialogSignClick()}
               >
-                Sign
+                Firmar
               </Button>
             </div>
           </DialogFooter>

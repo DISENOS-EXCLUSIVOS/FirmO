@@ -77,7 +77,7 @@ export const SinglePlayerModeSuccess = ({
             />
 
             <Button onClick={() => setShowDocumentDialog(true)} className="z-10 col-span-2">
-              Show document
+              Mostrar documento
             </Button>
           </div>
         </div>
@@ -92,7 +92,7 @@ export const SinglePlayerModeSuccess = ({
         >
           free account
         </Link>{' '}
-        to access your signed documents at any time
+        para acceder a sus documentos firmados en cualquier momento
       </p>
 
       <DocumentDialog

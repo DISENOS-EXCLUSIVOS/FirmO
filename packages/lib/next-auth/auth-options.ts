@@ -33,16 +33,20 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'Credenciales',
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: 'Correo', type: 'email' },
+        password: { label: 'Contraseña', type: 'password' },
         totpCode: {
-          label: 'Two-factor Code',
+          label: 'Código de dos factores',
           type: 'input',
-          placeholder: 'Code from authenticator app',
+          placeholder: 'Código de autenticación de la aplicación  ',
         },
-        backupCode: { label: 'Backup Code', type: 'input', placeholder: 'Two-factor backup code' },
+        backupCode: {
+          label: 'Código de respaldo',
+          type: 'input',
+          placeholder: 'Código de respaldo de dos factores',
+        },
       },
       authorize: async (credentials, req) => {
         if (!credentials) {

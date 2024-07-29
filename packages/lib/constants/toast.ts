@@ -7,7 +7,7 @@ export const TOAST_DOCUMENT_SHARE_SUCCESS: Toast = {
 
 export const TOAST_DOCUMENT_SHARE_ERROR: Toast = {
   variant: 'destructive',
-  title: 'Something went wrong',
-  description: 'The sharing link could not be created at this time. Please try again.',
+  title: 'Algo salió mal',
+  description: 'El enlace para compartir no se pudo crear en este momento. Inténtalo de nuevo.',
   duration: 5000,
 };

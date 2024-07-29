@@ -12,7 +12,7 @@ const SEND_CONFIRMATION_EMAIL_JOB_DEFINITION_SCHEMA = z.object({
 
 export const SEND_CONFIRMATION_EMAIL_JOB_DEFINITION = {
   id: SEND_CONFIRMATION_EMAIL_JOB_DEFINITION_ID,
-  name: 'Send Confirmation Email',
+  name: 'Enviar correo electrónico de confirmación',
   version: '1.0.0',
   trigger: {
     name: SEND_CONFIRMATION_EMAIL_JOB_DEFINITION_ID,

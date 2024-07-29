@@ -157,8 +157,8 @@ export const AddSignersFormPartial = ({
 
     if (hasBeenSentToRecipientId(signer.nativeId)) {
       toast({
-        title: 'Cannot remove signer',
-        description: 'This signer has already received the document.',
+        title: 'No se puede eliminar el firmante',
+        description: 'Este firmante ya recibió el documento.',
         variant: 'destructive',
       });
 
@@ -224,13 +224,13 @@ export const AddSignersFormPartial = ({
                         })}
                       >
                         {!showAdvancedSettings && index === 0 && (
-                          <FormLabel required>Email</FormLabel>
+                          <FormLabel required>Correo</FormLabel>
                         )}
 
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="Email"
+                            placeholder="Correo electrónico"
                             {...field}
                             disabled={isSubmitting || hasBeenSentToRecipientId(signer.nativeId)}
                             onKeyDown={onKeyDown}
@@ -252,11 +252,11 @@ export const AddSignersFormPartial = ({
                           'col-span-4': showAdvancedSettings,
                         })}
                       >
-                        {!showAdvancedSettings && index === 0 && <FormLabel>Name</FormLabel>}
+                        {!showAdvancedSettings && index === 0 && <FormLabel>Nombre</FormLabel>}
 
                         <FormControl>
                           <Input
-                            placeholder="Name"
+                            placeholder="Nombre"
                             {...field}
                             disabled={isSubmitting || hasBeenSentToRecipientId(signer.nativeId)}
                             onKeyDown={onKeyDown}
@@ -339,7 +339,7 @@ export const AddSignersFormPartial = ({
                 onClick={() => onAddSigner()}
               >
                 <Plus className="-ml-1 mr-2 h-5 w-5" />
-                Add Signer
+                Agregar firmante
               </Button>
 
               <Button
@@ -350,7 +350,7 @@ export const AddSignersFormPartial = ({
                 onClick={() => onAddSelfSigner()}
               >
                 <Plus className="-ml-1 mr-2 h-5 w-5" />
-                Add myself
+                Agregarme
               </Button>
             </div>
 
@@ -368,7 +368,7 @@ export const AddSignersFormPartial = ({
                   className="text-muted-foreground ml-2 text-sm"
                   htmlFor="showAdvancedRecipientSettings"
                 >
-                  Show advanced settings
+                  Mostrar configuración avanzada
                 </label>
               </div>
             )}

@@ -74,7 +74,7 @@ export const AddSubjectFormPartial = ({
           <div className="flex flex-col gap-y-4">
             <div>
               <Label htmlFor="subject">
-                Subject <span className="text-muted-foreground">(Optional)</span>
+                Asunto <span className="text-muted-foreground">(Opcional)</span>
               </Label>
 
               <Input
@@ -89,7 +89,7 @@ export const AddSubjectFormPartial = ({
 
             <div>
               <Label htmlFor="message">
-                Message <span className="text-muted-foreground">(Optional)</span>
+                Mensaje <span className="text-muted-foreground">(Opcional)</span>
               </Label>
 
               <Textarea
@@ -120,7 +120,7 @@ export const AddSubjectFormPartial = ({
         <DocumentFlowFormContainerActions
           loading={isSubmitting}
           disabled={isSubmitting}
-          goNextLabel={document.status === DocumentStatus.DRAFT ? 'Send' : 'Update'}
+          goNextLabel={document.status === DocumentStatus.DRAFT ? 'Enviar' : 'Actualizar'}
           onGoBackClick={previousStep}
           onGoNextClick={() => void onFormSubmit()}
         />

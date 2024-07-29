@@ -126,7 +126,7 @@ export const AddSettingsFormPartial = ({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>Title</FormLabel>
+                  <FormLabel required>Título</FormLabel>
 
                   <FormControl>
                     <Input
@@ -146,7 +146,7 @@ export const AddSettingsFormPartial = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex flex-row items-center">
-                    Document access
+                    Acesso al documento
                     <DocumentGlobalAuthAccessTooltip />
                   </FormLabel>
 
@@ -164,7 +164,7 @@ export const AddSettingsFormPartial = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex flex-row items-center">
-                      Recipient action authentication
+                      Acción de autenticación del destinatario
                       <DocumentGlobalAuthActionTooltip />
                     </FormLabel>
 
@@ -179,7 +179,7 @@ export const AddSettingsFormPartial = ({
             <Accordion type="multiple" className="mt-6">
               <AccordionItem value="advanced-options" className="border-none">
                 <AccordionTrigger className="text-foreground mb-2 rounded border px-3 py-2 text-left hover:bg-neutral-200/30 hover:no-underline">
-                  Advanced Options
+                  Opciones avanzadas
                 </AccordionTrigger>
 
                 <AccordionContent className="text-muted-foreground -mx-1 px-1 pt-2 text-sm leading-relaxed">
@@ -190,15 +190,15 @@ export const AddSettingsFormPartial = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex flex-row items-center">
-                            External ID{' '}
+                            ID Externo{' '}
                             <Tooltip>
                               <TooltipTrigger>
                                 <InfoIcon className="mx-2 h-4 w-4" />
                               </TooltipTrigger>
 
                               <TooltipContent className="text-muted-foreground max-w-xs">
-                                Add an external ID to the document. This can be used to identify the
-                                document in external systems.
+                                Agregue una identificación externa al documento. Esto puede usarse
+                                para identificar el documento en sistemas externos.
                               </TooltipContent>
                             </Tooltip>
                           </FormLabel>
@@ -217,7 +217,7 @@ export const AddSettingsFormPartial = ({
                       name="meta.dateFormat"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Date Format</FormLabel>
+                          <FormLabel>Formato de fecha</FormLabel>
 
                           <FormControl>
                             <Select
@@ -249,7 +249,7 @@ export const AddSettingsFormPartial = ({
                       name="meta.timezone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Time Zone</FormLabel>
+                          <FormLabel>Zona Horaria</FormLabel>
 
                           <FormControl>
                             <Combobox
@@ -272,14 +272,15 @@ export const AddSettingsFormPartial = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex flex-row items-center">
-                            Redirect URL{' '}
+                            Redireccionar URL{' '}
                             <Tooltip>
                               <TooltipTrigger>
                                 <InfoIcon className="mx-2 h-4 w-4" />
                               </TooltipTrigger>
 
                               <TooltipContent className="text-muted-foreground max-w-xs">
-                                Add a URL to redirect the user to once the document is signed
+                                Agregue una URL para redirigir al usuario una vez que se firme el
+                                documento
                               </TooltipContent>
                             </Tooltip>
                           </FormLabel>

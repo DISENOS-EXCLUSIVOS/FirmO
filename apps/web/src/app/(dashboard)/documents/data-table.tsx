@@ -61,7 +61,7 @@ export const DocumentsDataTable = ({
       <DataTable
         columns={[
           {
-            header: 'Created',
+            header: 'Creado',
             accessorKey: 'createdAt',
             cell: ({ row }) => (
               <LocaleDate
@@ -71,7 +71,7 @@ export const DocumentsDataTable = ({
             ),
           },
           {
-            header: 'Title',
+            header: 'Titulo',
             cell: ({ row }) => <DataTableTitle row={row.original} teamUrl={team?.url} />,
           },
           {
@@ -80,7 +80,7 @@ export const DocumentsDataTable = ({
             cell: ({ row }) => row.original.User.name ?? row.original.User.email,
           },
           {
-            header: 'Recipient',
+            header: 'Destinatarios',
             accessorKey: 'recipient',
             cell: ({ row }) => (
               <StackAvatarsWithTooltip
@@ -90,13 +90,13 @@ export const DocumentsDataTable = ({
             ),
           },
           {
-            header: 'Status',
+            header: 'Estado',
             accessorKey: 'status',
             cell: ({ row }) => <DocumentStatus status={row.getValue('status')} />,
             size: 140,
           },
           {
-            header: 'Actions',
+            header: 'Acciones',
             cell: ({ row }) =>
               (!row.original.deletedAt ||
                 row.original.status === ExtendedDocumentStatus.COMPLETED) && (

@@ -64,14 +64,14 @@ export const RecipientItem = ({ recipient }: RecipientItemProps) => {
       });
 
       toast({
-        title: 'Recipient updated',
-        description: 'The recipient has been updated successfully',
+        title: 'Destinatario actualizado',
+        description: 'El destinatario se ha actualizado correctamente.',
       });
 
       router.refresh();
     } catch (error) {
       toast({
-        title: 'Failed to update recipient',
+        title: 'No se pudo actualizar el destinatario',
         description: error.message,
         variant: 'destructive',
       });

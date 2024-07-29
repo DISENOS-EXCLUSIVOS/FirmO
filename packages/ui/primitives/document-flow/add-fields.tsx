@@ -411,7 +411,7 @@ export const AddFieldsFormPartial = ({
 
                   <CommandEmpty>
                     <span className="text-muted-foreground inline-block px-4">
-                      No recipient matching this description was found.
+                      No se encontró ningún destinatario que coincida con esta descripción.
                     </span>
                   </CommandEmpty>
 
@@ -426,7 +426,7 @@ export const AddFieldsFormPartial = ({
                           key={`${role}-empty`}
                           className="text-muted-foreground/80 px-4 pb-4 pt-2.5 text-center text-xs"
                         >
-                          No recipients with this role
+                          No hay destinatarios con este rol
                         </div>
                       )}
 
@@ -473,8 +473,8 @@ export const AddFieldsFormPartial = ({
                                 </TooltipTrigger>
 
                                 <TooltipContent className="text-muted-foreground max-w-xs">
-                                  This document has already been sent to this recipient. You can no
-                                  longer edit this recipient.
+                                  Este documento ya ha sido enviado a este destinatario. no puedes
+                                  Ya no editar este destinatario.
                                 </TooltipContent>
                               </Tooltip>
                             )}
@@ -508,7 +508,7 @@ export const AddFieldsFormPartial = ({
                       {selectedSigner?.name || 'Signature'}
                     </p>
 
-                    <p className="text-muted-foreground mt-2 text-center text-xs">Signature</p>
+                    <p className="text-muted-foreground mt-2 text-center text-xs">Firma</p>
                   </CardContent>
                 </Card>
               </button>
@@ -530,7 +530,7 @@ export const AddFieldsFormPartial = ({
                       {'Email'}
                     </p>
 
-                    <p className="text-muted-foreground mt-2 text-xs">Email</p>
+                    <p className="text-muted-foreground mt-2 text-xs">Correo</p>
                   </CardContent>
                 </Card>
               </button>
@@ -552,7 +552,7 @@ export const AddFieldsFormPartial = ({
                       {'Name'}
                     </p>
 
-                    <p className="text-muted-foreground mt-2 text-xs">Name</p>
+                    <p className="text-muted-foreground mt-2 text-xs">Nombre</p>
                   </CardContent>
                 </Card>
               </button>
@@ -574,7 +574,7 @@ export const AddFieldsFormPartial = ({
                       {'Date'}
                     </p>
 
-                    <p className="text-muted-foreground mt-2 text-xs">Date</p>
+                    <p className="text-muted-foreground mt-2 text-xs">Fecha</p>
                   </CardContent>
                 </Card>
               </button>
@@ -596,7 +596,7 @@ export const AddFieldsFormPartial = ({
                       {'Text'}
                     </p>
 
-                    <p className="text-muted-foreground mt-2 text-xs">Custom Text</p>
+                    <p className="text-muted-foreground mt-2 text-xs">Texto personalizado</p>
                   </CardContent>
                 </Card>
               </button>

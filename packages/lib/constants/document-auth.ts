@@ -9,15 +9,15 @@ type DocumentAuthTypeData = {
 export const DOCUMENT_AUTH_TYPES: Record<string, DocumentAuthTypeData> = {
   [DocumentAuth.ACCOUNT]: {
     key: DocumentAuth.ACCOUNT,
-    value: 'Require account',
+    value: 'Requiere cuenta',
   },
   [DocumentAuth.PASSKEY]: {
     key: DocumentAuth.PASSKEY,
-    value: 'Require passkey',
+    value: 'Requeriere clave de acceso',
   },
   [DocumentAuth.TWO_FACTOR_AUTH]: {
     key: DocumentAuth.TWO_FACTOR_AUTH,
-    value: 'Require 2FA',
+    value: 'Requiere 2FA',
   },
   [DocumentAuth.EXPLICIT_NONE]: {
     key: DocumentAuth.EXPLICIT_NONE,

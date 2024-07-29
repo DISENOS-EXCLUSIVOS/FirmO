@@ -6,7 +6,7 @@ export const DocumentSendEmailMessageHelper = () => {
   return (
     <div>
       <p className="text-muted-foreground text-sm">
-        You can use the following variables in your message:
+        Puede utilizar las siguientes variables en su mensaje:
       </p>
 
       <ul className="mt-2 flex list-inside list-disc flex-col gap-y-2 text-sm">
@@ -14,19 +14,19 @@ export const DocumentSendEmailMessageHelper = () => {
           <code className="text-muted-foreground bg-muted-foreground/20 rounded p-1 text-sm">
             {'{signer.name}'}
           </code>{' '}
-          - The signer's name
+          - el nombre del firmante
         </li>
         <li className="text-muted-foreground">
           <code className="text-muted-foreground bg-muted-foreground/20 rounded p-1 text-sm">
             {'{signer.email}'}
           </code>{' '}
-          - The signer's email
+          - El correo electrónico del firmante
         </li>
         <li className="text-muted-foreground">
           <code className="text-muted-foreground bg-muted-foreground/20 rounded p-1 text-sm">
             {'{document.name}'}
           </code>{' '}
-          - The document's name
+          - El nombre del documento.
         </li>
       </ul>
     </div>

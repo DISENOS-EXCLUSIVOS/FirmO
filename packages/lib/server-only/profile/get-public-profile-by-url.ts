@@ -114,8 +114,8 @@ export const getPublicProfileByUrl = async ({
 
   // Log as critical error.
   if (user?.profile && team?.profile) {
-    console.error('Profile URL is ambiguous', { profileUrl, userId: user.id, teamId: team.id });
-    throw new AppError(AppErrorCode.INVALID_REQUEST, 'Profile URL is ambiguous');
+    console.error('La URL del perfil es ambigua', { profileUrl, userId: user.id, teamId: team.id });
+    throw new AppError(AppErrorCode.INVALID_REQUEST, 'La URL del perfil es ambigua');
   }
 
   if (user?.profile?.enabled) {
@@ -177,5 +177,5 @@ export const getPublicProfileByUrl = async ({
     };
   }
 
-  throw new AppError(AppErrorCode.NOT_FOUND, 'Profile not found');
+  throw new AppError(AppErrorCode.NOT_FOUND, 'Perfil no encontrado');
 };

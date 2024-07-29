@@ -25,18 +25,18 @@ export const MissingSignatureFieldDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg" position="center">
         <DialogHeader>
-          <DialogTitle>No signature field found</DialogTitle>
+          <DialogTitle>No se encontró ningún campo de firma</DialogTitle>
           <DialogDescription>
             <p className="mt-2">
-              Some signers have not been assigned a signature field. Please assign at least 1
-              signature field to each signer before proceeding.
+              A algunos firmantes no se les ha asignado un campo de firma. Por favor asigne al menos
+              1 campo de firma a cada firmante antes de continuar.
             </p>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              Close
+              Cerrar
             </Button>
           </DialogClose>
         </DialogFooter>

@@ -116,7 +116,7 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
 
       toast({
         title: 'Error',
-        description: 'An error occurred while signing the document.',
+        description: 'Se produjo un error al firmar el documento.',
         variant: 'destructive',
       });
     }
@@ -142,7 +142,7 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
 
       toast({
         title: 'Error',
-        description: 'An error occurred while removing the signature.',
+        description: 'Se produjo un error al eliminar la firma.',
         variant: 'destructive',
       });
     }
@@ -163,7 +163,9 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
       )}
 
       {!field.inserted && (
-        <p className="group-hover:text-primary text-muted-foreground text-lg duration-200">Name</p>
+        <p className="group-hover:text-primary text-muted-foreground text-lg duration-200">
+          Nombre
+        </p>
       )}
 
       {field.inserted && <p className="text-muted-foreground duration-200">{field.customText}</p>}
@@ -171,12 +173,12 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
       <Dialog open={showFullNameModal} onOpenChange={setShowFullNameModal}>
         <DialogContent>
           <DialogTitle>
-            Sign as {recipient.name}{' '}
+            Firmar como {recipient.name}{' '}
             <span className="text-muted-foreground">({recipient.email})</span>
           </DialogTitle>
 
           <div>
-            <Label htmlFor="signature">Full Name</Label>
+            <Label htmlFor="signature">Nombre completo</Label>
 
             <Input
               type="text"
@@ -197,7 +199,7 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
                   setLocalFullName('');
                 }}
               >
-                Cancel
+                Cancelar
               </Button>
 
               <Button
@@ -206,7 +208,7 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
                 disabled={!localFullName}
                 onClick={() => onDialogSignClick()}
               >
-                Sign
+                Firmar
               </Button>
             </div>
           </DialogFooter>

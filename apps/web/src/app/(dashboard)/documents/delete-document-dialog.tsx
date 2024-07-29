@@ -50,8 +50,8 @@ export const DeleteDocumentDialog = ({
       router.refresh();
 
       toast({
-        title: 'Document deleted',
-        description: `"${documentTitle}" has been successfully deleted`,
+        title: 'Documento eliminado',
+        description: `"${documentTitle}" ha sido eliminado exitosamente`,
         duration: 5000,
       });
 
@@ -71,8 +71,8 @@ export const DeleteDocumentDialog = ({
       await deleteDocument({ id, teamId });
     } catch {
       toast({
-        title: 'Something went wrong',
-        description: 'This document could not be deleted at this time. Please try again.',
+        title: 'Algo salió mal',
+        description: 'Este documento no se pudo eliminar en este momento. Inténtalo de nuevo.',
         variant: 'destructive',
         duration: 7500,
       });
@@ -81,17 +81,17 @@ export const DeleteDocumentDialog = ({
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    setIsDeleteEnabled(event.target.value === 'delete');
+    setIsDeleteEnabled(event.target.value === 'eliminar');
   };
 
   return (
     <Dialog open={open} onOpenChange={(value) => !isLoading && onOpenChange(value)}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure?</DialogTitle>
+          <DialogTitle>¿Está seguro?</DialogTitle>
 
           <DialogDescription>
-            You are about to {canManageDocument ? 'delete' : 'hide'}{' '}
+            Estas a punto de {canManageDocument ? 'eliminar' : 'esconder'}{' '}
             <strong>"{documentTitle}"</strong>
           </DialogDescription>
         </DialogHeader>
@@ -101,33 +101,33 @@ export const DeleteDocumentDialog = ({
             {match(status)
               .with(DocumentStatus.DRAFT, () => (
                 <AlertDescription>
-                  Please note that this action is <strong>irreversible</strong>. Once confirmed,
-                  this document will be permanently deleted.
+                  Tenga en cuenta que esta acción es <strong>irreversible</strong>. Una vez
+                  confirmado, Este documento será eliminado permanentemente.
                 </AlertDescription>
               ))
               .with(DocumentStatus.PENDING, () => (
                 <AlertDescription>
                   <p>
-                    Please note that this action is <strong>irreversible</strong>.
+                    Tenga en cuenta que esta acción es <strong>irreversible</strong>.
                   </p>
 
-                  <p className="mt-1">Once confirmed, the following will occur:</p>
+                  <p className="mt-1">Una vez confirmado, ocurrirá lo siguiente:</p>
 
                   <ul className="mt-0.5 list-inside list-disc">
-                    <li>Document will be permanently deleted</li>
-                    <li>Document signing process will be cancelled</li>
-                    <li>All inserted signatures will be voided</li>
-                    <li>All recipients will be notified</li>
+                    <li>El documento se eliminará permanentemente.</li>
+                    <li>Se cancelará el proceso de firma de documentos.</li>
+                    <li>Todas las firmas insertadas serán anuladas.</li>
+                    <li>Todos los destinatarios serán notificados.</li>
                   </ul>
                 </AlertDescription>
               ))
               .with(DocumentStatus.COMPLETED, () => (
                 <AlertDescription>
-                  <p>By deleting this document, the following will occur:</p>
+                  <p>Al eliminar este documento, ocurrirá lo siguiente:</p>
 
                   <ul className="mt-0.5 list-inside list-disc">
-                    <li>The document will be hidden from your account</li>
-                    <li>Recipients will still retain their copy of the document</li>
+                    <li>El documento se ocultará de su cuenta.</li>
+                    <li>Los destinatarios seguirán conservando su copia del documento.</li>
                   </ul>
                 </AlertDescription>
               ))
@@ -136,7 +136,7 @@ export const DeleteDocumentDialog = ({
         ) : (
           <Alert variant="warning" className="-mt-1">
             <AlertDescription>
-              Please contact support if you would like to revert this action.
+              Comuníquese con Desarrollo TI si desea revertir esta acción.
             </AlertDescription>
           </Alert>
         )}
@@ -146,13 +146,13 @@ export const DeleteDocumentDialog = ({
             type="text"
             value={inputValue}
             onChange={onInputChange}
-            placeholder="Type 'delete' to confirm"
+            placeholder="Escribe 'eliminar' para confirmar"
           />
         )}
 
         <DialogFooter>
           <Button type="button" variant="secondary" onClick={() => onOpenChange(false)}>
-            Cancel
+            Cancelar
           </Button>
 
           <Button
@@ -162,7 +162,7 @@ export const DeleteDocumentDialog = ({
             disabled={!isDeleteEnabled && canManageDocument}
             variant="destructive"
           >
-            {canManageDocument ? 'Delete' : 'Hide'}
+            {canManageDocument ? 'Borrar' : 'Esconder'}
           </Button>
         </DialogFooter>
       </DialogContent>

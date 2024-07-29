@@ -116,7 +116,7 @@ export const TextField = ({ field, recipient, onSignField, onUnsignField }: Text
 
       toast({
         title: 'Error',
-        description: 'An error occurred while signing the document.',
+        description: 'Se produjo un error al firmar el documento.',
         variant: 'destructive',
       });
     }
@@ -171,11 +171,11 @@ export const TextField = ({ field, recipient, onSignField, onUnsignField }: Text
       <Dialog open={showCustomTextModal} onOpenChange={setShowCustomTextModal}>
         <DialogContent>
           <DialogTitle>
-            Enter your Text <span className="text-muted-foreground">({recipient.email})</span>
+            Ingrese su texto <span className="text-muted-foreground">({recipient.email})</span>
           </DialogTitle>
 
           <div className="">
-            <Label htmlFor="custom-text">Custom Text</Label>
+            <Label htmlFor="custom-text">Texto personalizado</Label>
 
             <Input
               id="custom-text"
@@ -195,7 +195,7 @@ export const TextField = ({ field, recipient, onSignField, onUnsignField }: Text
                   setLocalCustomText('');
                 }}
               >
-                Cancel
+                Cancelar
               </Button>
 
               <Button
@@ -204,7 +204,7 @@ export const TextField = ({ field, recipient, onSignField, onUnsignField }: Text
                 disabled={!localText}
                 onClick={() => onDialogSignClick()}
               >
-                Save Text
+                Guardar
               </Button>
             </div>
           </DialogFooter>

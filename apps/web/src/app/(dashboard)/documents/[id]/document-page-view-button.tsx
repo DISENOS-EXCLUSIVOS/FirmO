@@ -51,14 +51,14 @@ export const DocumentPageViewButton = ({ document, team }: DocumentPageViewButto
       const documentData = documentWithData?.documentData;
 
       if (!documentData) {
-        throw new Error('No document available');
+        throw new Error('Ningún documento disponible');
       }
 
       await downloadPDF({ documentData, fileName: documentWithData.title });
     } catch (err) {
       toast({
-        title: 'Something went wrong',
-        description: 'An error occurred while downloading your document.',
+        title: 'Algo salió mal',
+        description: 'Se produjo un error al descargar su documento.',
         variant: 'destructive',
       });
     }
@@ -77,19 +77,19 @@ export const DocumentPageViewButton = ({ document, team }: DocumentPageViewButto
             .with(RecipientRole.SIGNER, () => (
               <>
                 <Pencil className="-ml-1 mr-2 h-4 w-4" />
-                Sign
+                Firmar
               </>
             ))
             .with(RecipientRole.APPROVER, () => (
               <>
                 <CheckCircle className="-ml-1 mr-2 h-4 w-4" />
-                Approve
+                Aprobar
               </>
             ))
             .otherwise(() => (
               <>
                 <EyeIcon className="-ml-1 mr-2 h-4 w-4" />
-                View
+                Ver
               </>
             ))}
         </Link>
@@ -103,7 +103,7 @@ export const DocumentPageViewButton = ({ document, team }: DocumentPageViewButto
     .with({ isComplete: true }, () => (
       <Button className="w-full" onClick={onDownloadClick}>
         <Download className="-ml-1 mr-2 inline h-4 w-4" />
-        Download
+        Descargar
       </Button>
     ))
     .otherwise(() => null);

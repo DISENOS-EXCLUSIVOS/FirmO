@@ -33,7 +33,7 @@ export const DocumentGlobalAuthActionSelect = forwardRef<HTMLButtonElement, Sele
           ))}
 
         {/* Note: -1 is remapped in the Zod schema to the required value. */}
-        <SelectItem value={'-1'}>None</SelectItem>
+        <SelectItem value={'-1'}>Ninguno</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -52,11 +52,11 @@ export const DocumentGlobalAuthActionTooltip = () => (
         <strong>Global recipient action authentication</strong>
       </h2>
 
-      <p>The authentication required for recipients to sign the signature field.</p>
+      <p>La autenticación requerida para que los destinatarios firmen el campo de firma.</p>
 
       <p>
-        This can be overriden by setting the authentication requirements directly on each recipient
-        in the next step.
+        Esto se puede anular configurando los requisitos de autenticación directamente en cada
+        destinatario. en el siguiente paso.
       </p>
 
       <ul className="ml-3.5 list-outside list-disc space-y-0.5 py-2">
@@ -64,15 +64,15 @@ export const DocumentGlobalAuthActionTooltip = () => (
           <strong>Require account</strong> - The recipient must be signed in
         </li> */}
         <li>
-          <strong>Require passkey</strong> - The recipient must have an account and passkey
-          configured via their settings
+          <strong>Requeriere clave de acceso</strong> - El destinatario debe tener una cuenta y
+          clave de acceso configurada a través de su configuración
         </li>
         <li>
-          <strong>Require 2FA</strong> - The recipient must have an account and 2FA enabled via
-          their settings
+          <strong>Requiere 2FA</strong> - El destinatario debe tener una cuenta y 2FA habilitado a
+          través de sus configuraciones
         </li>
         <li>
-          <strong>None</strong> - No authentication required
+          <strong>Ninguno</strong> - Sin autenticación requerida
         </li>
       </ul>
     </TooltipContent>

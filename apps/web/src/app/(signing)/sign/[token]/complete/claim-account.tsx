@@ -31,7 +31,7 @@ export type ClaimAccountProps = {
 
 export const ZClaimAccountFormSchema = z
   .object({
-    name: z.string().trim().min(1, { message: 'Please enter a valid name.' }),
+    name: z.string().trim().min(1, { message: 'Por favor ingrese un nombre valido.' }),
     email: z.string().email().min(1),
     password: ZPasswordSchema,
   })
@@ -41,7 +41,7 @@ export const ZClaimAccountFormSchema = z
       return !password.includes(name) && !password.includes(email.split('@')[0]);
     },
     {
-      message: 'Password should not be common or based on personal information',
+      message: 'La contraseña no debe ser común ni estar basada en información personal.',
       path: ['password'],
     },
   );
@@ -71,9 +71,9 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
       router.push(`/unverified-account`);
 
       toast({
-        title: 'Registration Successful',
+        title: 'Registro exitoso',
         description:
-          'You have successfully registered. Please verify your account by clicking on the link you received in the email.',
+          'Se ha registrado exitosamente. Verifique su cuenta haciendo clic en el enlace que recibió en el correo electrónico.',
         duration: 5000,
       });
 
@@ -84,15 +84,15 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
     } catch (error) {
       if (error instanceof TRPCClientError && error.data?.code === 'BAD_REQUEST') {
         toast({
-          title: 'An error occurred',
+          title: 'A ocurrido un error',
           description: error.message,
           variant: 'destructive',
         });
       } else {
         toast({
-          title: 'An unknown error occurred',
+          title: 'A ocurrido un error un error desconocido',
           description:
-            'We encountered an unknown error while attempting to sign you up. Please try again later.',
+            'Encontramos un error desconocido al intentar registrarte. Por favor, inténtelo de nuevo más tarde.',
           variant: 'destructive',
         });
       }
@@ -109,7 +109,7 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Enter your name" />
                   </FormControl>
@@ -122,9 +122,9 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
               control={form.control}
               render={({ field }) => (
                 <FormItem className="mt-4">
-                  <FormLabel>Email address</FormLabel>
+                  <FormLabel>Correo</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter your email" />
+                    <Input {...field} placeholder="Ingresa tu correo electrónico" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,9 +135,9 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
               control={form.control}
               render={({ field }) => (
                 <FormItem className="mt-4">
-                  <FormLabel>Set a password</FormLabel>
+                  <FormLabel>Establecer una contraseña</FormLabel>
                   <FormControl>
-                    <PasswordInput {...field} placeholder="Pick a password" />
+                    <PasswordInput {...field} placeholder="Elige una contraseña" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,7 +145,7 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
             />
 
             <Button type="submit" className="mt-6 w-full" loading={form.formState.isSubmitting}>
-              Claim account
+              Crear cuenta
             </Button>
           </fieldset>
         </form>

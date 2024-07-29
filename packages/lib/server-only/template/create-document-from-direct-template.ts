@@ -145,7 +145,7 @@ export const createDocumentFromDirectTemplate = async ({
       );
 
       if (!signedFieldValue) {
-        throw new AppError(AppErrorCode.INVALID_BODY, 'Invalid, missing or changed fields');
+        throw new AppError(AppErrorCode.INVALID_BODY, 'Campos no válidos, faltantes o modificados');
       }
 
       if (templateField.type === FieldType.NAME && directRecipientName === undefined) {
@@ -179,7 +179,7 @@ export const createDocumentFromDirectTemplate = async ({
       }
 
       if (isSignatureField && !signatureImageAsBase64 && !typedSignature) {
-        throw new Error('Signature field must have a signature');
+        throw new Error('El campo de firma debe tener una firma.');
       }
 
       return {
@@ -281,7 +281,7 @@ export const createDocumentFromDirectTemplate = async ({
       );
 
       if (!recipient) {
-        throw new Error('Recipient not found.');
+        throw new Error('Destinatario no encontrado.');
       }
 
       nonDirectRecipientFieldsToCreate = nonDirectRecipientFieldsToCreate.concat(
@@ -508,10 +508,10 @@ export const createDocumentFromDirectTemplate = async ({
         },
       ],
       from: {
-        name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'Documenso',
-        address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@documenso.com',
+        name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'FirmO',
+        address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@FirmO.com',
       },
-      subject: 'Document created from direct template',
+      subject: 'Documento creado a partir de plantilla directa',
       html: render(emailTemplate),
       text: render(emailTemplate, { plainText: true }),
     });

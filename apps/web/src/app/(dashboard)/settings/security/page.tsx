@@ -24,8 +24,8 @@ export default async function SecuritySettingsPage() {
   return (
     <div>
       <SettingsHeader
-        title="Security"
-        subtitle="Here you can manage your password and security settings."
+        title="Seguridad"
+        subtitle="quí puede administrar su contraseña y configuración de seguridad."
       />
 
       {user.identityProvider === 'DOCUMENSO' && (
@@ -41,13 +41,13 @@ export default async function SecuritySettingsPage() {
         variant="neutral"
       >
         <div className="mb-4 sm:mb-0">
-          <AlertTitle>Two factor authentication</AlertTitle>
+          <AlertTitle>Autenticación de dos factores</AlertTitle>
 
           <AlertDescription className="mr-4">
-            Add an authenticator to serve as a secondary authentication method{' '}
+            Agregue un autenticador para que sirva como método de autenticación secundario{' '}
             {user.identityProvider === 'DOCUMENSO'
-              ? 'when signing in, or when signing documents.'
-              : 'for signing documents.'}
+              ? 'al iniciar sesión o al firmar documentos..'
+              : 'para firmar documentos.'}
           </AlertDescription>
         </div>
 
@@ -64,11 +64,11 @@ export default async function SecuritySettingsPage() {
           variant="neutral"
         >
           <div className="mb-4 sm:mb-0">
-            <AlertTitle>Recovery codes</AlertTitle>
+            <AlertTitle>Códigos de recuperación</AlertTitle>
 
             <AlertDescription className="mr-4">
-              Two factor authentication recovery codes are used to access your account in the event
-              that you lose access to your authenticator app.
+              Los códigos de recuperación de autenticación de dos factores se utilizan para acceder
+              a su cuenta en caso de que que pierda el acceso a su aplicación de autenticación.
             </AlertDescription>
           </div>
 
@@ -82,15 +82,16 @@ export default async function SecuritySettingsPage() {
           variant="neutral"
         >
           <div className="mb-4 sm:mb-0">
-            <AlertTitle>Passkeys</AlertTitle>
+            <AlertTitle>Claves de acceso</AlertTitle>
 
             <AlertDescription className="mr-4">
-              Allows authenticating using biometrics, password managers, hardware keys, etc.
+              Permite autenticarse mediante biometría, gestores de contraseñas, claves de hardware,
+              etc.
             </AlertDescription>
           </div>
 
           <Button asChild variant="outline" className="bg-background">
-            <Link href="/settings/security/passkeys">Manage passkeys</Link>
+            <Link href="/settings/security/passkeys">Administrar claves de acceso</Link>
           </Button>
         </Alert>
       )}
@@ -100,15 +101,15 @@ export default async function SecuritySettingsPage() {
         variant="neutral"
       >
         <div className="mb-4 mr-4 sm:mb-0">
-          <AlertTitle>Recent activity</AlertTitle>
+          <AlertTitle>Actividad reciente</AlertTitle>
 
           <AlertDescription className="mr-2">
-            View all recent security activity related to your account.
+            Vea toda la actividad de seguridad reciente relacionada con su cuenta.
           </AlertDescription>
         </div>
 
         <Button asChild variant="outline" className="bg-background">
-          <Link href="/settings/security/activity">View activity</Link>
+          <Link href="/settings/security/activity">Ver actividad</Link>
         </Button>
       </Alert>
     </div>

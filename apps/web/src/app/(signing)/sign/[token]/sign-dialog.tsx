@@ -53,36 +53,36 @@ export const SignDialog = ({
           onClick={fieldsValidated}
           loading={isSubmitting}
         >
-          {isComplete ? 'Complete' : 'Next field'}
+          {isComplete ? 'Finalizar' : 'Siguiente'}
         </Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogTitle>
           <div className="text-foreground text-xl font-semibold">
-            {role === RecipientRole.VIEWER && 'Complete Viewing'}
-            {role === RecipientRole.SIGNER && 'Complete Signing'}
-            {role === RecipientRole.APPROVER && 'Complete Approval'}
+            {role === RecipientRole.VIEWER && 'Visualización completa'}
+            {role === RecipientRole.SIGNER && 'Firma completa'}
+            {role === RecipientRole.APPROVER && 'Aprobación completa'}
           </div>
         </DialogTitle>
 
         <div className="text-muted-foreground max-w-[50ch]">
           {role === RecipientRole.VIEWER && (
             <span>
-              You are about to complete viewing "{truncatedTitle}".
-              <br /> Are you sure?
+              Estás a punto de completar la visualización. "{truncatedTitle}".
+              <br /> ¿Está seguro?
             </span>
           )}
           {role === RecipientRole.SIGNER && (
             <span>
-              You are about to complete signing "{truncatedTitle}".
-              <br /> Are you sure?
+              Estás a punto de completar la firma. "{truncatedTitle}".
+              <br /> ¿Está seguro?
             </span>
           )}
           {role === RecipientRole.APPROVER && (
             <span>
-              You are about to complete approving "{truncatedTitle}".
-              <br /> Are you sure?
+              Estás a punto de completar la aprobación. "{truncatedTitle}".
+              <br /> ¿Está seguro?
             </span>
           )}
         </div>
@@ -99,7 +99,7 @@ export const SignDialog = ({
                 setShowDialog(false);
               }}
             >
-              Cancel
+              Cancelar
             </Button>
 
             <Button
@@ -109,9 +109,9 @@ export const SignDialog = ({
               loading={isSubmitting}
               onClick={onSignatureComplete}
             >
-              {role === RecipientRole.VIEWER && 'Mark as Viewed'}
-              {role === RecipientRole.SIGNER && 'Sign'}
-              {role === RecipientRole.APPROVER && 'Approve'}
+              {role === RecipientRole.VIEWER && 'Marcar como visto'}
+              {role === RecipientRole.SIGNER && 'Firmar'}
+              {role === RecipientRole.APPROVER && 'Aprobar'}
             </Button>
           </div>
         </DialogFooter>

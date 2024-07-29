@@ -6,95 +6,98 @@ export default function SignatureDisclosure() {
   return (
     <div>
       <article className="prose dark:prose-invert">
-        <h1>Electronic Signature Disclosure</h1>
+        <h1>Divulgación de Firma Electrónica</h1>
 
-        <h2>Welcome</h2>
+        <h2>Bienvenido</h2>
         <p>
-          Thank you for using Documenso to perform your electronic document signing. The purpose of
-          this disclosure is to inform you about the process, legality, and your rights regarding
-          the use of electronic signatures on our platform. By opting to use an electronic
-          signature, you are agreeing to the terms and conditions outlined below.
+          Gracias por usar FirmO para realizar la firma electrónica de sus documentos. El propósito
+          de esta divulgación es informarle sobre el proceso, la legalidad y sus derechos respecto
+          al uso de firmas electrónicas en nuestra plataforma. Al optar por usar una firma
+          electrónica, usted acepta los términos y condiciones que se describen a continuación.
         </p>
 
-        <h2>Acceptance and Consent</h2>
+        <h2>Aceptación y Consentimiento</h2>
         <p>
-          When you use our platform to affix your electronic signature to documents, you are
-          consenting to do so under the Electronic Signatures in Global and National Commerce Act
-          (E-Sign Act) and other applicable laws. This action indicates your agreement to use
-          electronic means to sign documents and receive notifications.
+          Cuando usa nuestra plataforma para firmar electrónicamente documentos, está dando su
+          consentimiento para hacerlo bajo la Ley de Firmas Electrónicas en el Comercio Global y
+          Nacional (E-Sign Act) y otras leyes aplicables. Esta acción indica su acuerdo para usar
+          medios electrónicos para firmar documentos y recibir notificaciones.
         </p>
 
-        <h2>Legality of Electronic Signatures</h2>
+        <h2>Legalidad de las Firmas Electrónicas</h2>
         <p>
-          An electronic signature provided by you on our platform, achieved through clicking through
-          to a document and entering your name, or any other electronic signing method we provide,
-          is legally binding. It carries the same weight and enforceability as a manual signature
-          written with ink on paper.
+          Una firma electrónica proporcionada por usted en nuestra plataforma, lograda al hacer clic
+          en un documento e ingresar su nombre, u otro método de firma electrónica que proveamos, es
+          legalmente vinculante. Tiene el mismo peso y aplicabilidad que una firma manual escrita
+          con tinta en papel.
         </p>
 
-        <h2>System Requirements</h2>
-        <p>To use our electronic signature service, you must have access to:</p>
+        <h2>Requisitos del Sistema</h2>
+        <p>Para usar nuestro servicio de firma electrónica, debe tener acceso a:</p>
         <ul>
-          <li>A stable internet connection</li>
-          <li>An email account</li>
-          <li>A device capable of accessing, opening, and reading documents</li>
-          <li>A means to print or download documents for your records</li>
+          <li>Una conexión a Internet estable</li>
+          <li>Una cuenta de correo electrónico</li>
+          <li>Un dispositivo capaz de acceder, abrir y leer documentos</li>
+          <li>Un medio para imprimir o descargar documentos para sus registros</li>
         </ul>
 
-        <h2>Electronic Delivery of Documents</h2>
+        <h2>Entrega Electrónica de Documentos</h2>
         <p>
-          All documents related to the electronic signing process will be provided to you
-          electronically through our platform or via email. It is your responsibility to ensure that
-          your email address is current and that you can receive and open our emails.
+          Todos los documentos relacionados con el proceso de firma electrónica se le proporcionarán
+          electrónicamente a través de nuestra plataforma o por correo electrónico. Es su
+          responsabilidad asegurarse de que su dirección de correo electrónico esté actualizada y
+          que pueda recibir y abrir nuestros correos electrónicos.
         </p>
 
-        <h2>Consent to Electronic Transactions</h2>
+        <h2>Consentimiento para Transacciones Electrónicas</h2>
         <p>
-          By using the electronic signature feature, you are consenting to conduct transactions and
-          receive disclosures electronically. You acknowledge that your electronic signature on
-          documents is binding and that you accept the terms outlined in the documents you are
-          signing.
+          Al usar la función de firma electrónica, usted da su consentimiento para realizar
+          transacciones y recibir divulgaciones electrónicamente. Usted reconoce que su firma
+          electrónica en documentos es vinculante y que acepta los términos descritos en los
+          documentos que está firmando.
         </p>
 
-        <h2>Withdrawing Consent</h2>
+        <h2>Retiro del Consentimiento</h2>
         <p>
-          You have the right to withdraw your consent to use electronic signatures at any time
-          before completing the signing process. To withdraw your consent, please contact the sender
-          of the document. In failing to contact the sender you may reach out to{' '}
-          <a href="mailto:support@documenso.com">support@documenso.com</a> for assistance. Be aware
-          that withdrawing consent may delay or halt the completion of the related transaction or
-          service.
+          Tiene derecho a retirar su consentimiento para usar firmas electrónicas en cualquier
+          momento antes de completar el proceso de firma. Para retirar su consentimiento, por favor
+          contacte al remitente del documento. En caso de no poder contactar al remitente, puede
+          comunicarse con <a href="mailto:tecnologia@disex.com.co">tecnologia@disex.com.co</a> para
+          asistencia. Tenga en cuenta que retirar el consentimiento puede retrasar o detener la
+          finalización de la transacción o servicio relacionado.
         </p>
 
-        <h2>Updating Your Information</h2>
+        <h2>Actualización de su Información</h2>
         <p>
-          It is crucial to keep your contact information, especially your email address, up to date
-          with us. Please notify us immediately of any changes to ensure that you continue to
-          receive all necessary communications.
+          Es crucial mantener su información de contacto, especialmente su dirección de correo
+          electrónico, actualizada con nosotros. Por favor notifíquenos inmediatamente sobre
+          cualquier cambio para asegurar que continúe recibiendo todas las comunicaciones
+          necesarias.
         </p>
 
-        <h2>Retention of Documents</h2>
+        <h2>Retención de Documentos</h2>
         <p>
-          After signing a document electronically, you will be provided the opportunity to view,
-          download, and print the document for your records. It is highly recommended that you
-          retain a copy of all electronically signed documents for your personal records. We will
-          also retain a copy of the signed document for our records however we may not be able to
-          provide you with a copy of the signed document after a certain period of time.
+          Después de firmar un documento electrónicamente, se le proporcionará la oportunidad de
+          ver, descargar e imprimir el documento para sus registros. Se recomienda encarecidamente
+          que conserve una copia de todos los documentos firmados electrónicamente para sus
+          registros personales. Nosotros también conservaremos una copia del documento firmado para
+          nuestros registros; sin embargo, puede que no podamos proporcionarle una copia del
+          documento firmado después de un cierto período de tiempo.
         </p>
 
-        <h2>Acknowledgment</h2>
+        <h2>Reconocimiento</h2>
         <p>
-          By proceeding to use the electronic signature service provided by Documenso, you affirm
-          that you have read and understood this disclosure. You agree to all terms and conditions
-          related to the use of electronic signatures and electronic transactions as outlined
-          herein.
+          Al proceder a usar el servicio de firma electrónica proporcionado por FirmO, usted afirma
+          que ha leído y entendido esta divulgación. Acepta todos los términos y condiciones
+          relacionados con el uso de firmas electrónicas y transacciones electrónicas como se
+          describe aquí.
         </p>
 
-        <h2>Contact Information</h2>
+        <h2>Información de Contacto</h2>
         <p>
-          For any questions regarding this disclosure, electronic signatures, or any related
-          process, please contact us at:{' '}
-          <a href="mailto:support@documenso.com">support@documenso.com</a>
+          Para cualquier pregunta sobre esta divulgación, firmas electrónicas o cualquier proceso
+          relacionado, por favor contáctenos en:{' '}
+          <a href="mailto:tecnologia@disex.com.co">tecnologia@disex.com.co</a>
         </p>
       </article>
 

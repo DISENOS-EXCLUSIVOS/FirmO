@@ -67,8 +67,8 @@ export function BannerForm({ banner }: BannerFormProps) {
       });
 
       toast({
-        title: 'Banner Updated',
-        description: 'Your banner has been updated successfully.',
+        title: 'Banner actualizado',
+        description: 'Su banner se ha actualizado correctamente.',
         duration: 5000,
       });
 
@@ -76,16 +76,16 @@ export function BannerForm({ banner }: BannerFormProps) {
     } catch (err) {
       if (err instanceof TRPCClientError && err.data?.code === 'BAD_REQUEST') {
         toast({
-          title: 'An error occurred',
+          title: 'Ocurrió un error',
           description: err.message,
           variant: 'destructive',
         });
       } else {
         toast({
-          title: 'An unknown error occurred',
+          title: 'Un error desconocido ocurrió',
           variant: 'destructive',
           description:
-            'We encountered an unknown error while attempting to update the banner. Please try again later.',
+            'Encontramos un error desconocido al intentar actualizar el banner. Por favor, inténtelo de nuevo más tarde.',
         });
       }
     }
@@ -95,8 +95,8 @@ export function BannerForm({ banner }: BannerFormProps) {
     <div>
       <h2 className="font-semibold">Site Banner</h2>
       <p className="text-muted-foreground mt-2 text-sm">
-        The site banner is a message that is shown at the top of the site. It can be used to display
-        important information to your users.
+        El banner del sitio es un mensaje que se muestra en la parte superior del sitio. Se puede
+        utilizar para mostrar información importante para sus usuarios.
       </p>
 
       <Form {...form}>

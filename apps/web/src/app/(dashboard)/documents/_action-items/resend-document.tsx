@@ -91,16 +91,16 @@ export const ResendDocumentActionItem = ({
       await resendDocument({ documentId: document.id, recipients, teamId: team?.id });
 
       toast({
-        title: 'Document re-sent',
-        description: 'Your document has been re-sent successfully.',
+        title: 'Documento reenviado',
+        description: 'Su documento ha sido reenviado exitosamente.',
         duration: 5000,
       });
 
       setIsOpen(false);
     } catch (err) {
       toast({
-        title: 'Something went wrong',
-        description: 'This document could not be re-sent at this time. Please try again.',
+        title: 'Algo salió mal',
+        description: 'Este documento no se pudo reenviar en este momento. Inténtalo de nuevo.',
         variant: 'destructive',
         duration: 7500,
       });
@@ -112,14 +112,14 @@ export const ResendDocumentActionItem = ({
       <DialogTrigger asChild>
         <DropdownMenuItem disabled={isDisabled} onSelect={(e) => e.preventDefault()}>
           <History className="mr-2 h-4 w-4" />
-          Resend
+          Reenviar
         </DropdownMenuItem>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-sm" hideClose>
         <DialogHeader>
           <DialogTitle asChild>
-            <h1 className="text-center text-xl">Who do you want to remind?</h1>
+            <h1 className="text-center text-xl">¿A quién quieres recordarle?</h1>
           </DialogTitle>
         </DialogHeader>
 
@@ -178,12 +178,12 @@ export const ResendDocumentActionItem = ({
                 variant="secondary"
                 disabled={isSubmitting}
               >
-                Cancel
+                Cancelar
               </Button>
             </DialogClose>
 
             <Button className="flex-1" loading={isSubmitting} type="submit" form={FORM_ID}>
-              Send reminder
+              Enviar recordatorio
             </Button>
           </div>
         </DialogFooter>

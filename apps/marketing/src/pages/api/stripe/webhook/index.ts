@@ -119,7 +119,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { documentData } = document;
 
       if (!documentData) {
-        throw new Error(`Document ${document.id} has no document data`);
+        throw new Error(`Documento ${document.id} no tiene datos`);
       }
 
       const recipient = await prisma.recipient.create({

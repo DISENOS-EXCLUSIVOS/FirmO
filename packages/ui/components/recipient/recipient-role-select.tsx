@@ -27,14 +27,14 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.SIGNER]}</span>
-              Needs to sign
+              Necesita firmar
             </div>
             <Tooltip>
               <TooltipTrigger>
                 <InfoIcon className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent className="text-foreground z-9999 max-w-md p-4">
-                <p>The recipient is required to sign the document for it to be completed.</p>
+                <p>El destinatario debe firmar el documento para que se complete.</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -44,14 +44,14 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.APPROVER]}</span>
-              Needs to approve
+              Necesita aprobar
             </div>
             <Tooltip>
               <TooltipTrigger>
                 <InfoIcon className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent className="text-foreground z-9999 max-w-md p-4">
-                <p>The recipient is required to approve the document for it to be completed.</p>
+                <p>El destinatario debe aprobar el documento para que se complete.</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -61,14 +61,14 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.VIEWER]}</span>
-              Needs to view
+              Necesita ver
             </div>
             <Tooltip>
               <TooltipTrigger>
                 <InfoIcon className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent className="text-foreground z-9999 max-w-md p-4">
-                <p>The recipient is required to view the document for it to be completed.</p>
+                <p>El destinatario debe ver el documento para completarlo.</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -79,7 +79,7 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
             <div className="flex items-center">
               <div className="flex w-[150px] items-center">
                 <span className="mr-2">{ROLE_ICONS[RecipientRole.CC]}</span>
-                Receives copy
+                Recibe copia
               </div>
               <Tooltip>
                 <TooltipTrigger>
@@ -87,8 +87,8 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
                 </TooltipTrigger>
                 <TooltipContent className="text-foreground z-9999 max-w-md p-4">
                   <p>
-                    The recipient is not required to take any action and receives a copy of the
-                    document after it is completed.
+                    El destinatario no está obligado a realizar ninguna acción y recibe una copia de
+                    la documento una vez finalizado.
                   </p>
                 </TooltipContent>
               </Tooltip>

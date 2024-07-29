@@ -49,7 +49,7 @@ export const DocumentPageViewRecentActivity = ({
   return (
     <section className="dark:bg-background border-border bg-widget flex flex-col rounded-xl border">
       <div className="flex flex-row items-center justify-between border-b px-4 py-3">
-        <h1 className="text-foreground font-medium">Recent activity</h1>
+        <h1 className="text-foreground font-medium">Actividad reciente</h1>
 
         {/* Can add dropdown menu here for additional options. */}
       </div>
@@ -62,12 +62,14 @@ export const DocumentPageViewRecentActivity = ({
 
       {isLoadingError && (
         <div className="flex h-full flex-col items-center justify-center py-16">
-          <p className="text-foreground/80 text-sm">Unable to load document history</p>
+          <p className="text-foreground/80 text-sm">
+            No se puede cargar el historial del documento
+          </p>
           <button
             onClick={async () => refetch()}
             className="text-foreground/70 hover:text-muted-foreground mt-2 text-sm"
           >
-            Click here to retry
+            Haz click aquí para probar de nuevo
           </button>
         </div>
       )}
@@ -89,14 +91,14 @@ export const DocumentPageViewRecentActivity = ({
                   onClick={async () => fetchNextPage()}
                   className="text-foreground/70 hover:text-muted-foreground text-xs"
                 >
-                  {isFetchingNextPage ? 'Loading...' : 'Load older activity'}
+                  {isFetchingNextPage ? 'Cargando...' : 'Cargar actividad anterior'}
                 </button>
               </li>
             )}
 
             {documentAuditLogs.length === 0 && (
               <div className="flex items-center justify-center py-4">
-                <p className="text-muted-foreground/70 text-sm">No recent activity</p>
+                <p className="text-muted-foreground/70 text-sm">No hay actividad reciente</p>
               </div>
             )}
 

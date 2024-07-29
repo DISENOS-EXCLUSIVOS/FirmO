@@ -126,22 +126,22 @@ export const EditDocumentForm = ({
   const documentFlow: Record<EditDocumentStep, DocumentFlowStep> = {
     settings: {
       title: 'General',
-      description: 'Configure general settings for the document.',
+      description: 'Configure los ajustes generales del documento.',
       stepIndex: 1,
     },
     signers: {
-      title: 'Add Signers',
-      description: 'Add the people who will sign the document.',
+      title: 'Agregar firmantes',
+      description: 'Añade las personas que firmarán el documento.',
       stepIndex: 2,
     },
     fields: {
-      title: 'Add Fields',
-      description: 'Add all relevant fields for each recipient.',
+      title: 'Agregar campos',
+      description: 'Agregue todos los campos relevantes para cada destinatario.',
       stepIndex: 3,
     },
     subject: {
-      title: 'Add Subject',
-      description: 'Add the subject and message you wish to send to signers.',
+      title: 'Añadir asunto',
+      description: 'Agregue el asunto y el mensaje que desea enviar a los firmantes.',
       stepIndex: 4,
     },
   };
@@ -192,7 +192,7 @@ export const EditDocumentForm = ({
 
       toast({
         title: 'Error',
-        description: 'An error occurred while updating the document settings.',
+        description: 'Se produjo un error al actualizar la configuración del documento.',
         variant: 'destructive',
       });
     }
@@ -219,7 +219,7 @@ export const EditDocumentForm = ({
 
       toast({
         title: 'Error',
-        description: 'An error occurred while adding signers.',
+        description: 'Se produjo un error al agregar firmantes.',
         variant: 'destructive',
       });
     }
@@ -241,7 +241,7 @@ export const EditDocumentForm = ({
 
       toast({
         title: 'Error',
-        description: 'An error occurred while adding signers.',
+        description: 'Se produjo un error al agregar firmantes.',
         variant: 'destructive',
       });
     }
@@ -261,8 +261,8 @@ export const EditDocumentForm = ({
       });
 
       toast({
-        title: 'Document sent',
-        description: 'Your document has been sent successfully.',
+        title: 'Documento enviado',
+        description: 'Su documento ha sido enviado exitosamente.',
         duration: 5000,
       });
 
@@ -272,7 +272,7 @@ export const EditDocumentForm = ({
 
       toast({
         title: 'Error',
-        description: 'An error occurred while sending the document.',
+        description: 'Se produjo un error al enviar el documento.',
         variant: 'destructive',
       });
     }

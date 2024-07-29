@@ -1,5 +1,5 @@
 export class UserExistsError extends Error {
   constructor() {
-    super('User already exists');
+    super('El usuario ya existe');
   }
 }

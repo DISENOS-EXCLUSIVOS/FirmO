@@ -82,8 +82,8 @@ export const DocumentPageViewDropdown = ({ document, team }: DocumentPageViewDro
       await downloadPDF({ documentData, fileName: document.title });
     } catch (err) {
       toast({
-        title: 'Something went wrong',
-        description: 'An error occurred while downloading your document.',
+        title: 'Algo salió mal',
+        description: 'Se produjo un error al descargar su documento.',
         variant: 'destructive',
       });
     }
@@ -98,13 +98,13 @@ export const DocumentPageViewDropdown = ({ document, team }: DocumentPageViewDro
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-52" align="end" forceMount>
-        <DropdownMenuLabel>Action</DropdownMenuLabel>
+        <DropdownMenuLabel>Accciones</DropdownMenuLabel>
 
         {(isOwner || isCurrentTeamDocument) && !isComplete && (
           <DropdownMenuItem asChild>
             <Link href={`${documentsPath}/${document.id}/edit`}>
               <Edit className="mr-2 h-4 w-4" />
-              Edit
+              Editar
             </Link>
           </DropdownMenuItem>
         )}
@@ -112,20 +112,20 @@ export const DocumentPageViewDropdown = ({ document, team }: DocumentPageViewDro
         {isComplete && (
           <DropdownMenuItem onClick={onDownloadClick}>
             <Download className="mr-2 h-4 w-4" />
-            Download
+            Descargar
           </DropdownMenuItem>
         )}
 
         <DropdownMenuItem asChild>
           <Link href={`${documentsPath}/${document.id}/logs`}>
             <ScrollTextIcon className="mr-2 h-4 w-4" />
-            Audit Log
+            Registro de auditoría
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => setDuplicateDialogOpen(true)}>
           <Copy className="mr-2 h-4 w-4" />
-          Duplicate
+          Duplicar
         </DropdownMenuItem>
 
         <DropdownMenuItem
@@ -133,10 +133,10 @@ export const DocumentPageViewDropdown = ({ document, team }: DocumentPageViewDro
           disabled={Boolean(!canManageDocument && team?.teamEmail) || isDeleted}
         >
           <Trash2 className="mr-2 h-4 w-4" />
-          Delete
+          Eliminar
         </DropdownMenuItem>
 
-        <DropdownMenuLabel>Share</DropdownMenuLabel>
+        <DropdownMenuLabel>Compartir</DropdownMenuLabel>
 
         <ResendDocumentActionItem
           document={document}
@@ -151,7 +151,7 @@ export const DocumentPageViewDropdown = ({ document, team }: DocumentPageViewDro
             <DropdownMenuItem disabled={disabled || isDraft} onSelect={(e) => e.preventDefault()}>
               <div className="flex items-center">
                 {loading ? <Loader className="mr-2 h-4 w-4" /> : <Share className="mr-2 h-4 w-4" />}
-                Share Signing Card
+                Compartir tarjeta de firma
               </div>
             </DropdownMenuItem>
           )}

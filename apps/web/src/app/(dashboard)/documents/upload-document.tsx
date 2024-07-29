@@ -45,12 +45,12 @@ export const UploadDocument = ({ className, team }: UploadDocumentProps) => {
   const disabledMessage = useMemo(() => {
     if (remaining.documents === 0) {
       return team
-        ? 'Document upload disabled due to unpaid invoices'
-        : 'You have reached your document limit.';
+        ? 'Carga de documentos deshabilitada debido a facturas no pagas'
+        : 'Has alcanzado tu límite de documentos.';
     }
 
     if (!session?.user.emailVerified) {
-      return 'Verify your email to upload documents.';
+      return 'Verifique su correo electrónico para cargar documentos.';
     }
   }, [remaining.documents, session?.user.emailVerified, team]);
 
@@ -72,8 +72,8 @@ export const UploadDocument = ({ className, team }: UploadDocumentProps) => {
       });
 
       toast({
-        title: 'Document uploaded',
-        description: 'Your document has been uploaded successfully.',
+        title: 'Documento subido',
+        description: 'Su documento se ha subido exitosamente.',
         duration: 5000,
       });
 
@@ -91,8 +91,8 @@ export const UploadDocument = ({ className, team }: UploadDocumentProps) => {
 
       if (error.code === 'INVALID_DOCUMENT_FILE') {
         toast({
-          title: 'Invalid file',
-          description: 'You cannot upload encrypted PDFs',
+          title: 'Archivo inválido',
+          description: 'No puedes cargar archivos PDF cifrados',
           variant: 'destructive',
         });
       } else if (err instanceof TRPCClientError) {
@@ -104,7 +104,7 @@ export const UploadDocument = ({ className, team }: UploadDocumentProps) => {
       } else {
         toast({
           title: 'Error',
-          description: 'An error occurred while uploading your document.',
+          description: 'Se produjo un error al cargar su documento.',
           variant: 'destructive',
         });
       }
@@ -115,8 +115,8 @@ export const UploadDocument = ({ className, team }: UploadDocumentProps) => {
 
   const onFileDropRejected = () => {
     toast({
-      title: 'Your document failed to upload.',
-      description: `File cannot be larger than ${APP_DOCUMENT_UPLOAD_SIZE_LIMIT}MB`,
+      title: 'Su documento no se pudo cargar.',
+      description: `El archivo no puede ser mayor que ${APP_DOCUMENT_UPLOAD_SIZE_LIMIT}MB`,
       duration: 5000,
       variant: 'destructive',
     });

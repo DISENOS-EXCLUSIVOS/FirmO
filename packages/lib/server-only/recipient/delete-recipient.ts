@@ -45,11 +45,11 @@ export const deleteRecipient = async ({
   });
 
   if (!recipient) {
-    throw new Error('Recipient not found');
+    throw new Error('Destinatario no encontrado');
   }
 
   if (recipient.sendStatus !== SendStatus.NOT_SENT) {
-    throw new Error('Can not delete a recipient that has already been sent a document');
+    throw new Error('No se puede eliminar un destinatario al que ya se le ha enviado un documento');
   }
 
   const user = await prisma.user.findFirstOrThrow({

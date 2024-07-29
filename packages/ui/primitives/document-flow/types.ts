@@ -42,12 +42,12 @@ export const ZDocumentFlowFormSchema = z.object({
 export type TDocumentFlowFormSchema = z.infer<typeof ZDocumentFlowFormSchema>;
 
 export const FRIENDLY_FIELD_TYPE: Record<FieldType, string> = {
-  [FieldType.SIGNATURE]: 'Signature',
-  [FieldType.FREE_SIGNATURE]: 'Free Signature',
-  [FieldType.TEXT]: 'Text',
-  [FieldType.DATE]: 'Date',
-  [FieldType.EMAIL]: 'Email',
-  [FieldType.NAME]: 'Name',
+  [FieldType.SIGNATURE]: 'Firma',
+  [FieldType.FREE_SIGNATURE]: 'Firma gratuita',
+  [FieldType.TEXT]: 'Texto',
+  [FieldType.DATE]: 'Fecha',
+  [FieldType.EMAIL]: 'Correo',
+  [FieldType.NAME]: 'Nombre',
 };
 
 export interface DocumentFlowStep {
