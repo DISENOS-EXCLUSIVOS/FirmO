@@ -136,7 +136,7 @@ export const AvatarImageForm = ({ className, user, team }: AvatarImageFormProps)
             name="bytes"
             render={() => (
               <FormItem>
-                <FormLabel>Avatar</FormLabel>
+                <FormLabel>Foto de perfil</FormLabel>
 
                 <FormControl>
                   <div className="flex items-center gap-8">
@@ -172,7 +172,7 @@ export const AvatarImageForm = ({ className, user, team }: AvatarImageFormProps)
                       loading={form.formState.isSubmitting}
                       disabled={form.formState.isSubmitting}
                     >
-                      Actualizar Avatar
+                      Actualizar foto de perfil
                       <input {...getInputProps()} />
                     </Button>
                   </div>

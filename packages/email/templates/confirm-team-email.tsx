@@ -27,7 +27,7 @@ export type ConfirmTeamEmailProps = {
 
 export const ConfirmTeamEmailTemplate = ({
   assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
+  baseUrl = 'https://disex.com.co',
   teamName = 'equipo',
   teamUrl = 'demo',
   token = '',

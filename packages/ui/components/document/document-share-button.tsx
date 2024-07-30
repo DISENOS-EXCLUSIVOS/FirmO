@@ -110,78 +110,79 @@ export const DocumentShareButton = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
-        {trigger?.({
-          disabled: !documentId,
-          loading: isLoading,
-        }) || (
-          <Button
-            variant="outline"
-            disabled={!token || !documentId}
-            className={cn('flex-1 text-[11px]', className)}
-            loading={isLoading}
-          >
-            {!isLoading && <Sparkles className="mr-2 h-5 w-5" />}
-            Compartir tarjeta de firma
-          </Button>
-        )}
-      </DialogTrigger>
+    // <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    //   <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
+    //     {trigger?.({
+    //       disabled: !documentId,
+    //       loading: isLoading,
+    //     }) || (
+    //       <Button
+    //         variant="outline"
+    //         disabled={!token || !documentId}
+    //         className={cn('flex-1 text-[11px]', className)}
+    //         loading={isLoading}
+    //       >
+    //         {!isLoading && <Sparkles className="mr-2 h-5 w-5" />}
+    //         Compartir tarjeta de firma
+    //       </Button>
+    //     )}
+    //   </DialogTrigger>
 
-      <DialogContent position="end">
-        <DialogHeader>
-          <DialogTitle>¡Comparte tu experiencia de firma!</DialogTitle>
+    //   <DialogContent position="end">
+    //     <DialogHeader>
+    //       <DialogTitle>¡Comparte tu experiencia de firma!</DialogTitle>
 
-          <DialogDescription className="mt-4">
-            No te preocupes, el documento que firmaste o enviaste no será compartido; sólo lo es tu
-            experiencia de firma. ¡Comparte tu tarjeta de firma y muestra tu firma!
-          </DialogDescription>
-        </DialogHeader>
+    //       <DialogDescription className="mt-4">
+    //         No te preocupes, el documento que firmaste o enviaste no será compartido; sólo lo es tu
+    //         experiencia de firma. ¡Comparte tu tarjeta de firma y muestra tu firma!
+    //       </DialogDescription>
+    //     </DialogHeader>
 
-        <div className="flex w-full flex-col">
-          <div className="rounded-md border p-4">
-            I just {token ? 'signed' : 'sent'} a document in style with{' '}
-            <span className="font-medium text-blue-400">@documenso</span>
-            . Check it out!
-            <span className="mt-2 block" />
-            <span
-              className={cn('break-all font-medium text-blue-400', {
-                'animate-pulse': !shareLink?.slug,
-              })}
-            >
-              {NEXT_PUBLIC_WEBAPP_URL()}/share/{shareLink?.slug || '...'}
-            </span>
-            <div
-              className={cn(
-                'bg-muted/40 mt-4 aspect-[1200/630] overflow-hidden rounded-lg border',
-                {
-                  'animate-pulse': !shareLink?.slug,
-                },
-              )}
-            >
-              {shareLink?.slug && (
-                <img
-                  src={`${NEXT_PUBLIC_WEBAPP_URL()}/share/${shareLink.slug}/opengraph`}
-                  alt="sharing link"
-                  className="h-full w-full object-cover"
-                />
-              )}
-            </div>
-          </div>
+    //     <div className="flex w-full flex-col">
+    //       <div className="rounded-md border p-4">
+    //         I just {token ? 'signed' : 'sent'} a document in style with{' '}
+    //         <span className="font-medium text-blue-400">@documenso</span>
+    //         . Check it out!
+    //         <span className="mt-2 block" />
+    //         <span
+    //           className={cn('break-all font-medium text-blue-400', {
+    //             'animate-pulse': !shareLink?.slug,
+    //           })}
+    //         >
+    //           {NEXT_PUBLIC_WEBAPP_URL()}/share/{shareLink?.slug || '...'}
+    //         </span>
+    //         <div
+    //           className={cn(
+    //             'bg-muted/40 mt-4 aspect-[1200/630] overflow-hidden rounded-lg border',
+    //             {
+    //               'animate-pulse': !shareLink?.slug,
+    //             },
+    //           )}
+    //         >
+    //           {shareLink?.slug && (
+    //             <img
+    //               src={`${NEXT_PUBLIC_WEBAPP_URL()}/share/${shareLink.slug}/opengraph`}
+    //               alt="sharing link"
+    //               className="h-full w-full object-cover"
+    //             />
+    //           )}
+    //         </div>
+    //       </div>
 
-          <div className="mt-6 flex items-center gap-4">
-            <Button variant="outline" className="flex-1" onClick={onTweetClick}>
-              <FaXTwitter className="mr-2 h-4 w-4" />
-              Tweet
-            </Button>
+    //       <div className="mt-6 flex items-center gap-4">
+    //         <Button variant="outline" className="flex-1" onClick={onTweetClick}>
+    //           <FaXTwitter className="mr-2 h-4 w-4" />
+    //           Tweet
+    //         </Button>
 
-            <Button variant="outline" className="flex-1" onClick={onCopyClick}>
-              <Copy className="mr-2 h-4 w-4" />
-              Copiar enlace
-            </Button>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+    //         <Button variant="outline" className="flex-1" onClick={onCopyClick}>
+    //           <Copy className="mr-2 h-4 w-4" />
+    //           Copiar enlace
+    //         </Button>
+    //       </div>
+    //     </div>
+    //   </DialogContent>
+    // </Dialog>
+    <></>
   );
 };

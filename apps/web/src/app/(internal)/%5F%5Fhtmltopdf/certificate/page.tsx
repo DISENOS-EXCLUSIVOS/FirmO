@@ -146,7 +146,7 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
   return (
     <div className="print-provider pointer-events-none mx-auto max-w-screen-md">
       <div className="flex items-center">
-        <h1 className="my-8 text-2xl font-bold">Signing Certificate</h1>
+        <h1 className="my-8 text-2xl font-bold">Certificado de firma</h1>
       </div>
 
       <Card>
@@ -154,9 +154,9 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
           <Table overflowHidden>
             <TableHeader>
               <TableRow>
-                <TableHead>Signer Events</TableHead>
-                <TableHead>Signature</TableHead>
-                <TableHead>Details</TableHead>
+                <TableHead>Eventos de firmante</TableHead>
+                <TableHead>Firma</TableHead>
+                <TableHead>Detalles</TableHead>
                 {/* <TableHead>Security</TableHead> */}
               </TableRow>
             </TableHeader>
@@ -176,7 +176,7 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
                       </p>
 
                       <p className="text-muted-foreground mt-2 text-sm print:text-xs">
-                        <span className="font-medium">Authentication Level:</span>{' '}
+                        <span className="font-medium">Tipo de autenticación</span>{' '}
                         <span className="block">{getAuthenticationLevel(recipient.id)}</span>
                       </p>
                     </TableCell>
@@ -187,7 +187,7 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
                           <div
                             className="inline-block rounded-lg p-1"
                             style={{
-                              boxShadow: `0px 0px 0px 4.88px rgba(122, 196, 85, 0.1), 0px 0px 0px 1.22px rgba(122, 196, 85, 0.6), 0px 0px 0px 0.61px rgba(122, 196, 85, 1)`,
+                              border: '1px solid #e2e8f0',
                             }}
                           >
                             <img
@@ -198,35 +198,35 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
                           </div>
 
                           <p className="text-muted-foreground mt-2 text-sm print:text-xs">
-                            <span className="font-medium">Signature ID:</span>{' '}
+                            <span className="font-medium">ID:</span>{' '}
                             <span className="block font-mono uppercase">
                               {signature.secondaryId}
                             </span>
                           </p>
 
                           <p className="text-muted-foreground mt-2 text-sm print:text-xs">
-                            <span className="font-medium">IP Address:</span>{' '}
+                            <span className="font-medium">Dirección IP:</span>{' '}
                             <span className="inline-block">
                               {logs.DOCUMENT_RECIPIENT_COMPLETED[0]?.ipAddress ?? 'Unknown'}
                             </span>
                           </p>
 
                           <p className="text-muted-foreground mt-1 text-sm print:text-xs">
-                            <span className="font-medium">Device:</span>{' '}
+                            <span className="font-medium">Dispositivo:</span>{' '}
                             <span className="inline-block">
                               {getDevice(logs.DOCUMENT_RECIPIENT_COMPLETED[0]?.userAgent)}
                             </span>
                           </p>
                         </>
                       ) : (
-                        <p className="text-muted-foreground">N/A</p>
+                        <p className="text-muted-foreground">No aplica</p>
                       )}
                     </TableCell>
 
                     <TableCell truncate={false} className="w-[min-content] align-top">
                       <div className="space-y-1">
                         <p className="text-muted-foreground text-sm print:text-xs">
-                          <span className="font-medium">Sent:</span>{' '}
+                          <span className="font-medium">Enviado:</span>{' '}
                           <span className="inline-block">
                             {logs.EMAIL_SENT[0] ? (
                               <LocaleDate
@@ -240,7 +240,7 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
                         </p>
 
                         <p className="text-muted-foreground text-sm print:text-xs">
-                          <span className="font-medium">Viewed:</span>{' '}
+                          <span className="font-medium">Leído:</span>{' '}
                           <span className="inline-block">
                             {logs.DOCUMENT_OPENED[0] ? (
                               <LocaleDate
@@ -254,7 +254,7 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
                         </p>
 
                         <p className="text-muted-foreground text-sm print:text-xs">
-                          <span className="font-medium">Signed:</span>{' '}
+                          <span className="font-medium">Firmado:</span>{' '}
                           <span className="inline-block">
                             {logs.DOCUMENT_RECIPIENT_COMPLETED[0] ? (
                               <LocaleDate
@@ -266,15 +266,6 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
                             )}
                           </span>
                         </p>
-
-                        <p className="text-muted-foreground text-sm print:text-xs">
-                          <span className="font-medium">Reason:</span>{' '}
-                          <span className="inline-block">
-                            {isOwner(recipient.email)
-                              ? FRIENDLY_SIGNING_REASONS['__OWNER__']
-                              : FRIENDLY_SIGNING_REASONS[recipient.role]}
-                          </span>
-                        </p>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -284,16 +275,6 @@ export default async function SigningCertificate({ searchParams }: SigningCertif
           </Table>
         </CardContent>
       </Card>
-
-      <div className="my-8 flex-row-reverse">
-        <div className="flex items-end justify-end gap-x-4">
-          <p className="flex-shrink-0 text-sm font-medium print:text-xs">
-            Signing certificate provided by:
-          </p>
-
-          <Logo className="max-h-6 print:max-h-4" />
-        </div>
-      </div>
     </div>
   );
 }

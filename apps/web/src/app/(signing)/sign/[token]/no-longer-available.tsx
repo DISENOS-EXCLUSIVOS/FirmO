@@ -54,12 +54,12 @@ export const NoLongerAvailable = ({
         ) : (
           <p className="text-muted-foreground/60 mt-36 text-sm">
             Want to send slick signing links like this one?{' '}
-            <Link
-              href="https://documenso.com"
+            {/* <Link
+              href="https://disex.com.co"
               className="text-documenso-700 hover:text-documenso-600"
             >
               Regresar a FirmO
-            </Link>
+            </Link> */}
           </p>
         )}
       </div>

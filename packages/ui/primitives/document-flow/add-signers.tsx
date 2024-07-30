@@ -212,6 +212,7 @@ export const AddSignersFormPartial = ({
                   className={cn('grid grid-cols-8 gap-4 pb-4', {
                     'border-b pt-2': showAdvancedSettings,
                   })}
+                  
                 >
                   <FormField
                     control={form.control}

@@ -4,7 +4,7 @@ import { prisma } from '..';
 import { TeamMemberInviteStatus, TeamMemberRole } from '../client';
 import { seedUser } from './users';
 
-const EMAIL_DOMAIN = `test.documenso.com`;
+const EMAIL_DOMAIN = `test.disex.com.co`;
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
 type SeedTeamOptions = {

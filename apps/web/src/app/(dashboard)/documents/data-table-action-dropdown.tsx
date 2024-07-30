@@ -114,7 +114,7 @@ export const DataTableActionDropdown = ({ row, team }: DataTableActionDropdownPr
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-52" align="start" forceMount>
-        <DropdownMenuLabel>Action</DropdownMenuLabel>
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
         {!isDraft && recipient && recipient?.role !== RecipientRole.CC && (
           <DropdownMenuItem disabled={!recipient || isComplete} asChild>
@@ -122,21 +122,21 @@ export const DataTableActionDropdown = ({ row, team }: DataTableActionDropdownPr
               {recipient?.role === RecipientRole.VIEWER && (
                 <>
                   <EyeIcon className="mr-2 h-4 w-4" />
-                  View
+                  Ver
                 </>
               )}
 
               {recipient?.role === RecipientRole.SIGNER && (
                 <>
                   <Pencil className="mr-2 h-4 w-4" />
-                  Sign
+                  Firmar
                 </>
               )}
 
               {recipient?.role === RecipientRole.APPROVER && (
                 <>
                   <CheckCircle className="mr-2 h-4 w-4" />
-                  Approve
+                  Aprobar
                 </>
               )}
             </Link>
@@ -146,58 +146,27 @@ export const DataTableActionDropdown = ({ row, team }: DataTableActionDropdownPr
         <DropdownMenuItem disabled={!canManageDocument || isComplete} asChild>
           <Link href={`${documentsPath}/${row.id}/edit`}>
             <Edit className="mr-2 h-4 w-4" />
-            Edit
+            Editar
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem disabled={!isComplete} onClick={onDownloadClick}>
           <Download className="mr-2 h-4 w-4" />
-          Download
+          Descargar
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => setDuplicateDialogOpen(true)}>
           <Copy className="mr-2 h-4 w-4" />
-          Duplicate
+          Duplicar
         </DropdownMenuItem>
-
-        {/* We don't want to allow teams moving documents across at the moment. */}
-        {!team && (
-          <DropdownMenuItem onClick={() => setMoveDialogOpen(true)}>
-            <MoveRight className="mr-2 h-4 w-4" />
-            Move to Team
-          </DropdownMenuItem>
-        )}
-
-        {/* No point displaying this if there's no functionality. */}
-        {/* <DropdownMenuItem disabled>
-          <XCircle className="mr-2 h-4 w-4" />
-          Void
-        </DropdownMenuItem> */}
 
         <DropdownMenuItem
           onClick={() => setDeleteDialogOpen(true)}
           disabled={Boolean(!canManageDocument && team?.teamEmail)}
         >
           <Trash2 className="mr-2 h-4 w-4" />
-          {canManageDocument ? 'Delete' : 'Hide'}
+          {canManageDocument ? 'Eliminar' : 'Ocultar'}
         </DropdownMenuItem>
-
-        <DropdownMenuLabel>Share</DropdownMenuLabel>
-
-        <ResendDocumentActionItem document={row} recipients={nonSignedRecipients} team={team} />
-
-        <DocumentShareButton
-          documentId={row.id}
-          token={isOwner ? undefined : recipient?.token}
-          trigger={({ loading, disabled }) => (
-            <DropdownMenuItem disabled={disabled || isDraft} onSelect={(e) => e.preventDefault()}>
-              <div className="flex items-center">
-                {loading ? <Loader className="mr-2 h-4 w-4" /> : <Share className="mr-2 h-4 w-4" />}
-                Share Signing Card
-              </div>
-            </DropdownMenuItem>
-          )}
-        />
       </DropdownMenuContent>
 
       <DeleteDocumentDialog

@@ -64,15 +64,16 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
   };
 
   const formatSecondaryAvatarText = (team?: typeof selectedTeam) => {
-    if (!team) {
-      return 'Cuenta personal';
-    }
+    // if (!team) {
+    //   return 'Cuenta s';
+    // }
 
-    if (team.ownerUserId === user.id) {
-      return 'Dueño';
-    }
+    // if (team.ownerUserId === user.id) {
+    //   return 'Dueño';
+    // }
 
-    return TEAM_MEMBER_ROLE_MAP[team.currentTeamMember.role];
+    return "DISEÑOS EXCLUSIVOS SAS";
+
   };
 
   /**
@@ -121,7 +122,7 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
       >
         {teams ? (
           <>
-            <DropdownMenuLabel>Personal</DropdownMenuLabel>
+            {/* <DropdownMenuLabel>Personal</DropdownMenuLabel> */}
 
             <DropdownMenuItem asChild>
               <Link href={formatRedirectUrlOnSwitch()}>
@@ -133,7 +134,6 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
                   }
                   avatarFallback={formatAvatarFallback()}
                   primaryText={user.name}
-                  secondaryText={formatSecondaryAvatarText()}
                   rightSideComponent={
                     !pathname?.startsWith(`/t/`) && (
                       <CheckCircle2 className="ml-auto fill-black text-white dark:fill-white dark:text-black" />
@@ -145,7 +145,7 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
 
             <DropdownMenuSeparator className="mt-2" />
 
-            <DropdownMenuLabel>
+            {/* <DropdownMenuLabel>
               <div className="flex flex-row items-center justify-between">
                 <p>Equipos</p>
 
@@ -177,9 +177,9 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
                   </DropdownMenuItem>
                 </div>
               </div>
-            </DropdownMenuLabel>
+            </DropdownMenuLabel> */}
 
-            <div className="custom-scrollbar max-h-[40vh] overflow-auto">
+            {/* <div className="custom-scrollbar max-h-[40vh] overflow-auto">
               {teams.map((team) => (
                 <DropdownMenuItem asChild key={team.id}>
                   <MotionLink
@@ -226,7 +226,7 @@ export const MenuSwitcher = ({ user, teams: initialTeamsData }: MenuSwitcherProp
                   </MotionLink>
                 </DropdownMenuItem>
               ))}
-            </div>
+            </div> */}
           </>
         ) : (
           <DropdownMenuItem className="text-muted-foreground px-4 py-2" asChild>

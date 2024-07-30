@@ -21,7 +21,7 @@ export type ResetPasswordTemplateProps = Partial<TemplateResetPasswordProps>;
 
 export const ResetPasswordTemplate = ({
   userName = 'Lucas Smith',
-  userEmail = 'lucas@documenso.com',
+  userEmail = 'lucas@disex.com.co',
   assetBaseUrl = 'http://localhost:3002',
 }: ResetPasswordTemplateProps) => {
   const previewText = `Restablecimiento de contraseña exitoso`;
@@ -47,7 +47,7 @@ export const ResetPasswordTemplate = ({
           <Section>
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img src={getAssetUrl('/static/logo.png')} alt="FirmO Logo" className="mb-4 h-6" />
+                <Img src={'https://ibb.co/f0T5w3j'} alt="FirmO Logo" className="mb-4 h-6" />
 
                 <TemplateResetPassword
                   userName={userName}
@@ -72,7 +72,10 @@ export const ResetPasswordTemplate = ({
                 <Text className="mt-2 text-base text-slate-400">
                   ¿No solicitaste un cambio de contraseña? Estamos aquí para ayudarle a proteger su
                   cuenta{' '}
-                  <Link className="text-documenso-700 font-normal" href="mailto:hi@documenso.com">
+                  <Link
+                    className="text-documenso-700 font-normal"
+                    href="mailto:tecnologia@disex.com.co"
+                  >
                     Contacta con Desarrollo TI
                   </Link>
                 </Text>

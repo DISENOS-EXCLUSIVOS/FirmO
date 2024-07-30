@@ -151,7 +151,7 @@ export default async function PublicProfilePage({ params }: PublicProfilePagePro
             <TableHeader>
               <TableRow>
                 <TableHead className="w-full rounded-tl-md bg-neutral-50 dark:bg-neutral-700">
-                  Documents
+                  Documentos
                 </TableHead>
               </TableRow>
             </TableHeader>

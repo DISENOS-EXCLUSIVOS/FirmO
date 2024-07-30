@@ -49,9 +49,9 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
             Perfíl público
           </Button>
         </Link>
-      )}
+      )} 
 
-      <Link href="/settings/teams">
+      {/* <Link href="/settings/teams">
         <Button
           variant="ghost"
           className={cn(
@@ -86,11 +86,11 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
           )}
         >
           <Braces className="mr-2 h-5 w-5" />
-          API Tokens
+          token <span>&nbsp; <b>EXPERIMENTAL</b></span>
         </Button>
       </Link>
 
-      <Link href="/settings/webhooks">
+      {/* <Link href="/settings/webhooks">
         <Button
           variant="ghost"
           className={cn(
@@ -101,9 +101,9 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
           <Webhook className="mr-2 h-5 w-5" />
           Webhooks
         </Button>
-      </Link>
+      </Link> */}
 
-      {isBillingEnabled && (
+      {/* {isBillingEnabled && (
         <Link href="/settings/billing">
           <Button
             variant="ghost"
@@ -116,7 +116,7 @@ export const DesktopNav = ({ className, ...props }: DesktopNavProps) => {
             Facturación
           </Button>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };

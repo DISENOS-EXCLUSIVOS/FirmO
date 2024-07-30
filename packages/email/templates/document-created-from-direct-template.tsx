@@ -57,7 +57,7 @@ export const DocumentCreatedFromDirectTemplateEmailTemplate = ({
           <Section className="bg-white">
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-2 backdrop-blur-sm">
               <Section className="p-2">
-                <Img src={getAssetUrl('/static/logo.png')} alt="FirmO Logo" className="mb-4 h-6" />
+                <Img src={'https://ibb.co/f0T5w3j'} alt="FirmO Logo" className="mb-4 h-6" />
 
                 <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 

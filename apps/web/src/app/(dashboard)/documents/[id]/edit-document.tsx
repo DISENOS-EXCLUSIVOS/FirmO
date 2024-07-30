@@ -300,7 +300,8 @@ export const EditDocumentForm = ({
     <div className={cn('grid w-full grid-cols-12 gap-8', className)}>
       <Card
         className="relative col-span-12 rounded-xl before:rounded-xl lg:col-span-6 xl:col-span-7"
-        gradient
+        
+        
       >
         <CardContent className="p-2">
           <LazyPDFViewer

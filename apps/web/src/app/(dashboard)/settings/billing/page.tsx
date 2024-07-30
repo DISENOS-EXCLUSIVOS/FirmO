@@ -65,57 +65,58 @@ export default async function BillingSettingsPage() {
     !subscription || subscription.status === SubscriptionStatus.INACTIVE;
 
   return (
-    <div>
-      <h3 className="text-2xl font-semibold">Billing</h3>
+    // <div>
+    //   <h3 className="text-2xl font-semibold">Billing</h3>
 
-      <div className="text-muted-foreground mt-2 text-sm">
-        {isMissingOrInactiveOrFreePlan && (
-          <p>
-            You are currently on the <span className="font-semibold">Free Plan</span>.
-          </p>
-        )}
+    //   <div className="text-muted-foreground mt-2 text-sm">
+    //     {isMissingOrInactiveOrFreePlan && (
+    //       <p>
+    //         You are currently on the <span className="font-semibold">Free Plan</span>.
+    //       </p>
+    //     )}
 
-        {!isMissingOrInactiveOrFreePlan &&
-          match(subscription.status)
-            .with('ACTIVE', () => (
-              <p>
-                {subscriptionProduct ? (
-                  <span>
-                    You are currently subscribed to{' '}
-                    <span className="font-semibold">{subscriptionProduct.name}</span>
-                  </span>
-                ) : (
-                  <span>You currently have an active plan</span>
-                )}
+    //     {!isMissingOrInactiveOrFreePlan &&
+    //       match(subscription.status)
+    //         .with('ACTIVE', () => (
+    //           <p>
+    //             {subscriptionProduct ? (
+    //               <span>
+    //                 You are currently subscribed to{' '}
+    //                 <span className="font-semibold">{subscriptionProduct.name}</span>
+    //               </span>
+    //             ) : (
+    //               <span>You currently have an active plan</span>
+    //             )}
 
-                {subscription.periodEnd && (
-                  <span>
-                    {' '}
-                    which is set to{' '}
-                    {subscription.cancelAtPeriodEnd ? (
-                      <span>
-                        end on{' '}
-                        <LocaleDate className="font-semibold" date={subscription.periodEnd} />.
-                      </span>
-                    ) : (
-                      <span>
-                        automatically renew on{' '}
-                        <LocaleDate className="font-semibold" date={subscription.periodEnd} />.
-                      </span>
-                    )}
-                  </span>
-                )}
-              </p>
-            ))
-            .with('PAST_DUE', () => (
-              <p>Your current plan is past due. Please update your payment information.</p>
-            ))
-            .otherwise(() => null)}
-      </div>
+    //             {subscription.periodEnd && (
+    //               <span>
+    //                 {' '}
+    //                 which is set to{' '}
+    //                 {subscription.cancelAtPeriodEnd ? (
+    //                   <span>
+    //                     end on{' '}
+    //                     <LocaleDate className="font-semibold" date={subscription.periodEnd} />.
+    //                   </span>
+    //                 ) : (
+    //                   <span>
+    //                     automatically renew on{' '}
+    //                     <LocaleDate className="font-semibold" date={subscription.periodEnd} />.
+    //                   </span>
+    //                 )}
+    //               </span>
+    //             )}
+    //           </p>
+    //         ))
+    //         .with('PAST_DUE', () => (
+    //           <p>Your current plan is past due. Please update your payment information.</p>
+    //         ))
+    //         .otherwise(() => null)}
+    //   </div>
 
-      <hr className="my-4" />
+    //   <hr className="my-4" />
 
-      {isMissingOrInactiveOrFreePlan ? <BillingPlans prices={prices} /> : <BillingPortalButton />}
-    </div>
+    //   {isMissingOrInactiveOrFreePlan ? <BillingPlans prices={prices} /> : <BillingPortalButton />}
+    // </div>
+    <></>
   );
 }

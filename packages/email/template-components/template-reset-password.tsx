@@ -29,8 +29,9 @@ export const TemplateResetPassword = ({ assetBaseUrl }: TemplateResetPasswordPro
           <Button
             className="bg-documenso-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-black no-underline"
             href={`${NEXT_PUBLIC_WEBAPP_URL ?? 'http://localhost:3000'}/signin`}
+            style={{ backgroundColor: '#FFFFF', color: '#000000' }}
           >
-            Iniciar seseión
+            Iniciar Sesión
           </Button>
         </Section>
       </Section>

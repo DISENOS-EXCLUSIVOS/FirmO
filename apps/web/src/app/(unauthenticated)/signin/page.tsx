@@ -10,7 +10,7 @@ import { decryptSecondaryData } from '@documenso/lib/server-only/crypto/decrypt'
 import { SignInForm } from '~/components/forms/signin';
 
 export const metadata: Metadata = {
-  title: 'Sign In',
+  title: 'Iniciar Sesión',
 };
 
 type SignInPageProps = {
@@ -30,13 +30,11 @@ export default function SignInPage({ searchParams }: SignInPageProps) {
   }
 
   return (
-    <div className="w-screen max-w-lg px-4">
-      <div className="border-border dark:bg-background z-10 rounded-xl border bg-neutral-100 p-6">
-        <h1 className="text-2xl font-semibold">Iniciar sesión con su cuenta</h1>
+    <div className="w-screen max-w-lg px-4" >
+      <div className="border-border dark:bg-background z-10 rounded-xl border bg-neutral-100 p-6" style={{background:"#222"}}> 
+        <h1 className="text-2xl font-semibold">Iniciar sesión</h1>
 
-        <p className="text-muted-foreground mt-2 text-sm">
-          ¡Bienvenido de nuevo a FirmO, tenemos suerte de tenerte!
-        </p>
+       
         <hr className="-mx-6 my-4" />
 
         <SignInForm
@@ -45,14 +43,7 @@ export default function SignInPage({ searchParams }: SignInPageProps) {
           isOIDCSSOEnabled={IS_OIDC_SSO_ENABLED}
         />
 
-        {NEXT_PUBLIC_DISABLE_SIGNUP !== 'true' && (
-          <p className="text-muted-foreground mt-6 text-center text-sm">
-            ¿No tienes una cuenta?{' '}
-            <Link href="/signup" className="text-documenso-700 duration-200 hover:opacity-70">
-              Registrarse
-            </Link>
-          </p>
-        )}
+    
       </div>
     </div>
   );

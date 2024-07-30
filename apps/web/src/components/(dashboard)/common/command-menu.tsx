@@ -187,7 +187,7 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
         )}
         {!currentPage && (
           <>
-            <CommandGroup className="mx-2 p-0 pb-2" heading="Documentos">
+            {/* <CommandGroup className="mx-2 p-0 pb-2" heading="Documentos">
               <Commands push={push} pages={DOCUMENTS_PAGES} />
             </CommandGroup>
             <CommandGroup className="mx-2 p-0 pb-2" heading="Plantillas">
@@ -200,7 +200,7 @@ export function CommandMenu({ open, onOpenChange }: CommandMenuProps) {
               <CommandItem className="-mx-2 -my-1 rounded-lg" onSelect={() => addPage('theme')}>
                 Cambiar Tema
               </CommandItem>
-            </CommandGroup>
+            </CommandGroup> */}
             {searchResults.length > 0 && (
               <CommandGroup className="mx-2 p-0 pb-2" heading="Tus documentos">
                 <Commands push={push} pages={searchResults} />

@@ -80,7 +80,7 @@ export default async function CompletedSigningPage({
 
   const recipientName =
     recipient.name ||
-    fields.find((field) => field.type === FieldType.NAME)?.customText ||
+    fields.find((field: { type: string }) => field.type === FieldType.NAME)?.customText ||
     recipient.email;
 
   const sessionData = await getServerSession();
@@ -118,9 +118,9 @@ export default async function CompletedSigningPage({
 
           <h2 className="mt-6 max-w-[35ch] text-center text-2xl font-semibold leading-normal md:text-3xl lg:text-4xl">
             Documento
-            {recipient.role === RecipientRole.SIGNER && ' Firmado '}
-            {recipient.role === RecipientRole.VIEWER && ' VIsto '}
-            {recipient.role === RecipientRole.APPROVER && ' Aprobado '}
+            {recipient.role === RecipientRole.SIGNER && 'Firmado'}
+            {recipient.role === RecipientRole.VIEWER && 'Visto'}
+            {recipient.role === RecipientRole.APPROVER && 'Aprobado'}
           </h2>
 
           {match({ status: document.status, deletedAt: document.deletedAt })

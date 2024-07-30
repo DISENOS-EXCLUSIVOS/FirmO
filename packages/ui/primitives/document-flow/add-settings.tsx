@@ -190,15 +190,14 @@ export const AddSettingsFormPartial = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex flex-row items-center">
-                            ID Externo{' '}
+                            Consecutivo{' '}
                             <Tooltip>
                               <TooltipTrigger>
                                 <InfoIcon className="mx-2 h-4 w-4" />
                               </TooltipTrigger>
 
                               <TooltipContent className="text-muted-foreground max-w-xs">
-                                Agregue una identificación externa al documento. Esto puede usarse
-                                para identificar el documento en sistemas externos.
+                                Agregue una identificación externa al documento. Esto ayudará a identificarlo en reportes.
                               </TooltipContent>
                             </Tooltip>
                           </FormLabel>
@@ -229,7 +228,7 @@ export const AddSettingsFormPartial = ({
                                 <SelectValue />
                               </SelectTrigger>
 
-                              <SelectContent>
+                              <SelectContent style={{color:"white"}}>
                                 {DATE_FORMATS.map((format) => (
                                   <SelectItem key={format.key} value={format.value}>
                                     {format.label}
@@ -244,7 +243,7 @@ export const AddSettingsFormPartial = ({
                       )}
                     />
 
-                    <FormField
+                    {/* <FormField
                       control={form.control}
                       name="meta.timezone"
                       render={({ field }) => (
@@ -256,7 +255,7 @@ export const AddSettingsFormPartial = ({
                               className="bg-background"
                               options={TIME_ZONES}
                               {...field}
-                              onChange={(value) => value && field.onChange(value)}
+                             value={"America/Bogota"}
                               disabled={documentHasBeenSent}
                             />
                           </FormControl>
@@ -264,7 +263,7 @@ export const AddSettingsFormPartial = ({
                           <FormMessage />
                         </FormItem>
                       )}
-                    />
+                    /> */}
 
                     <FormField
                       control={form.control}

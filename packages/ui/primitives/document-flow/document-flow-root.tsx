@@ -108,8 +108,10 @@ export const DocumentFlowFormContainerStep = ({
           layout="size"
           layoutId="document-flow-container-step"
           className="bg-documenso absolute inset-y-0 left-0"
+
           style={{
             width: `${(100 / maxStep) * step}%`,
+            backgroundColor: "#FFFFFF"
           }}
         />
       </div>
@@ -155,6 +157,7 @@ export const DocumentFlowFormContainerActions = ({
         type="button"
         className="bg-documenso flex-1"
         size="lg"
+        style={{backgroundColor: "#FFFFFF"}}
         disabled={disabled || loading || !canGoNext}
         loading={loading}
         onClick={onGoNextClick}

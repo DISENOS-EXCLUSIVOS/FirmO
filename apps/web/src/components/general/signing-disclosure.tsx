@@ -10,16 +10,16 @@ export const SigningDisclosure = ({ className, ...props }: SigningDisclosureProp
   return (
     <p className={cn('text-muted-foreground text-xs', className)} {...props}>
       Al proceder con su firma electrónica, usted reconoce y consiente que se utilizará para firmar
-      el documento dado y tiene la misma validez legal que una firma manuscrita. Al completar el
-      proceso de firma electrónica, usted afirma su comprensión y aceptación de estas condiciones.
+      el documento dado y tiene la misma validez legal que una firma escrita. Al completar el
+      proceso de firma electrónica, afirma comprender y aceptar estas condiciones.
       <span className="mt-2 block">
-        lea la{' '}
+        lea los{' '}
         <Link
           className="text-documenso-700 underline"
           href="/articles/signature-disclosure"
           target="_blank"
         >
-          divulgación completa de la firma
+          términos y condiciones
         </Link>
         .
       </span>

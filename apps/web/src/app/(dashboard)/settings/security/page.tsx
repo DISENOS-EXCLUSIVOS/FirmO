@@ -13,7 +13,7 @@ import { ViewRecoveryCodesDialog } from '~/components/forms/2fa/view-recovery-co
 import { PasswordForm } from '~/components/forms/password';
 
 export const metadata: Metadata = {
-  title: 'Security',
+  title: 'Seguridad',
 };
 
 export default async function SecuritySettingsPage() {
@@ -23,10 +23,10 @@ export default async function SecuritySettingsPage() {
 
   return (
     <div>
-      <SettingsHeader
+      {/* <SettingsHeader
         title="Seguridad"
-        subtitle="quí puede administrar su contraseña y configuración de seguridad."
-      />
+        subtitle="Aquí puede administrar su contraseña y configuración de seguridad."
+      /> */}
 
       {user.identityProvider === 'DOCUMENSO' && (
         <>
@@ -36,7 +36,7 @@ export default async function SecuritySettingsPage() {
         </>
       )}
 
-      <Alert
+      {/* <Alert
         className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"
         variant="neutral"
       >
@@ -56,7 +56,7 @@ export default async function SecuritySettingsPage() {
         ) : (
           <EnableAuthenticatorAppDialog />
         )}
-      </Alert>
+      </Alert> */}
 
       {user.twoFactorEnabled && (
         <Alert
@@ -76,7 +76,7 @@ export default async function SecuritySettingsPage() {
         </Alert>
       )}
 
-      {isPasskeyEnabled && (
+      {/* {isPasskeyEnabled && (
         <Alert
           className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"
           variant="neutral"
@@ -94,7 +94,7 @@ export default async function SecuritySettingsPage() {
             <Link href="/settings/security/passkeys">Administrar claves de acceso</Link>
           </Button>
         </Alert>
-      )}
+      )} */}
 
       <Alert
         className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"

@@ -9,7 +9,7 @@ import { CreatePasskeyDialog } from './create-passkey-dialog';
 import { UserPasskeysDataTable } from './user-passkeys-data-table';
 
 export const metadata: Metadata = {
-  title: 'Manage passkeys',
+  title: 'Manejar pass',
 };
 
 export default async function SettingsManagePasskeysPage() {

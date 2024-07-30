@@ -344,7 +344,7 @@ export const AddFieldsFormPartial = ({
       />
 
       <DocumentFlowFormContainerContent>
-        <div className="flex flex-col">
+        <div className="flex flex-col"> 
           {selectedField && (
             <Card
               className={cn(
@@ -353,15 +353,17 @@ export const AddFieldsFormPartial = ({
                   'border-field-card-border': isFieldWithinBounds,
                   'opacity-50': !isFieldWithinBounds,
                 },
+              
               )}
               style={{
                 top: coords.y,
                 left: coords.x,
                 height: fieldBounds.current.height,
                 width: fieldBounds.current.width,
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
               }}
             >
-              <CardContent className="text-field-card-foreground flex h-full w-full items-center justify-center p-2">
+              <CardContent className="text-field-card-foreground flex h-full w-full items-center justify-center p-2" >
                 {FRIENDLY_FIELD_TYPE[selectedField]}
               </CardContent>
             </Card>
@@ -379,6 +381,7 @@ export const AddFieldsFormPartial = ({
                 onResize={(options) => onFieldResize(options, index)}
                 onMove={(options) => onFieldMove(options, index)}
                 onRemove={() => remove(index)}
+               
               />
             ))}
 
@@ -389,7 +392,8 @@ export const AddFieldsFormPartial = ({
                   type="button"
                   variant="outline"
                   role="combobox"
-                  className="bg-background text-muted-foreground mb-12 justify-between font-normal"
+                  className="text-muted-foreground mb-12 justify-between font-normal"
+                  
                 >
                   {selectedSigner?.email && (
                     <span className="flex-1 truncate text-left">
@@ -497,7 +501,9 @@ export const AddFieldsFormPartial = ({
                 onMouseDown={() => setSelectedField(FieldType.SIGNATURE)}
                 data-selected={selectedField === FieldType.SIGNATURE ? true : undefined}
               >
-                <Card className="group-data-[selected]:border-documenso h-full w-full cursor-pointer group-disabled:opacity-50">
+                <Card className="group-data-[selected]: h-full w-full cursor-pointer group-disabled:opacity-50" 
+                
+                >
                   <CardContent className="flex flex-col items-center justify-center px-6 py-4">
                     <p
                       className={cn(
@@ -520,7 +526,7 @@ export const AddFieldsFormPartial = ({
                 onMouseDown={() => setSelectedField(FieldType.EMAIL)}
                 data-selected={selectedField === FieldType.EMAIL ? true : undefined}
               >
-                <Card className="group-data-[selected]:border-documenso h-full w-full cursor-pointer group-disabled:opacity-50">
+                <Card className="group-data-[selected]: h-full w-full cursor-pointer group-disabled:opacity-50">
                   <CardContent className="flex flex-col items-center justify-center px-6 py-4">
                     <p
                       className={cn(
@@ -542,7 +548,7 @@ export const AddFieldsFormPartial = ({
                 onMouseDown={() => setSelectedField(FieldType.NAME)}
                 data-selected={selectedField === FieldType.NAME ? true : undefined}
               >
-                <Card className="group-data-[selected]:border-documenso h-full w-full cursor-pointer group-disabled:opacity-50">
+                <Card className="group-data-[selected]: h-full w-full cursor-pointer group-disabled:opacity-50">
                   <CardContent className="flex flex-col items-center justify-center px-6 py-4">
                     <p
                       className={cn(
@@ -564,7 +570,7 @@ export const AddFieldsFormPartial = ({
                 onMouseDown={() => setSelectedField(FieldType.DATE)}
                 data-selected={selectedField === FieldType.DATE ? true : undefined}
               >
-                <Card className="group-data-[selected]:border-documenso h-full w-full cursor-pointer group-disabled:opacity-50">
+                <Card className="group-data-[selected]: h-full w-full cursor-pointer group-disabled:opacity-50">
                   <CardContent className="flex flex-col items-center justify-center px-6 py-4">
                     <p
                       className={cn(
@@ -586,7 +592,7 @@ export const AddFieldsFormPartial = ({
                 onMouseDown={() => setSelectedField(FieldType.TEXT)}
                 data-selected={selectedField === FieldType.TEXT ? true : undefined}
               >
-                <Card className="group-data-[selected]:border-documenso h-full w-full cursor-pointer group-disabled:opacity-50">
+                <Card className="group-data-[selected]: h-full w-full cursor-pointer group-disabled:opacity-50">
                   <CardContent className="flex flex-col items-center justify-center px-6 py-4">
                     <p
                       className={cn(

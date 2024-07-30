@@ -15,7 +15,7 @@ type LoginOptions = {
 
 export const apiSignin = async ({
   page,
-  email = 'example@documenso.com',
+  email = 'example@disex.com.co',
   password = 'password',
   redirectPath = '/documents',
 }: LoginOptions) => {

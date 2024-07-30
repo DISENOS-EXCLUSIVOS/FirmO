@@ -197,66 +197,22 @@ export const SignUpFormV2 = ({
 
   return (
     <div className={cn('flex justify-center gap-x-12', className)}>
-      <div className="border-border relative hidden flex-1 overflow-hidden rounded-xl border xl:flex">
-        <div className="absolute -inset-8 -z-[2] backdrop-blur">
-          <Image
-            src={communityCardsImage}
-            fill={true}
-            alt="community-cards"
-            className="dark:brightness-95 dark:contrast-[70%] dark:invert"
-          />
-        </div>
-
-        <div className="bg-background/50 absolute -inset-8 -z-[1] backdrop-blur-[2px]" />
-
-        <div className="relative flex h-full w-full flex-col items-center justify-evenly">
-          <div className="bg-background rounded-2xl border px-4 py-1 text-sm font-medium">
-            User profiles are coming soon!
-          </div>
-
-          <AnimatePresence>
-            {step === 'BASIC_DETAILS' ? (
-              <motion.div className="w-full max-w-md" layoutId="user-profile">
-                <UserProfileTimur
-                  rows={2}
-                  className="bg-background border-border rounded-2xl border shadow-md"
-                />
-              </motion.div>
-            ) : (
-              <motion.div className="w-full max-w-md" layoutId="user-profile">
-                <UserProfileSkeleton
-                  user={{ name, url }}
-                  rows={2}
-                  className="bg-background border-border rounded-2xl border shadow-md"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div />
-        </div>
-      </div>
+      
 
       <div className="border-border dark:bg-background relative z-10 flex min-h-[min(850px,80vh)] w-full max-w-lg flex-col rounded-xl border bg-neutral-100 p-6">
         {step === 'BASIC_DETAILS' && (
-          <div className="h-20">
-            <h1 className="text-xl font-semibold md:text-2xl">Create a new account</h1>
+          <div className="h-10">
+            <h1 className="text-xl font-semibold md:text-2xl">Crear cuenta</h1>
 
-            <p className="text-muted-foreground mt-2 text-xs md:text-sm">
-              Create your account and start using state-of-the-art document signing. Open and
-              beautiful signing is within your grasp.
-            </p>
+            
           </div>
         )}
 
         {step === 'CLAIM_USERNAME' && (
-          <div className="h-20">
-            <h1 className="text-xl font-semibold md:text-2xl">Claim your username now</h1>
+          <div className="h-10">
+            <h1 className="text-xl font-semibold md:text-2xl">Nombre de usuario</h1>
 
-            <p className="text-muted-foreground mt-2 text-xs md:text-sm">
-              You will get notified & be able to set up your documenso public profile when we launch
-              the feature.
-            </p>
+            
           </div>
         )}
 
@@ -280,7 +236,7 @@ export const SignUpFormV2 = ({
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name</FormLabel>
+                      <FormLabel>Nombre completo</FormLabel>
                       <FormControl>
                         <Input type="text" {...field} />
                       </FormControl>
@@ -294,7 +250,7 @@ export const SignUpFormV2 = ({
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email Address</FormLabel>
+                      <FormLabel>Correo</FormLabel>
                       <FormControl>
                         <Input type="email" {...field} />
                       </FormControl>
@@ -308,7 +264,7 @@ export const SignUpFormV2 = ({
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Contraseña</FormLabel>
 
                       <FormControl>
                         <PasswordInput {...field} />
@@ -324,7 +280,7 @@ export const SignUpFormV2 = ({
                   name="signature"
                   render={({ field: { onChange } }) => (
                     <FormItem>
-                      <FormLabel>Sign Here</FormLabel>
+                      <FormLabel>Firma</FormLabel>
                       <FormControl>
                         <SignaturePad
                           className="h-36 w-full"
@@ -339,54 +295,7 @@ export const SignUpFormV2 = ({
                   )}
                 />
 
-                {(isGoogleSSOEnabled || isOIDCSSOEnabled) && (
-                  <>
-                    <div className="relative flex items-center justify-center gap-x-4 py-2 text-xs uppercase">
-                      <div className="bg-border h-px flex-1" />
-                      <span className="text-muted-foreground bg-transparent">Or</span>
-                      <div className="bg-border h-px flex-1" />
-                    </div>
-                  </>
-                )}
-
-                {isGoogleSSOEnabled && (
-                  <>
-                    <Button
-                      type="button"
-                      size="lg"
-                      variant={'outline'}
-                      className="bg-background text-muted-foreground border"
-                      disabled={isSubmitting}
-                      onClick={onSignUpWithGoogleClick}
-                    >
-                      <FcGoogle className="mr-2 h-5 w-5" />
-                      Sign Up with Google
-                    </Button>
-                  </>
-                )}
-
-                {isOIDCSSOEnabled && (
-                  <>
-                    <Button
-                      type="button"
-                      size="lg"
-                      variant={'outline'}
-                      className="bg-background text-muted-foreground border"
-                      disabled={isSubmitting}
-                      onClick={onSignUpWithOIDCClick}
-                    >
-                      <FaIdCardClip className="mr-2 h-5 w-5" />
-                      Sign Up with OIDC
-                    </Button>
-                  </>
-                )}
-
-                <p className="text-muted-foreground mt-4 text-sm">
-                  Already have an account?{' '}
-                  <Link href="/signin" className="text-documenso-700 duration-200 hover:opacity-70">
-                    Sign in instead
-                  </Link>
-                </p>
+              
               </fieldset>
             )}
 
@@ -403,7 +312,7 @@ export const SignUpFormV2 = ({
                   name="url"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Public profile username</FormLabel>
+                      <FormLabel>Usuario</FormLabel>
 
                       <FormControl>
                         <Input type="text" className="mb-2 mt-2 lowercase" {...field} />
@@ -423,13 +332,13 @@ export const SignUpFormV2 = ({
             <div className="mt-6">
               {step === 'BASIC_DETAILS' && (
                 <p className="text-muted-foreground text-sm">
-                  <span className="font-medium">Basic details</span> 1/2
+                  <span className="font-medium">Registrando</span> 1/2
                 </p>
               )}
 
               {step === 'CLAIM_USERNAME' && (
                 <p className="text-muted-foreground text-sm">
-                  <span className="font-medium">Claim username</span> 2/2
+                  <span className="font-medium">Registrando</span> 2/2
                 </p>
               )}
 

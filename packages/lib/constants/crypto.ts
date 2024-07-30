@@ -14,12 +14,12 @@ if (typeof window === 'undefined') {
   }
 }
 
-if (DOCUMENSO_ENCRYPTION_KEY === 'CAFEBABE') {
-  console.warn('*********************************************************************');
-  console.warn('*');
-  console.warn('*');
-  console.warn('Please change the encryption key from the default value of "CAFEBABE"');
-  console.warn('*');
-  console.warn('*');
-  console.warn('*********************************************************************');
-}
+// if (DOCUMENSO_ENCRYPTION_KEY === 'CAFEBABE') {
+//   console.warn('*********************************************************************');
+//   console.warn('*');
+//   console.warn('*');
+//   console.warn('Please change the encryption key from the default value of "CAFEBABE"');
+//   console.warn('*');
+//   console.warn('*');
+//   console.warn('*********************************************************************');
+// }

@@ -13,7 +13,7 @@ type SeedUserOptions = {
 
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
-export const seedTestEmail = () => `${nanoid()}@test.documenso.com`;
+export const seedTestEmail = () => `${nanoid()}@test.disex.com.co`;
 
 export const seedUser = async ({
   name,
@@ -26,7 +26,7 @@ export const seedUser = async ({
   }
 
   if (!email) {
-    email = `${nanoid()}@test.documenso.com`;
+    email = `${nanoid()}@test.disex.com.co`;
   }
 
   return await prisma.user.create({

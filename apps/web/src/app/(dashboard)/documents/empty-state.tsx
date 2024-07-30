@@ -1,4 +1,4 @@
-import { Bird, CheckCircle2 } from 'lucide-react';
+import { Cat, CheckCircle2 } from 'lucide-react';
 import { match } from 'ts-pattern';
 
 import { ExtendedDocumentStatus } from '@documenso/prisma/types/extended-document-status';
@@ -9,30 +9,29 @@ export const EmptyDocumentState = ({ status }: EmptyDocumentProps) => {
   const {
     title,
     message,
-    icon: Icon,
   } = match(status)
     .with(ExtendedDocumentStatus.COMPLETED, () => ({
-      title: 'Nothing to do',
+      title: 'Nada por hacer',
       message:
-        'There are no completed documents yet. Documents that you have created or received will appear here once completed.',
+        'Aún no hay documentos completados. Los documentos que hayas creado o recibido aparecerán aquí una vez completados.',
       icon: CheckCircle2,
     }))
     .with(ExtendedDocumentStatus.DRAFT, () => ({
-      title: 'No active drafts',
+      title: 'No hay borradores activos',
       message:
-        'There are no active drafts at the current moment. You can upload a document to start drafting.',
+        'No hay borradores activos en este momento. Puedes subir un documento para comenzar a redactar.',
       icon: CheckCircle2,
     }))
     .with(ExtendedDocumentStatus.ALL, () => ({
-      title: "We're all empty",
+      title: 'No hay documentos creados',
       message:
-        'You have not yet created or received any documents. To create a document please upload one.',
-      icon: Bird,
+        'Aún no has creado ni recibido ningún documento. Para crear un documento, por favor, sube uno.',
+     
     }))
     .otherwise(() => ({
-      title: 'Nothing to do',
+      title: 'Nada por hacer',
       message:
-        'All documents have been processed. Any new documents that are sent or received will show here.',
+        'Todos los documentos han sido procesados. Cualquier nuevo documento que se envíe o reciba se mostrará aquí.',
       icon: CheckCircle2,
     }));
 
@@ -41,7 +40,6 @@ export const EmptyDocumentState = ({ status }: EmptyDocumentProps) => {
       className="text-muted-foreground/60 flex h-60 flex-col items-center justify-center gap-y-4"
       data-testid="empty-document-state"
     >
-      <Icon className="h-12 w-12" strokeWidth={1.5} />
 
       <div className="text-center">
         <h3 className="text-lg font-semibold">{title}</h3>

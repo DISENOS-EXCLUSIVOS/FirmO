@@ -41,12 +41,8 @@ export default function ErrorPage({ error }: ErrorProps) {
             }}
           >
             <ChevronLeft className="mr-2 h-4 w-4" />
-            Go Back
-          </Button>
+Volver          </Button>
 
-          <Button asChild>
-            <Link href="/settings/teams">View teams</Link>
-          </Button>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { XCircle } from 'lucide-react';
 import { Button } from '@documenso/ui/primitives/button';
 
 export const metadata: Metadata = {
-  title: 'Verify Email',
+  title: 'Verificar correo electrónico',
 };
 
 export default function EmailVerificationWithoutTokenPage() {

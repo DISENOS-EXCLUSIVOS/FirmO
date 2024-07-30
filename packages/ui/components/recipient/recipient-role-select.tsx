@@ -17,11 +17,9 @@ export type RecipientRoleSelectProps = SelectProps & {
 export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSelectProps>(
   ({ hideCCRecipients, ...props }, ref) => (
     <Select {...props}>
-      <SelectTrigger ref={ref} className="bg-background w-[60px]">
-        {/* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */}
+      <SelectTrigger ref={ref} className="bg-background w-[60px]" style={{ color: "white" }}>
         {ROLE_ICONS[props.value as RecipientRole]}
       </SelectTrigger>
-
       <SelectContent align="end">
         <SelectItem value={RecipientRole.SIGNER}>
           <div className="flex items-center">
@@ -40,7 +38,7 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           </div>
         </SelectItem>
 
-        <SelectItem value={RecipientRole.APPROVER}>
+        <SelectItem value={RecipientRole.APPROVER} >
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.APPROVER]}</span>
@@ -57,7 +55,7 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           </div>
         </SelectItem>
 
-        <SelectItem value={RecipientRole.VIEWER}>
+        <SelectItem value={RecipientRole.VIEWER} >
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.VIEWER]}</span>
@@ -75,7 +73,7 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
         </SelectItem>
 
         {!hideCCRecipients && (
-          <SelectItem value={RecipientRole.CC}>
+          <SelectItem value={RecipientRole.CC} >
             <div className="flex items-center">
               <div className="flex w-[150px] items-center">
                 <span className="mr-2">{ROLE_ICONS[RecipientRole.CC]}</span>
@@ -96,6 +94,7 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           </SelectItem>
         )}
       </SelectContent>
+
     </Select>
   ),
 );

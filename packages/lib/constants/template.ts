@@ -24,5 +24,5 @@ export const DIRECT_TEMPLATE_DOCUMENTATION = [
   },
 ];
 
-export const DIRECT_TEMPLATE_RECIPIENT_EMAIL = 'direct.link@documenso.com';
+export const DIRECT_TEMPLATE_RECIPIENT_EMAIL = 'direct.link@disex.com.co';
 export const DIRECT_TEMPLATE_RECIPIENT_NAME = 'Direct link recipient';

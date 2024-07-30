@@ -6,15 +6,15 @@ import ActivityPageBackButton from '../../../../../components/(dashboard)/settin
 import { UserSecurityActivityDataTable } from './user-security-activity-data-table';
 
 export const metadata: Metadata = {
-  title: 'Security activity',
+  title: 'Actividad',
 };
 
 export default function SettingsSecurityActivityPage() {
   return (
     <div>
       <SettingsHeader
-        title="Security activity"
-        subtitle="View all recent security activity related to your account."
+        title="Actividad"
+        subtitle=""
         hideDivider={true}
       >
         <ActivityPageBackButton />

@@ -68,81 +68,82 @@ export const DeleteAccountDialog = ({ className, user }: DeleteAccountDialogProp
   };
 
   return (
-    <div className={className}>
-      <Alert
-        className="flex flex-col items-center justify-between gap-4 p-6 md:flex-row "
-        variant="neutral"
-      >
-        <div>
-          <AlertTitle>Delete Account</AlertTitle>
-          <AlertDescription className="mr-2">
-            Delete your account and all its contents, including completed documents. This action is
-            irreversible and will cancel your subscription, so proceed with caution.
-          </AlertDescription>
-        </div>
+    // <div className={className}>
+    //   <Alert
+    //     className="flex flex-col items-center justify-between gap-4 p-6 md:flex-row "
+    //     variant="neutral"
+    //   >
+    //     <div>
+    //       <AlertTitle>Delete Account</AlertTitle>
+    //       <AlertDescription className="mr-2">
+    //         Delete your account and all its contents, including completed documents. This action is
+    //         irreversible and will cancel your subscription, so proceed with caution.
+    //       </AlertDescription>
+    //     </div>
 
-        <div className="flex-shrink-0">
-          <Dialog onOpenChange={() => setEnteredEmail('')}>
-            <DialogTrigger asChild>
-              <Button variant="destructive">Delete Account</Button>
-            </DialogTrigger>
+    //     <div className="flex-shrink-0">
+    //       <Dialog onOpenChange={() => setEnteredEmail('')}>
+    //         <DialogTrigger asChild>
+    //           <Button variant="destructive">Delete Account</Button>
+    //         </DialogTrigger>
 
-            <DialogContent>
-              <DialogHeader className="space-y-4">
-                <DialogTitle>Delete Account</DialogTitle>
+    //         <DialogContent>
+    //           <DialogHeader className="space-y-4">
+    //             <DialogTitle>Delete Account</DialogTitle>
 
-                <Alert variant="destructive">
-                  <AlertDescription className="selection:bg-red-100">
-                    This action is not reversible. Please be certain.
-                  </AlertDescription>
-                </Alert>
+    //             <Alert variant="destructive">
+    //               <AlertDescription className="selection:bg-red-100">
+    //                 This action is not reversible. Please be certain.
+    //               </AlertDescription>
+    //             </Alert>
 
-                {hasTwoFactorAuthentication && (
-                  <Alert variant="destructive">
-                    <AlertDescription className="selection:bg-red-100">
-                      Disable Two Factor Authentication before deleting your account.
-                    </AlertDescription>
-                  </Alert>
-                )}
+    //             {hasTwoFactorAuthentication && (
+    //               <Alert variant="destructive">
+    //                 <AlertDescription className="selection:bg-red-100">
+    //                   Disable Two Factor Authentication before deleting your account.
+    //                 </AlertDescription>
+    //               </Alert>
+    //             )}
 
-                <DialogDescription>
-                  Documenso will delete <span className="font-semibold">all of your documents</span>
-                  , along with all of your completed documents, signatures, and all other resources
-                  belonging to your Account.
-                </DialogDescription>
-              </DialogHeader>
+    //             <DialogDescription>
+    //               Documenso will delete <span className="font-semibold">all of your documents</span>
+    //               , along with all of your completed documents, signatures, and all other resources
+    //               belonging to your Account.
+    //             </DialogDescription>
+    //           </DialogHeader>
 
-              {!hasTwoFactorAuthentication && (
-                <div className="mt-4">
-                  <Label>
-                    Please type{' '}
-                    <span className="text-muted-foreground font-semibold">{user.email}</span> to
-                    confirm.
-                  </Label>
+    //           {!hasTwoFactorAuthentication && (
+    //             <div className="mt-4">
+    //               <Label>
+    //                 Please type{' '}
+    //                 <span className="text-muted-foreground font-semibold">{user.email}</span> to
+    //                 confirm.
+    //               </Label>
 
-                  <Input
-                    type="text"
-                    className="mt-2"
-                    aria-label="Confirm Email"
-                    value={enteredEmail}
-                    onChange={(e) => setEnteredEmail(e.target.value)}
-                  />
-                </div>
-              )}
-              <DialogFooter>
-                <Button
-                  onClick={onDeleteAccount}
-                  loading={isDeletingAccount}
-                  variant="destructive"
-                  disabled={hasTwoFactorAuthentication || enteredEmail !== user.email}
-                >
-                  {isDeletingAccount ? 'Deleting account...' : 'Confirm Deletion'}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </Alert>
-    </div>
+    //               <Input
+    //                 type="text"
+    //                 className="mt-2"
+    //                 aria-label="Confirm Email"
+    //                 value={enteredEmail}
+    //                 onChange={(e) => setEnteredEmail(e.target.value)}
+    //               />
+    //             </div>
+    //           )}
+    //           <DialogFooter>
+    //             <Button
+    //               onClick={onDeleteAccount}
+    //               loading={isDeletingAccount}
+    //               variant="destructive"
+    //               disabled={hasTwoFactorAuthentication || enteredEmail !== user.email}
+    //             >
+    //               {isDeletingAccount ? 'Deleting account...' : 'Confirm Deletion'}
+    //             </Button>
+    //           </DialogFooter>
+    //         </DialogContent>
+    //       </Dialog>
+    //     </div>
+    //   </Alert>
+    // </div>
+    <>  </>
   );
 };

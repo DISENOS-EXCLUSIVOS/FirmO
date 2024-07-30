@@ -28,19 +28,19 @@ export const MobileNavigation = ({ isMenuOpen, onMenuOpenChange }: MobileNavigat
   const menuNavigationLinks = [
     {
       href: `${rootHref}/documents`,
-      text: 'Documents',
+      text: 'Documentos',
     },
     {
       href: `${rootHref}/templates`,
-      text: 'Templates',
+      text: 'Plantillas',
     },
     {
       href: '/settings/teams',
-      text: 'Teams',
+      text: 'Equipos',
     },
     {
       href: '/settings/profile',
-      text: 'Settings',
+      text: 'Ajustes',
     },
   ];
 
@@ -86,9 +86,7 @@ export const MobileNavigation = ({ isMenuOpen, onMenuOpenChange }: MobileNavigat
             <ThemeSwitcher />
           </div>
 
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} FirmO, Inc. <br /> All rights reserved.
-          </p>
+          
         </div>
       </SheetContent>
     </Sheet>

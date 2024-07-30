@@ -9,7 +9,7 @@ import { ProfileForm } from '~/components/forms/profile';
 import { DeleteAccountDialog } from './delete-account-dialog';
 
 export const metadata: Metadata = {
-  title: 'Profile',
+  title: 'Perfil',
 };
 
 export default async function ProfileSettingsPage() {
@@ -17,7 +17,7 @@ export default async function ProfileSettingsPage() {
 
   return (
     <div>
-      <SettingsHeader title="Perfil" subtitle="Aquí puede editar sus datos personales." />
+      {/* <SettingsHeader title="Perfil" subtitle="Aquí puede editar sus datos personales." /> */}
 
       <AvatarImageForm className="mb-8 max-w-xl" user={user} />
       <ProfileForm className="mb-8 max-w-xl" user={user} />

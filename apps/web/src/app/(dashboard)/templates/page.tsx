@@ -10,7 +10,7 @@ type TemplatesPageProps = {
 };
 
 export const metadata: Metadata = {
-  title: 'Templates',
+  title: 'Plantillas',
 };
 
 export default function TemplatesPage({ searchParams = {} }: TemplatesPageProps) {
