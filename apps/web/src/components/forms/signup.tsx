@@ -31,10 +31,10 @@ const SIGN_UP_REDIRECT_PATH = '/documents';
 
 export const ZSignUpFormSchema = z
   .object({
-    name: z.string().trim().min(1, { message: 'Please enter a valid name.' }),
+    name: z.string().trim().min(1, { message: 'Por favor ingrese un nombre valido.' }),
     email: z.string().email().min(1),
     password: ZPasswordSchema,
-    signature: z.string().min(1, { message: 'We need your signature to sign documents' }),
+    signature: z.string().min(1, { message: 'Necesitamos su firma para firmar documentos' }),
   })
   .refine(
     (data) => {
@@ -42,7 +42,7 @@ export const ZSignUpFormSchema = z
       return !password.includes(name) && !password.includes(email.split('@')[0]);
     },
     {
-      message: 'Password should not be common or based on personal information',
+      message: 'La contraseña no debe ser común ni estar basada en información personal.',
     },
   );
 
@@ -86,9 +86,9 @@ export const SignUpForm = ({
       router.push(`/unverified-account`);
 
       toast({
-        title: 'Registration Successful',
+        title: 'Registro exitoso',
         description:
-          'You have successfully registered. Please verify your account by clicking on the link you received in the email.',
+          'Se ha registrado exitosamente. Verifique su cuenta haciendo clic en el enlace que recibió en el correo electrónico.',
         duration: 5000,
       });
 
@@ -105,9 +105,9 @@ export const SignUpForm = ({
         });
       } else {
         toast({
-          title: 'An unknown error occurred',
+          title: 'A ocurrido ubn error desconcido',
           description:
-            'We encountered an unknown error while attempting to sign you up. Please try again later.',
+            'Encontramos un error desconocido al intentar registrarte. Por favor, inténtelo de nuevo más tarde.',
           variant: 'destructive',
         });
       }
@@ -119,9 +119,9 @@ export const SignUpForm = ({
       await signIn('google', { callbackUrl: SIGN_UP_REDIRECT_PATH });
     } catch (err) {
       toast({
-        title: 'An unknown error occurred',
+        title: 'A ocurrido ubn error desconcido',
         description:
-          'We encountered an unknown error while attempting to sign you Up. Please try again later.',
+          'Encontramos un error desconocido al intentar registrarte. Por favor, inténtelo de nuevo más tarde.',
         variant: 'destructive',
       });
     }
@@ -132,9 +132,9 @@ export const SignUpForm = ({
       await signIn('oidc', { callbackUrl: SIGN_UP_REDIRECT_PATH });
     } catch (err) {
       toast({
-        title: 'An unknown error occurred',
+        title: 'Un error desconocido ocurrió',
         description:
-          'We encountered an unknown error while attempting to sign you Up. Please try again later.',
+          'Encontramos un error desconocido al intentar registrarte. Por favor, inténtelo de nuevo más tarde.',
         variant: 'destructive',
       });
     }
@@ -218,10 +218,6 @@ export const SignUpForm = ({
         >
           {isSubmitting ? 'Registrando...' : 'Registrar'}
         </Button>
-
-       
-
-        
       </form>
     </Form>
   );

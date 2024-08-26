@@ -58,7 +58,7 @@ export const superDeleteDocument = async ({ id, requestMetadata }: SuperDeleteDo
             name: FROM_NAME,
             address: FROM_ADDRESS,
           },
-          subject: 'Document Cancelled',
+          subject: 'Documento cancelado',
           html: render(template),
           text: render(template, { plainText: true }),
         });

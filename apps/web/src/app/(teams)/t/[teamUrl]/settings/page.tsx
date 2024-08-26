@@ -103,14 +103,14 @@ export default async function TeamsSettingsPage({ params }: TeamsSettingsPagePro
                       () => (
                         <>
                           <Clock className="mr-1.5 text-yellow-500 dark:text-yellow-200" />
-                          Expired
+                          Expirado
                         </>
                       ),
                     )
                     .with({ emailVerification: P.not(null) }, () => (
                       <>
                         <Clock className="mr-1.5 text-blue-600 dark:text-blue-300" />
-                        Awaiting email confirmation
+                        En espera de confirmación por correo electrónico
                       </>
                     ))
                     .otherwise(() => null)}
@@ -128,7 +128,7 @@ export default async function TeamsSettingsPage({ params }: TeamsSettingsPagePro
             variant="neutral"
           >
             <div className="mb-4 sm:mb-0">
-              <AlertTitle>Team email</AlertTitle>
+              <AlertTitle>Correo electrónico del equipo</AlertTitle>
 
               <AlertDescription className="mr-2">
                 <ul className="text-muted-foreground mt-0.5 list-inside list-disc text-sm">
@@ -136,7 +136,7 @@ export default async function TeamsSettingsPage({ params }: TeamsSettingsPagePro
                   {/* <li>Display this name and email when sending documents</li> */}
                   {/* <li>View documents associated with this email</li> */}
 
-                  <span>View documents associated with this email</span>
+                  <span>Ver documentos asociados con este correo electrónico</span>
                 </ul>
               </AlertDescription>
             </div>

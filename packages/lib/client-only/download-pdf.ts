@@ -18,7 +18,7 @@ export const downloadPDF = async ({ documentData, fileName }: DownloadPDFProps) 
   const baseTitle = (fileName ?? 'document').replace(/\.pdf$/, '');
 
   downloadFile({
-    filename: `${baseTitle}_signed.pdf`,
+    filename: `${baseTitle}_Firmado.pdf`,
     data: blob,
   });
 };

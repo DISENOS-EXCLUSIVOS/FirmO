@@ -87,13 +87,13 @@ export const SEND_SIGNING_EMAIL_JOB_DEFINITION = {
     let emailSubject = `Por favor ${recipientActionVerb} este documento`;
 
     if (selfSigner) {
-      emailMessage = `You have initiated the document ${`"${document.title}"`} that requires you to ${recipientActionVerb}`;
-      emailSubject = `Please ${recipientActionVerb} your document`;
+      emailMessage = `Has iniciado el documento ${`"${document.title}"`} que requiere ${recipientActionVerb}`;
+      emailSubject = `Por favor ${recipientActionVerb} tu documento`;
     }
 
     if (isDirectTemplate) {
-      emailMessage = `A document was created by your direct template that requires you to ${recipientActionVerb}`;
-      emailSubject = `Please ${recipientActionVerb} this document created by your direct template`;
+      emailMessage = `Un documento fue creado por plantilla directa y requiere ${recipientActionVerb}`;
+      emailSubject = `Por favor ${recipientActionVerb} este documento creado por su plantilla directa`;
     }
 
     const customEmailTemplate = {

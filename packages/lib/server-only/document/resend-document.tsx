@@ -64,19 +64,19 @@ export const resendDocument = async ({
   const customEmail = document?.documentMeta;
 
   if (!document) {
-    throw new Error('Document not found');
+    throw new Error('Documento no encontrado');
   }
 
   if (document.Recipient.length === 0) {
-    throw new Error('Document has no recipients');
+    throw new Error('El documento no tiene destinatarios');
   }
 
   if (document.status === DocumentStatus.DRAFT) {
-    throw new Error('Can not send draft document');
+    throw new Error('No se puede enviar el borrador del documento');
   }
 
   if (document.status === DocumentStatus.COMPLETED) {
-    throw new Error('Can not send completed document');
+    throw new Error('No se puede enviar el documento completo');
   }
 
   await Promise.all(
@@ -90,7 +90,7 @@ export const resendDocument = async ({
       const { email, name } = recipient;
       const selfSigner = email === user.email;
 
-      const selfSignerCustomEmail = `You have initiated the document ${`"${document.title}"`} that requires you to ${RECIPIENT_ROLES_DESCRIPTION[
+      const selfSignerCustomEmail = `Has iniciado el documento ${`"${document.title}"`} eres requeido como ${RECIPIENT_ROLES_DESCRIPTION[
         recipient.role
       ].actionVerb.toLowerCase()} it.`;
 

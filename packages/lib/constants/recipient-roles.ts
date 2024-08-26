@@ -14,13 +14,13 @@ export const RECIPIENT_ROLES_DESCRIPTION = {
     roleName: 'Cc',
   },
   [RecipientRole.SIGNER]: {
-    actionVerb: 'Firma',
+    actionVerb: 'Firmar',
     actioned: 'Firmado',
     progressiveVerb: 'Firmando',
     roleName: 'Firmante',
   },
   [RecipientRole.VIEWER]: {
-    actionVerb: 'Visualiza',
+    actionVerb: 'Visualizar',
     actioned: 'Visto',
     progressiveVerb: 'visualizando',
     roleName: 'Observador',

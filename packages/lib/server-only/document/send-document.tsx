@@ -66,21 +66,21 @@ export const sendDocument = async ({
   });
 
   if (!document) {
-    throw new Error('Document not found');
+    throw new Error('Documento no encontrado');
   }
 
   if (document.Recipient.length === 0) {
-    throw new Error('Document has no recipients');
+    throw new Error('El documento no tiene destinatarios');
   }
 
   if (document.status === DocumentStatus.COMPLETED) {
-    throw new Error('Can not send completed document');
+    throw new Error('No se puede enviar el documento completo');
   }
 
   const { documentData } = document;
 
   if (!documentData.data) {
-    throw new Error('Document data not found');
+    throw new Error('Datos del documento no encontrados');
   }
 
   if (document.formValues) {

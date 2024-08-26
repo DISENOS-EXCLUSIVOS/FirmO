@@ -100,7 +100,7 @@ export const DocumentShareButton = ({
 
     window.open(
       generateTwitterIntent(
-        `I just ${token ? 'signed' : 'sent'} a document in style with @documenso. Check it out!`,
+        `I just ${token ? 'signed' : 'sent'} a document in style with FirmO. Check it out!`,
         `${NEXT_PUBLIC_WEBAPP_URL()}/share/${slug}`,
       ),
       '_blank',

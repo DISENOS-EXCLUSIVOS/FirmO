@@ -49,7 +49,7 @@ export const DocumentGlobalAuthActionTooltip = () => (
 
     <TooltipContent className="text-foreground max-w-md space-y-2 p-4">
       <h2>
-        <strong>Global recipient action authentication</strong>
+        <strong>Autenticación de acción de destinatario global</strong>
       </h2>
 
       <p>La autenticación requerida para que los destinatarios firmen el campo de firma.</p>
