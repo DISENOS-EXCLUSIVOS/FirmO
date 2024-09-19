@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import type * as DialogPrimitive from '@radix-ui/react-dialog';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
@@ -47,6 +49,7 @@ const ZCreateTeamFormSchema = ZCreateTeamMutationSchema.pick({
 type TCreateTeamFormSchema = z.infer<typeof ZCreateTeamFormSchema>;
 
 export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) => {
+  const { _ } = useLingui();
   const { toast } = useToast();
 
   const router = useRouter();
@@ -82,8 +85,8 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
       }
 
       toast({
-        title: 'Success',
-        description: 'Your team has been created.',
+        title: _(msg`Success`),
+        description: _(msg`Your team has been created.`),
         duration: 5000,
       });
     } catch (err) {
@@ -92,17 +95,18 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
       if (error.code === AppErrorCode.ALREADY_EXISTS) {
         form.setError('teamUrl', {
           type: 'manual',
-          message: 'Esta URL ya está en uso.',
+          message: _(msg`This URL is already in use.`),
         });
 
         return;
       }
 
       toast({
-        title: 'A ocurrido un error desconocido',
+        title: _(msg`An unknown error occurred`),
+        description: _(
+          msg`We encountered an unknown error while attempting to create a team. Please try again later.`,
+        ),
         variant: 'destructive',
-        description:
-          'Encontramos un error desconocido al intentar crear un equipo. Por favor, inténtelo de nuevo más tarde.',
       });
     }
   };
@@ -131,17 +135,19 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
       <DialogTrigger onClick={(e) => e.stopPropagation()} asChild={true}>
         {trigger ?? (
           <Button className="flex-shrink-0" variant="secondary">
-            Crear equipo
+            <Trans>Create team</Trans>
           </Button>
         )}
       </DialogTrigger>
 
       <DialogContent position="center">
         <DialogHeader>
-          <DialogTitle>Crea un equipo</DialogTitle>
+          <DialogTitle>
+            <Trans>Create team</Trans>
+          </DialogTitle>
 
           <DialogDescription className="mt-4">
-            Crea un grupo para colaborar con los miembros de tu equipo.
+            <Trans>Create a team to collaborate with your team members.</Trans>
           </DialogDescription>
         </DialogHeader>
 
@@ -156,7 +162,9 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
                 name="teamName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>Nombre del grupo</FormLabel>
+                    <FormLabel required>
+                      <Trans>Team Name</Trans>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         className="bg-background"
@@ -184,15 +192,19 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
                 name="teamUrl"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel required>URL de grupo</FormLabel>
+                    <FormLabel required>
+                      <Trans>Team URL</Trans>
+                    </FormLabel>
                     <FormControl>
                       <Input className="bg-background" {...field} />
                     </FormControl>
                     {!form.formState.errors.teamUrl && (
                       <span className="text-foreground/50 text-xs font-normal">
-                        {field.value
-                          ? `${WEBAPP_BASE_URL}/t/${field.value}`
-                          : 'Una URL única para identificar a tu equipo'}
+                        {field.value ? (
+                          `${WEBAPP_BASE_URL}/t/${field.value}`
+                        ) : (
+                          <Trans>A unique URL to identify your team</Trans>
+                        )}
                       </span>
                     )}
 
@@ -203,7 +215,7 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
 
               <DialogFooter>
                 <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
-                  Cancelar
+                  <Trans>Cancel</Trans>
                 </Button>
 
                 <Button
@@ -211,7 +223,7 @@ export const CreateTeamDialog = ({ trigger, ...props }: CreateTeamDialogProps) =
                   data-testid="dialog-create-team-button"
                   loading={form.formState.isSubmitting}
                 >
-                  Crear grupo
+                  <Trans>Create Team</Trans>
                 </Button>
               </DialogFooter>
             </fieldset>

@@ -4,6 +4,8 @@ import { useMemo } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import { Trans } from '@lingui/macro';
+
 import {
   Select,
   SelectContent,
@@ -49,10 +51,18 @@ export const PeriodSelector = () => {
       </SelectTrigger>
 
       <SelectContent position="popper">
-        <SelectItem value="all">Todo el tiempo</SelectItem>
-        <SelectItem value="7d">últimos 7 días</SelectItem>
-        <SelectItem value="14d">últimos 14 días</SelectItem>
-        <SelectItem value="30d">últimos 30 días</SelectItem>
+        <SelectItem value="all">
+          <Trans>All Time</Trans>
+        </SelectItem>
+        <SelectItem value="7d">
+          <Trans>Last 7 days</Trans>
+        </SelectItem>
+        <SelectItem value="14d">
+          <Trans>Last 14 days</Trans>
+        </SelectItem>
+        <SelectItem value="30d">
+          <Trans>Last 30 days</Trans>
+        </SelectItem>
       </SelectContent>
     </Select>
   );

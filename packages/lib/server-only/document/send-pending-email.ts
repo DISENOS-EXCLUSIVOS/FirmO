@@ -32,11 +32,11 @@ export const sendPendingEmail = async ({ documentId, recipientId }: SendPendingE
   });
 
   if (!document) {
-    throw new Error('Documento no encontrado');
+    throw new Error('Document not found');
   }
 
   if (document.Recipient.length === 0) {
-    throw new Error('El documento no tiene destinatarios');
+    throw new Error('Document has no recipients');
   }
 
   const [recipient] = document.Recipient;
@@ -56,10 +56,10 @@ export const sendPendingEmail = async ({ documentId, recipientId }: SendPendingE
       name,
     },
     from: {
-      name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'FirmO',
-      address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@disex.com.co',
+      name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'Documenso',
+      address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@documenso.com',
     },
-    subject: 'Esperando a que otros completen la firma',
+    subject: 'Waiting for others to complete signing.',
     html: render(template),
     text: render(template, { plainText: true }),
   });

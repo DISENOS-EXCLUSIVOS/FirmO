@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -31,7 +33,7 @@ export type ClaimAccountProps = {
 
 export const ZClaimAccountFormSchema = z
   .object({
-    name: z.string().trim().min(1, { message: 'Por favor ingrese un nombre valido.' }),
+    name: z.string().trim().min(1, { message: 'Please enter a valid name.' }),
     email: z.string().email().min(1),
     password: ZPasswordSchema,
   })
@@ -41,7 +43,7 @@ export const ZClaimAccountFormSchema = z
       return !password.includes(name) && !password.includes(email.split('@')[0]);
     },
     {
-      message: 'La contraseña no debe ser común ni estar basada en información personal.',
+      message: 'Password should not be common or based on personal information',
       path: ['password'],
     },
   );
@@ -49,8 +51,10 @@ export const ZClaimAccountFormSchema = z
 export type TClaimAccountFormSchema = z.infer<typeof ZClaimAccountFormSchema>;
 
 export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) => {
-  const analytics = useAnalytics();
+  const { _ } = useLingui();
   const { toast } = useToast();
+
+  const analytics = useAnalytics();
   const router = useRouter();
 
   const { mutateAsync: signup } = trpc.auth.signup.useMutation();
@@ -71,9 +75,10 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
       router.push(`/unverified-account`);
 
       toast({
-        title: 'Registro exitoso',
-        description:
-          'Se ha registrado exitosamente. Verifique su cuenta haciendo clic en el enlace que recibió en el correo electrónico.',
+        title: _(msg`Registration Successful`),
+        description: _(
+          msg`You have successfully registered. Please verify your account by clicking on the link you received in the email.`,
+        ),
         duration: 5000,
       });
 
@@ -84,15 +89,16 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
     } catch (error) {
       if (error instanceof TRPCClientError && error.data?.code === 'BAD_REQUEST') {
         toast({
-          title: 'A ocurrido un error',
+          title: _(msg`An error occurred`),
           description: error.message,
           variant: 'destructive',
         });
       } else {
         toast({
-          title: 'A ocurrido un error un error desconocido',
-          description:
-            'Encontramos un error desconocido al intentar registrarte. Por favor, inténtelo de nuevo más tarde.',
+          title: _(msg`An unknown error occurred`),
+          description: _(
+            msg`We encountered an unknown error while attempting to sign you up. Please try again later.`,
+          ),
           variant: 'destructive',
         });
       }
@@ -109,9 +115,11 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel>
+                    <Trans>Name</Trans>
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Enter your name" />
+                    <Input {...field} placeholder={_(msg`Enter your name`)} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,9 +130,11 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
               control={form.control}
               render={({ field }) => (
                 <FormItem className="mt-4">
-                  <FormLabel>Correo</FormLabel>
+                  <FormLabel>
+                    <Trans>Email address</Trans>
+                  </FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Ingresa tu correo electrónico" />
+                    <Input {...field} placeholder={_(msg`Enter your email`)} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,9 +145,11 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
               control={form.control}
               render={({ field }) => (
                 <FormItem className="mt-4">
-                  <FormLabel>Establecer una contraseña</FormLabel>
+                  <FormLabel>
+                    <Trans>Set a password</Trans>
+                  </FormLabel>
                   <FormControl>
-                    <PasswordInput {...field} placeholder="Elige una contraseña" />
+                    <PasswordInput {...field} placeholder={_(msg`Pick a password`)} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,7 +157,7 @@ export const ClaimAccount = ({ defaultName, defaultEmail }: ClaimAccountProps) =
             />
 
             <Button type="submit" className="mt-6 w-full" loading={form.formState.isSubmitting}>
-              Crear cuenta
+              <Trans>Claim account</Trans>
             </Button>
           </fieldset>
         </form>

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { FilePlus, Loader } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
@@ -34,6 +36,7 @@ export const NewTemplateDialog = ({ teamId, templateRootPath }: NewTemplateDialo
 
   const { data: session } = useSession();
   const { toast } = useToast();
+  const { _ } = useLingui();
 
   const { mutateAsync: createTemplate } = trpc.template.createTemplate.useMutation();
 
@@ -61,9 +64,10 @@ export const NewTemplateDialog = ({ teamId, templateRootPath }: NewTemplateDialo
       });
 
       toast({
-        title: 'plantilla de Documento cargado',
-        description:
-          'Su documento se ha subido exitosamente. Serás redirigido a la página de la plantilla.',
+        title: _(msg`Template document uploaded`),
+        description: _(
+          msg`Your document has been uploaded successfully. You will be redirected to the template page.`,
+        ),
         duration: 5000,
       });
 
@@ -72,8 +76,8 @@ export const NewTemplateDialog = ({ teamId, templateRootPath }: NewTemplateDialo
       router.push(`${templateRootPath}/${id}`);
     } catch {
       toast({
-        title: 'Algo salió mal',
-        description: 'Por favor, inténtelo de nuevo más tarde.',
+        title: _(msg`Something went wrong`),
+        description: _(msg`Please try again later.`),
         variant: 'destructive',
       });
 
@@ -89,16 +93,20 @@ export const NewTemplateDialog = ({ teamId, templateRootPath }: NewTemplateDialo
       <DialogTrigger asChild>
         <Button className="cursor-pointer" disabled={!session?.user.emailVerified}>
           <FilePlus className="-ml-1 mr-2 h-4 w-4" />
-          Nueva plantilla
+          <Trans>New Template</Trans>
         </Button>
       </DialogTrigger>
 
       <DialogContent className="w-full max-w-xl">
         <DialogHeader>
-          <DialogTitle>Nueva plantilla</DialogTitle>
+          <DialogTitle>
+            <Trans>New Template</Trans>
+          </DialogTitle>
           <DialogDescription>
-            Las plantillas le permiten generar rápidamente documentos con destinatarios y campos
-            precargados.
+            <Trans>
+              Templates allow you to quickly generate documents with pre-filled recipients and
+              fields.
+            </Trans>
           </DialogDescription>
         </DialogHeader>
 
@@ -115,7 +123,7 @@ export const NewTemplateDialog = ({ teamId, templateRootPath }: NewTemplateDialo
         <DialogFooter>
           <DialogClose asChild>
             <Button type="button" variant="secondary" disabled={isUploadingFile}>
-              Cerrar
+              <Trans>Close</Trans>
             </Button>
           </DialogClose>
         </DialogFooter>

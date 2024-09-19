@@ -1,6 +1,6 @@
 export const ERROR_CODES: Record<string, string> = {
-  UNAUTHORIZED: 'Debes iniciar sesión para acceder a este recurso',
-  USER_FETCH_FAILED: 'Se produjo un error al recuperar su cuenta de usuario',
-  SUBSCRIPTION_FETCH_FAILED: 'Se produjo un error al obtener su suscripción',
-  UNKNOWN: 'Un error desconocido ocurrió',
+  UNAUTHORIZED: 'You must be logged in to access this resource',
+  USER_FETCH_FAILED: 'An error occurred while fetching your user account',
+  SUBSCRIPTION_FETCH_FAILED: 'An error occurred while fetching your subscription',
+  UNKNOWN: 'An unknown error occurred',
 };

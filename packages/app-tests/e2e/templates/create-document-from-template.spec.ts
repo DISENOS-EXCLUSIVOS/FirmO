@@ -67,17 +67,17 @@ test('[TEMPLATE]: should create a document from a template', async ({ page }) =>
 
   await page.locator('.time-zone-field').click();
   await page.getByRole('option', { name: 'Etc/UTC' }).click();
-  await page.getByLabel('Redirect URL').fill('https://disex.com.co');
+  await page.getByLabel('Redirect URL').fill('https://documenso.com');
   await page.getByRole('button', { name: 'Continue' }).click();
 
   await expect(page.getByRole('heading', { name: 'Add Placeholder' })).toBeVisible();
 
   // Add 2 signers.
-  await page.getByPlaceholder('Email').fill('recipient1@disex.com.co');
+  await page.getByPlaceholder('Email').fill('recipient1@documenso.com');
   await page.getByPlaceholder('Name').fill('Recipient 1');
   await page.getByRole('button', { name: 'Add Placeholder Recipient' }).click();
-  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('recipient2@disex.com.co');
-  await page.getByRole('textbox', { name: 'Name', exact: true }).nth(1).fill('Recipient 2');
+  await page.getByPlaceholder('Email').nth(1).fill('recipient2@documenso.com');
+  await page.getByPlaceholder('Name').nth(1).fill('Recipient 2');
 
   // Apply require passkey for Recipient 1.
   if (isBillingEnabled) {
@@ -122,7 +122,7 @@ test('[TEMPLATE]: should create a document from a template', async ({ page }) =>
   );
   expect(document.documentMeta?.dateFormat).toEqual('dd/MM/yyyy hh:mm a');
   expect(document.documentMeta?.message).toEqual('MESSAGE');
-  expect(document.documentMeta?.redirectUrl).toEqual('https://disex.com.co');
+  expect(document.documentMeta?.redirectUrl).toEqual('https://documenso.com');
   expect(document.documentMeta?.subject).toEqual('SUBJECT');
   expect(document.documentMeta?.timezone).toEqual('Etc/UTC');
 
@@ -202,17 +202,17 @@ test('[TEMPLATE]: should create a team document from a team template', async ({ 
 
   await page.locator('.time-zone-field').click();
   await page.getByRole('option', { name: 'Etc/UTC' }).click();
-  await page.getByLabel('Redirect URL').fill('https://disex.com.co');
+  await page.getByLabel('Redirect URL').fill('https://documenso.com');
   await page.getByRole('button', { name: 'Continue' }).click();
 
   await expect(page.getByRole('heading', { name: 'Add Placeholder' })).toBeVisible();
 
   // Add 2 signers.
-  await page.getByPlaceholder('Email').fill('recipient1@disex.com.co');
+  await page.getByPlaceholder('Email').fill('recipient1@documenso.com');
   await page.getByPlaceholder('Name').fill('Recipient 1');
   await page.getByRole('button', { name: 'Add Placeholder Recipient' }).click();
-  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('recipient2@disex.com.co');
-  await page.getByRole('textbox', { name: 'Name', exact: true }).nth(1).fill('Recipient 2');
+  await page.getByPlaceholder('Email').nth(1).fill('recipient2@documenso.com');
+  await page.getByPlaceholder('Name').nth(1).fill('Recipient 2');
 
   // Apply require passkey for Recipient 1.
   if (isBillingEnabled) {
@@ -259,7 +259,7 @@ test('[TEMPLATE]: should create a team document from a team template', async ({ 
   );
   expect(document.documentMeta?.dateFormat).toEqual('dd/MM/yyyy hh:mm a');
   expect(document.documentMeta?.message).toEqual('MESSAGE');
-  expect(document.documentMeta?.redirectUrl).toEqual('https://disex.com.co');
+  expect(document.documentMeta?.redirectUrl).toEqual('https://documenso.com');
   expect(document.documentMeta?.subject).toEqual('SUBJECT');
   expect(document.documentMeta?.timezone).toEqual('Etc/UTC');
 

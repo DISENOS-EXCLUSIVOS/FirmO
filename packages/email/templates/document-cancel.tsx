@@ -9,11 +9,11 @@ export type DocumentCancelEmailTemplateProps = Partial<TemplateDocumentCancelPro
 
 export const DocumentCancelTemplate = ({
   inviterName = 'Lucas Smith',
-  inviterEmail = 'lucas@disex.com.co',
+  inviterEmail = 'lucas@documenso.com',
   documentName = 'Open Source Pledge.pdf',
   assetBaseUrl = 'http://localhost:3002',
 }: DocumentCancelEmailTemplateProps) => {
-  const previewText = `${inviterName} ha cancelado el documento ${documentName}, ya no necesitas firmarlo.`;
+  const previewText = `${inviterName} has cancelled the document ${documentName}, you don't need to sign it anymore.`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
@@ -36,7 +36,11 @@ export const DocumentCancelTemplate = ({
           <Section>
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img src={'https://ibb.co/f0T5w3j'} alt="FirmO Logo" className="mb-4 h-6" />
+                <Img
+                  src={getAssetUrl('/static/logo.png')}
+                  alt="Documenso Logo"
+                  className="mb-4 h-6"
+                />
 
                 <TemplateDocumentCancel
                   inviterName={inviterName}

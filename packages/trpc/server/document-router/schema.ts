@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-import { URL_REGEX } from '@documenso/lib/constants/url-regex';
 import {
   ZDocumentAccessAuthTypesSchema,
   ZDocumentActionAuthTypesSchema,
 } from '@documenso/lib/types/document-auth';
 import { ZBaseTableSearchParamsSchema } from '@documenso/lib/types/search-params';
-import { FieldType, RecipientRole } from '@documenso/prisma/client';
+import { isValidRedirectUrl } from '@documenso/lib/utils/is-valid-redirect-url';
+import { DocumentSigningOrder, FieldType, RecipientRole } from '@documenso/prisma/client';
 
 export const ZFindDocumentAuditLogsQuerySchema = ZBaseTableSearchParamsSchema.extend({
   documentId: z.number().min(1),
@@ -56,6 +56,7 @@ export const ZSetSettingsForDocumentMutationSchema = z.object({
   data: z.object({
     title: z.string().min(1).optional(),
     externalId: z.string().nullish(),
+    visibility: z.string().optional(),
     globalAccessAuth: ZDocumentAccessAuthTypesSchema.nullable().optional(),
     globalActionAuth: ZDocumentActionAuthTypesSchema.nullable().optional(),
   }),
@@ -65,8 +66,9 @@ export const ZSetSettingsForDocumentMutationSchema = z.object({
     redirectUrl: z
       .string()
       .optional()
-      .refine((value) => value === undefined || value === '' || URL_REGEX.test(value), {
-        message: 'Please enter a valid URL',
+      .refine((value) => value === undefined || value === '' || isValidRedirectUrl(value), {
+        message:
+          'Please enter a valid URL, make sure you include http:// or https:// part of the url.',
       }),
   }),
 });
@@ -131,8 +133,9 @@ export const ZSendDocumentMutationSchema = z.object({
     redirectUrl: z
       .string()
       .optional()
-      .refine((value) => value === undefined || value === '' || URL_REGEX.test(value), {
-        message: 'Please enter a valid URL',
+      .refine((value) => value === undefined || value === '' || isValidRedirectUrl(value), {
+        message:
+          'Please enter a valid URL, make sure you include http:// or https:// part of the url.',
       }),
   }),
 });
@@ -144,6 +147,15 @@ export const ZSetPasswordForDocumentMutationSchema = z.object({
 
 export type TSetPasswordForDocumentMutationSchema = z.infer<
   typeof ZSetPasswordForDocumentMutationSchema
+>;
+
+export const ZSetSigningOrderForDocumentMutationSchema = z.object({
+  documentId: z.number(),
+  signingOrder: z.nativeEnum(DocumentSigningOrder),
+});
+
+export type TSetSigningOrderForDocumentMutationSchema = z.infer<
+  typeof ZSetSigningOrderForDocumentMutationSchema
 >;
 
 export const ZResendDocumentMutationSchema = z.object({
@@ -166,6 +178,11 @@ export const ZSearchDocumentsMutationSchema = z.object({
 });
 
 export const ZDownloadAuditLogsMutationSchema = z.object({
+  documentId: z.number(),
+  teamId: z.number().optional(),
+});
+
+export const ZDownloadCertificateMutationSchema = z.object({
   documentId: z.number(),
   teamId: z.number().optional(),
 });

@@ -1,28 +1,23 @@
+import { msg } from '@lingui/macro';
+
 export const TEMPLATE_RECIPIENT_EMAIL_PLACEHOLDER_REGEX = /recipient\.\d+@documenso\.com/i;
 export const TEMPLATE_RECIPIENT_NAME_PLACEHOLDER_REGEX = /Recipient \d+/i;
 
 export const DIRECT_TEMPLATE_DOCUMENTATION = [
   {
-    title: 'Habilitar la firma de enlace directo',
-    description:
-      'Una vez habilitado, puede seleccionar cualquier destinatario activo para que sea un destinatario de firma de enlace directo o crear uno nuevo. Este tipo de destinatario no se puede editar ni eliminar.',
+    title: msg`Enable Direct Link Signing`,
+    description: msg`Once enabled, you can select any active recipient to be a direct link signing recipient, or create a new one. This recipient type cannot be edited or deleted.`,
   },
   {
-    title: 'Configurar destinatario directo',
-    description:
-      'Actualiza el rol  y añada campos requeridos para el destinatario directo La persona que utilice el enlace firmará el documento como destinatario directo.',
+    title: msg`Configure Direct Recipient`,
+    description: msg`Update the role and add fields as required for the direct recipient. The individual who uses the direct link will sign the document as the direct recipient.`,
   },
   {
-    title: 'Comparte el enlace',
-    description:
-      'Una vez que su plantilla esté configurada, comparta el enlace donde desee. La persona que abra el enlace podrá ingresar su información en el campo del destinatario del enlace directo y completar cualquier otro campo que se le asigne.',
+    title: msg`Share the Link`,
+    description: msg`Once your template is set up, share the link anywhere you want. The person who opens the link will be able to enter their information in the direct link recipient field and complete any other fields assigned to them.`,
   },
   {
-    title: 'Creación de documento',
-    description:
-      'Después del envío, se generará automáticamente un documento y se agregará a su página de documentos. También recibirás una notificación por correo electrónico.',
+    title: msg`Document Creation`,
+    description: msg`After submission, a document will be automatically generated and added to your documents page. You will also receive a notification via email.`,
   },
 ];
-
-export const DIRECT_TEMPLATE_RECIPIENT_EMAIL = 'direct.link@disex.com.co';
-export const DIRECT_TEMPLATE_RECIPIENT_NAME = 'Direct link recipient';

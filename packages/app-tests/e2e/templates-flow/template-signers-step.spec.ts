@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 import { seedUserSubscription } from '@documenso/prisma/seed/subscriptions';
 import { seedBlankTemplate } from '@documenso/prisma/seed/templates';
-import { seedUser, unseedUser } from '@documenso/prisma/seed/users';
+import { seedUser } from '@documenso/prisma/seed/users';
 
 import { apiSignin } from '../fixtures/authentication';
 
@@ -39,11 +39,11 @@ test.describe('[EE_ONLY]', () => {
     await expect(page.getByRole('heading', { name: 'Add Placeholder' })).toBeVisible();
 
     // Add 2 signers.
-    await page.getByPlaceholder('Email').fill('recipient1@disex.com.co');
+    await page.getByPlaceholder('Email').fill('recipient1@documenso.com');
     await page.getByPlaceholder('Name').fill('Recipient 1');
     await page.getByRole('button', { name: 'Add Placeholder Recipient' }).click();
-    await page.getByRole('textbox', { name: 'Email', exact: true }).fill('recipient2@disex.com.co');
-    await page.getByRole('textbox', { name: 'Name', exact: true }).nth(1).fill('Recipient 2');
+    await page.getByPlaceholder('Email').nth(1).fill('recipient2@documenso.com');
+    await page.getByPlaceholder('Name').nth(1).fill('Recipient 2');
 
     // Display advanced settings.
     await page.getByLabel('Show advanced settings').check();
@@ -71,8 +71,6 @@ test.describe('[EE_ONLY]', () => {
     // Expect that the advanced settings is visible, and the checkbox is hidden. Since advanced
     // settings were applied.
     await expect(page.getByLabel('Show advanced settings')).toBeHidden();
-
-    await unseedUser(user.id);
   });
 });
 
@@ -91,14 +89,12 @@ test('[TEMPLATE_FLOW]: add placeholder', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Add Placeholder' })).toBeVisible();
 
   // Add 2 signers.
-  await page.getByPlaceholder('Email').fill('recipient1@disex.com.co');
+  await page.getByPlaceholder('Email').fill('recipient1@documenso.com');
   await page.getByPlaceholder('Name').fill('Recipient 1');
   await page.getByRole('button', { name: 'Add Placeholder Recipient' }).click();
-  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('recipient2@disex.com.co');
-  await page.getByRole('textbox', { name: 'Name', exact: true }).nth(1).fill('Recipient 2');
+  await page.getByPlaceholder('Email').nth(1).fill('recipient2@documenso.com');
+  await page.getByPlaceholder('Name').nth(1).fill('Recipient 2');
 
   // Advanced settings should not be visible for non EE users.
   await expect(page.getByLabel('Show advanced settings')).toBeHidden();
-
-  await unseedUser(user.id);
 });

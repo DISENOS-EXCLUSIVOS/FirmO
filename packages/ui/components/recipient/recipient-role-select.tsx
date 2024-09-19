@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from 'react';
 
+import { Trans } from '@lingui/macro';
 import type { SelectProps } from '@radix-ui/react-select';
 import { InfoIcon } from 'lucide-react';
 
@@ -17,67 +18,81 @@ export type RecipientRoleSelectProps = SelectProps & {
 export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSelectProps>(
   ({ hideCCRecipients, ...props }, ref) => (
     <Select {...props}>
-      <SelectTrigger ref={ref} className="bg-background w-[60px]" style={{ color: "white" }}>
+      <SelectTrigger ref={ref} className="bg-background w-[50px] p-2">
+        {/* eslint-disable-next-line @typescript-eslint/consistent-type-assertions */}
         {ROLE_ICONS[props.value as RecipientRole]}
       </SelectTrigger>
+
       <SelectContent align="end">
         <SelectItem value={RecipientRole.SIGNER}>
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.SIGNER]}</span>
-              Necesita firmar
+              <Trans>Needs to sign</Trans>
             </div>
             <Tooltip>
               <TooltipTrigger>
                 <InfoIcon className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent className="text-foreground z-9999 max-w-md p-4">
-                <p>El destinatario debe firmar el documento para que se complete.</p>
+                <p>
+                  <Trans>
+                    The recipient is required to sign the document for it to be completed.
+                  </Trans>
+                </p>
               </TooltipContent>
             </Tooltip>
           </div>
         </SelectItem>
 
-        <SelectItem value={RecipientRole.APPROVER} >
+        <SelectItem value={RecipientRole.APPROVER}>
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.APPROVER]}</span>
-              Necesita aprobar
+              <Trans>Needs to approve</Trans>
             </div>
             <Tooltip>
               <TooltipTrigger>
                 <InfoIcon className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent className="text-foreground z-9999 max-w-md p-4">
-                <p>El destinatario debe aprobar el documento para que se complete.</p>
+                <p>
+                  <Trans>
+                    The recipient is required to approve the document for it to be completed.
+                  </Trans>
+                </p>
               </TooltipContent>
             </Tooltip>
           </div>
         </SelectItem>
 
-        <SelectItem value={RecipientRole.VIEWER} >
+        <SelectItem value={RecipientRole.VIEWER}>
           <div className="flex items-center">
             <div className="flex w-[150px] items-center">
               <span className="mr-2">{ROLE_ICONS[RecipientRole.VIEWER]}</span>
-              Necesita ver
+              <Trans>Needs to view</Trans>
             </div>
             <Tooltip>
               <TooltipTrigger>
                 <InfoIcon className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent className="text-foreground z-9999 max-w-md p-4">
-                <p>El destinatario debe ver el documento para completarlo.</p>
+                <p>
+                  <Trans>
+                    The recipient is required to view the document for it to be completed.
+                  </Trans>
+                </p>
               </TooltipContent>
             </Tooltip>
           </div>
         </SelectItem>
 
         {!hideCCRecipients && (
-          <SelectItem value={RecipientRole.CC} >
+          <SelectItem value={RecipientRole.CC}>
             <div className="flex items-center">
               <div className="flex w-[150px] items-center">
                 <span className="mr-2">{ROLE_ICONS[RecipientRole.CC]}</span>
-                Recibe copia
+                <Trans>Receives copy</Trans>
               </div>
               <Tooltip>
                 <TooltipTrigger>
@@ -85,8 +100,10 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
                 </TooltipTrigger>
                 <TooltipContent className="text-foreground z-9999 max-w-md p-4">
                   <p>
-                    El destinatario no está obligado a realizar ninguna acción y recibe una copia de
-                    la documento una vez finalizado.
+                    <Trans>
+                      The recipient is not required to take any action and receives a copy of the
+                      document after it is completed.
+                    </Trans>
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -94,7 +111,6 @@ export const RecipientRoleSelect = forwardRef<HTMLButtonElement, RecipientRoleSe
           </SelectItem>
         )}
       </SelectContent>
-
     </Select>
   ),
 );

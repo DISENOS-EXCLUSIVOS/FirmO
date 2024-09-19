@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+
+import { setupI18nSSR } from '@documenso/lib/client-only/providers/i18n.server';
 import { getRequiredServerComponentSession } from '@documenso/lib/next-auth/get-server-component-session';
 import { getServerComponentFlag } from '@documenso/lib/server-only/feature-flags/get-server-component-feature-flag';
 import { Alert, AlertDescription, AlertTitle } from '@documenso/ui/primitives/alert';
@@ -13,20 +17,23 @@ import { ViewRecoveryCodesDialog } from '~/components/forms/2fa/view-recovery-co
 import { PasswordForm } from '~/components/forms/password';
 
 export const metadata: Metadata = {
-  title: 'Seguridad',
+  title: 'Security',
 };
 
 export default async function SecuritySettingsPage() {
+  setupI18nSSR();
+
+  const { _ } = useLingui();
   const { user } = await getRequiredServerComponentSession();
 
   const isPasskeyEnabled = await getServerComponentFlag('app_passkey');
 
   return (
     <div>
-      {/* <SettingsHeader
-        title="Seguridad"
-        subtitle="Aquí puede administrar su contraseña y configuración de seguridad."
-      /> */}
+      <SettingsHeader
+        title={_(msg`Security`)}
+        subtitle={_(msg`Here you can manage your password and security settings.`)}
+      />
 
       {user.identityProvider === 'DOCUMENSO' && (
         <>
@@ -36,18 +43,27 @@ export default async function SecuritySettingsPage() {
         </>
       )}
 
-      {/* <Alert
+      <Alert
         className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"
         variant="neutral"
       >
         <div className="mb-4 sm:mb-0">
-          <AlertTitle>Autenticación de dos factores</AlertTitle>
+          <AlertTitle>
+            <Trans>Two factor authentication</Trans>
+          </AlertTitle>
 
           <AlertDescription className="mr-4">
-            Agregue un autenticador para que sirva como método de autenticación secundario{' '}
-            {user.identityProvider === 'DOCUMENSO'
-              ? 'al iniciar sesión o al firmar documentos..'
-              : 'para firmar documentos.'}
+            {user.identityProvider === 'DOCUMENSO' ? (
+              <Trans>
+                Add an authenticator to serve as a secondary authentication method when signing in,
+                or when signing documents.
+              </Trans>
+            ) : (
+              <Trans>
+                Add an authenticator to serve as a secondary authentication method for signing
+                documents.
+              </Trans>
+            )}
           </AlertDescription>
         </div>
 
@@ -56,7 +72,7 @@ export default async function SecuritySettingsPage() {
         ) : (
           <EnableAuthenticatorAppDialog />
         )}
-      </Alert> */}
+      </Alert>
 
       {user.twoFactorEnabled && (
         <Alert
@@ -64,11 +80,15 @@ export default async function SecuritySettingsPage() {
           variant="neutral"
         >
           <div className="mb-4 sm:mb-0">
-            <AlertTitle>Códigos de recuperación</AlertTitle>
+            <AlertTitle>
+              <Trans>Recovery codes</Trans>
+            </AlertTitle>
 
             <AlertDescription className="mr-4">
-              Los códigos de recuperación de autenticación de dos factores se utilizan para acceder
-              a su cuenta en caso de que que pierda el acceso a su aplicación de autenticación.
+              <Trans>
+                Two factor authentication recovery codes are used to access your account in the
+                event that you lose access to your authenticator app.
+              </Trans>
             </AlertDescription>
           </div>
 
@@ -76,40 +96,49 @@ export default async function SecuritySettingsPage() {
         </Alert>
       )}
 
-      {/* {isPasskeyEnabled && (
+      {isPasskeyEnabled && (
         <Alert
           className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"
           variant="neutral"
         >
           <div className="mb-4 sm:mb-0">
-            <AlertTitle>Claves de acceso</AlertTitle>
+            <AlertTitle>
+              <Trans>Passkeys</Trans>
+            </AlertTitle>
 
             <AlertDescription className="mr-4">
-              Permite autenticarse mediante biometría, gestores de contraseñas, claves de hardware,
-              etc.
+              <Trans>
+                Allows authenticating using biometrics, password managers, hardware keys, etc.
+              </Trans>
             </AlertDescription>
           </div>
 
           <Button asChild variant="outline" className="bg-background">
-            <Link href="/settings/security/passkeys">Administrar claves de acceso</Link>
+            <Link href="/settings/security/passkeys">
+              <Trans>Manage passkeys</Trans>
+            </Link>
           </Button>
         </Alert>
-      )} */}
+      )}
 
       <Alert
         className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"
         variant="neutral"
       >
         <div className="mb-4 mr-4 sm:mb-0">
-          <AlertTitle>Actividad reciente</AlertTitle>
+          <AlertTitle>
+            <Trans>Recent activity</Trans>
+          </AlertTitle>
 
           <AlertDescription className="mr-2">
-            Vea toda la actividad de seguridad reciente relacionada con su cuenta.
+            <Trans>View all recent security activity related to your account.</Trans>
           </AlertDescription>
         </div>
 
         <Button asChild variant="outline" className="bg-background">
-          <Link href="/settings/security/activity">Ver actividad</Link>
+          <Link href="/settings/security/activity">
+            <Trans>View activity</Trans>
+          </Link>
         </Button>
       </Alert>
     </div>

@@ -3,12 +3,14 @@
 import { useEffect } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trans } from '@lingui/macro';
 import { InfoIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
 import { DATE_FORMATS, DEFAULT_DOCUMENT_DATE_FORMAT } from '@documenso/lib/constants/date-formats';
 import { DEFAULT_DOCUMENT_TIME_ZONE, TIME_ZONES } from '@documenso/lib/constants/time-zones';
 import { extractDocumentAuthMethods } from '@documenso/lib/utils/document-auth';
+import type { TeamMemberRole } from '@documenso/prisma/client';
 import { DocumentStatus, type Field, type Recipient, SendStatus } from '@documenso/prisma/client';
 import type { DocumentWithData } from '@documenso/prisma/types/document-with-data';
 import {
@@ -19,6 +21,10 @@ import {
   DocumentGlobalAuthActionSelect,
   DocumentGlobalAuthActionTooltip,
 } from '@documenso/ui/components/document/document-global-auth-action-select';
+import {
+  DocumentVisibilitySelect,
+  DocumentVisibilityTooltip,
+} from '@documenso/ui/components/document/document-visibility-select';
 import {
   Accordion,
   AccordionContent,
@@ -58,6 +64,7 @@ export type AddSettingsFormProps = {
   isDocumentEnterprise: boolean;
   isDocumentPdfLoaded: boolean;
   document: DocumentWithData;
+  currentTeamMemberRole?: TeamMemberRole;
   onSubmit: (_data: TAddSettingsFormSchema) => void;
 };
 
@@ -68,6 +75,7 @@ export const AddSettingsFormPartial = ({
   isDocumentEnterprise,
   isDocumentPdfLoaded,
   document,
+  currentTeamMemberRole,
   onSubmit,
 }: AddSettingsFormProps) => {
   const { documentAuthOption } = extractDocumentAuthMethods({
@@ -79,11 +87,16 @@ export const AddSettingsFormPartial = ({
     defaultValues: {
       title: document.title,
       externalId: document.externalId || '',
+      visibility: document.visibility || '',
       globalAccessAuth: documentAuthOption?.globalAccessAuth || undefined,
       globalActionAuth: documentAuthOption?.globalActionAuth || undefined,
       meta: {
-        timezone: document.documentMeta?.timezone ?? DEFAULT_DOCUMENT_TIME_ZONE,
-        dateFormat: document.documentMeta?.dateFormat ?? DEFAULT_DOCUMENT_DATE_FORMAT,
+        timezone:
+          TIME_ZONES.find((timezone) => timezone === document.documentMeta?.timezone) ??
+          DEFAULT_DOCUMENT_TIME_ZONE,
+        dateFormat:
+          DATE_FORMATS.find((format) => format.label === document.documentMeta?.dateFormat)
+            ?.value ?? DEFAULT_DOCUMENT_DATE_FORMAT,
         redirectUrl: document.documentMeta?.redirectUrl ?? '',
       },
     },
@@ -98,10 +111,20 @@ export const AddSettingsFormPartial = ({
   // We almost always want to set the timezone to the user's local timezone to avoid confusion
   // when the document is signed.
   useEffect(() => {
-    if (!form.formState.touchedFields.meta?.timezone && !documentHasBeenSent) {
+    if (
+      !form.formState.touchedFields.meta?.timezone &&
+      !documentHasBeenSent &&
+      !document.documentMeta?.timezone
+    ) {
       form.setValue('meta.timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
     }
-  }, [documentHasBeenSent, form, form.setValue, form.formState.touchedFields.meta?.timezone]);
+  }, [
+    documentHasBeenSent,
+    form,
+    form.setValue,
+    form.formState.touchedFields.meta?.timezone,
+    document.documentMeta?.timezone,
+  ]);
 
   return (
     <>
@@ -126,7 +149,9 @@ export const AddSettingsFormPartial = ({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel required>Título</FormLabel>
+                  <FormLabel required>
+                    <Trans>Title</Trans>
+                  </FormLabel>
 
                   <FormControl>
                     <Input
@@ -146,7 +171,7 @@ export const AddSettingsFormPartial = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex flex-row items-center">
-                    Acesso al documento
+                    <Trans>Document access</Trans>
                     <DocumentGlobalAuthAccessTooltip />
                   </FormLabel>
 
@@ -157,6 +182,29 @@ export const AddSettingsFormPartial = ({
               )}
             />
 
+            {currentTeamMemberRole && (
+              <FormField
+                control={form.control}
+                name="visibility"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex flex-row items-center">
+                      Document visibility
+                      <DocumentVisibilityTooltip />
+                    </FormLabel>
+
+                    <FormControl>
+                      <DocumentVisibilitySelect
+                        currentMemberRole={currentTeamMemberRole}
+                        {...field}
+                        onValueChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            )}
+
             {isDocumentEnterprise && (
               <FormField
                 control={form.control}
@@ -164,7 +212,7 @@ export const AddSettingsFormPartial = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex flex-row items-center">
-                      Acción de autenticación del destinatario
+                      <Trans>Recipient action authentication</Trans>
                       <DocumentGlobalAuthActionTooltip />
                     </FormLabel>
 
@@ -179,7 +227,7 @@ export const AddSettingsFormPartial = ({
             <Accordion type="multiple" className="mt-6">
               <AccordionItem value="advanced-options" className="border-none">
                 <AccordionTrigger className="text-foreground mb-2 rounded border px-3 py-2 text-left hover:bg-neutral-200/30 hover:no-underline">
-                  Opciones avanzadas
+                  <Trans>Advanced Options</Trans>
                 </AccordionTrigger>
 
                 <AccordionContent className="text-muted-foreground -mx-1 px-1 pt-2 text-sm leading-relaxed">
@@ -190,14 +238,17 @@ export const AddSettingsFormPartial = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex flex-row items-center">
-                            Consecutivo{' '}
+                            <Trans>External ID</Trans>{' '}
                             <Tooltip>
                               <TooltipTrigger>
                                 <InfoIcon className="mx-2 h-4 w-4" />
                               </TooltipTrigger>
 
                               <TooltipContent className="text-muted-foreground max-w-xs">
-                                Agregue una identificación externa al documento. Esto ayudará a identificarlo en reportes.
+                                <Trans>
+                                  Add an external ID to the document. This can be used to identify
+                                  the document in external systems.
+                                </Trans>
                               </TooltipContent>
                             </Tooltip>
                           </FormLabel>
@@ -216,7 +267,9 @@ export const AddSettingsFormPartial = ({
                       name="meta.dateFormat"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Formato de fecha</FormLabel>
+                          <FormLabel>
+                            <Trans>Date Format</Trans>
+                          </FormLabel>
 
                           <FormControl>
                             <Select
@@ -228,7 +281,7 @@ export const AddSettingsFormPartial = ({
                                 <SelectValue />
                               </SelectTrigger>
 
-                              <SelectContent style={{color:"white"}}>
+                              <SelectContent>
                                 {DATE_FORMATS.map((format) => (
                                   <SelectItem key={format.key} value={format.value}>
                                     {format.label}
@@ -243,19 +296,21 @@ export const AddSettingsFormPartial = ({
                       )}
                     />
 
-                    {/* <FormField
+                    <FormField
                       control={form.control}
                       name="meta.timezone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Zona Horaria</FormLabel>
+                          <FormLabel>
+                            <Trans>Time Zone</Trans>
+                          </FormLabel>
 
                           <FormControl>
                             <Combobox
                               className="bg-background"
                               options={TIME_ZONES}
                               {...field}
-                             value={"America/Bogota"}
+                              onChange={(value) => value && field.onChange(value)}
                               disabled={documentHasBeenSent}
                             />
                           </FormControl>
@@ -263,7 +318,7 @@ export const AddSettingsFormPartial = ({
                           <FormMessage />
                         </FormItem>
                       )}
-                    /> */}
+                    />
 
                     <FormField
                       control={form.control}
@@ -271,15 +326,16 @@ export const AddSettingsFormPartial = ({
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex flex-row items-center">
-                            Redireccionar URL{' '}
+                            <Trans>Redirect URL</Trans>{' '}
                             <Tooltip>
                               <TooltipTrigger>
                                 <InfoIcon className="mx-2 h-4 w-4" />
                               </TooltipTrigger>
 
                               <TooltipContent className="text-muted-foreground max-w-xs">
-                                Agregue una URL para redirigir al usuario una vez que se firme el
-                                documento
+                                <Trans>
+                                  Add a URL to redirect the user to once the document is signed
+                                </Trans>
                               </TooltipContent>
                             </Tooltip>
                           </FormLabel>
@@ -301,11 +357,7 @@ export const AddSettingsFormPartial = ({
       </DocumentFlowFormContainerContent>
 
       <DocumentFlowFormContainerFooter>
-        <DocumentFlowFormContainerStep
-          title={documentFlow.title}
-          step={currentStep}
-          maxStep={totalSteps}
-        />
+        <DocumentFlowFormContainerStep step={currentStep} maxStep={totalSteps} />
 
         <DocumentFlowFormContainerActions
           loading={form.formState.isSubmitting}

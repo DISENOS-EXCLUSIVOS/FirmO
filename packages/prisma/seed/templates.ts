@@ -4,7 +4,7 @@ import path from 'node:path';
 import {
   DIRECT_TEMPLATE_RECIPIENT_EMAIL,
   DIRECT_TEMPLATE_RECIPIENT_NAME,
-} from '@documenso/lib/constants/template';
+} from '@documenso/lib/constants/direct-templates';
 
 import { prisma } from '..';
 import type { Prisma, User } from '../client';
@@ -73,7 +73,7 @@ export const seedTemplate = async (options: SeedTemplateOptions) => {
       },
       Recipient: {
         create: {
-          email: 'recipient.1@disex.com.co',
+          email: 'recipient.1@documenso.com',
           name: 'Recipient 1',
           token: Math.random().toString().slice(2, 7),
           sendStatus: SendStatus.NOT_SENT,

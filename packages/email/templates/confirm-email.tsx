@@ -9,7 +9,7 @@ export const ConfirmEmailTemplate = ({
   confirmationLink,
   assetBaseUrl = 'http://localhost:3002',
 }: TemplateConfirmationEmailProps) => {
-  const previewText = `Por favor confirme su dirección de correo electrónico.`;
+  const previewText = `Please confirm your email address`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
@@ -32,7 +32,11 @@ export const ConfirmEmailTemplate = ({
           <Section>
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img src={'https://ibb.co/f0T5w3j'} alt="FirmO Logo" className="mb-4 h-6" />
+                <Img
+                  src={getAssetUrl('/static/logo.png')}
+                  alt="Documenso Logo"
+                  className="mb-4 h-6"
+                />
 
                 <TemplateConfirmationEmail
                   confirmationLink={confirmationLink}

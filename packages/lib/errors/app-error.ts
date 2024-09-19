@@ -167,7 +167,7 @@ export class AppError extends Error {
     return {
       status,
       body: {
-        message: status !== 500 ? error.message : 'Algo salió mal',
+        message: status !== 500 ? error.message : 'Something went wrong',
       },
     };
   }

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { AlertTriangle } from 'lucide-react';
 
 import { ONE_DAY, ONE_SECOND } from '@documenso/lib/constants/time';
@@ -22,7 +24,9 @@ export type VerifyEmailBannerProps = {
 const RESEND_CONFIRMATION_EMAIL_TIMEOUT = 20 * ONE_SECOND;
 
 export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
+  const { _ } = useLingui();
   const { toast } = useToast();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -37,8 +41,8 @@ export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
       await sendConfirmationEmail({ email: email });
 
       toast({
-        title: 'Éxito',
-        description: 'Correo electrónico de verificación enviado correctamente.',
+        title: _(msg`Success`),
+        description: _(msg`Verification email sent successfully.`),
       });
 
       setIsOpen(false);
@@ -47,8 +51,8 @@ export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
       setIsButtonDisabled(false);
 
       toast({
-        title: 'Error',
-        description: 'Algo salió mal al enviar el correo electrónico de confirmación.',
+        title: _(msg`Error`),
+        description: _(msg`Something went wrong while sending the confirmation email.`),
         variant: 'destructive',
       });
     }
@@ -81,7 +85,7 @@ export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
         <div className="mx-auto flex max-w-screen-xl items-center justify-center gap-x-4 px-4 py-2 text-sm font-medium text-yellow-900">
           <div className="flex items-center">
             <AlertTriangle className="mr-2.5 h-5 w-5" />
-            Verifique su dirección de correo electrónico para desbloquear todas las funciones.
+            <Trans>Verify your email address to unlock all features.</Trans>
           </div>
 
           <div>
@@ -92,7 +96,11 @@ export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
               onClick={() => setIsOpen(true)}
               size="sm"
             >
-              {isButtonDisabled ? 'Verification Email Sent' : 'Verify Now'}
+              {isButtonDisabled ? (
+                <Trans>Verification Email Sent</Trans>
+              ) : (
+                <Trans>Verify Now</Trans>
+              )}
             </Button>
           </div>
         </div>
@@ -100,12 +108,15 @@ export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
-          <DialogTitle>Verifique su dirección de correo electrónico</DialogTitle>
+          <DialogTitle>
+            <Trans>Verify your email address</Trans>
+          </DialogTitle>
 
           <DialogDescription>
-            Hemos enviado un correo electrónico de confirmación a <strong>{email}</strong>. Por
-            favor Revise su bandeja de entrada y haga clic en el enlace del correo electrónico para
-            verificar su cuenta.
+            <Trans>
+              We've sent a confirmation email to <strong>{email}</strong>. Please check your inbox
+              and click the link in the email to verify your account.
+            </Trans>
           </DialogDescription>
 
           <div>
@@ -114,7 +125,7 @@ export const VerifyEmailBanner = ({ email }: VerifyEmailBannerProps) => {
               loading={isLoading}
               onClick={onResendConfirmationEmail}
             >
-              {isLoading ? 'Enviando...' : 'Reenviar correo electrónico de confirmación'}
+              {isLoading ? <Trans>Sending...</Trans> : <Trans>Resend Confirmation Email</Trans>}
             </Button>
           </div>
         </DialogContent>

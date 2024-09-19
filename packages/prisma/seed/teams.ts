@@ -4,7 +4,7 @@ import { prisma } from '..';
 import { TeamMemberInviteStatus, TeamMemberRole } from '../client';
 import { seedUser } from './users';
 
-const EMAIL_DOMAIN = `test.disex.com.co`;
+const EMAIL_DOMAIN = `test.documenso.com`;
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
 type SeedTeamOptions = {
@@ -97,6 +97,44 @@ export const unseedTeam = async (teamUrl: string) => {
     where: {
       id: {
         in: team.members.map((member) => member.userId),
+      },
+    },
+  });
+};
+
+type SeedTeamMemberOptions = {
+  teamId: number;
+  role?: TeamMemberRole;
+};
+
+export const seedTeamMember = async ({
+  teamId,
+  role = TeamMemberRole.ADMIN,
+}: SeedTeamMemberOptions) => {
+  const user = await seedUser();
+
+  await prisma.teamMember.create({
+    data: {
+      teamId,
+      role,
+      userId: user.id,
+    },
+  });
+
+  return user;
+};
+
+type UnseedTeamMemberOptions = {
+  teamId: number;
+  userId: number;
+};
+
+export const unseedTeamMember = async ({ teamId, userId }: UnseedTeamMemberOptions) => {
+  await prisma.teamMember.delete({
+    where: {
+      userId_teamId: {
+        userId,
+        teamId,
       },
     },
   });

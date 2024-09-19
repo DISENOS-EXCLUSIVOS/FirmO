@@ -4,6 +4,8 @@ import { useState, useTransition } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { Loader } from 'lucide-react';
 
 import { DO_NOT_INVALIDATE_QUERY_ON_MUTATION } from '@documenso/lib/constants/trpc';
@@ -36,6 +38,7 @@ export type NameFieldProps = {
 export const NameField = ({ field, recipient, onSignField, onUnsignField }: NameFieldProps) => {
   const router = useRouter();
 
+  const { _ } = useLingui();
   const { toast } = useToast();
 
   const { fullName: providedFullName, setFullName: setProvidedFullName } =
@@ -115,8 +118,8 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al firmar el documento.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while signing the document.`),
         variant: 'destructive',
       });
     }
@@ -141,8 +144,8 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al eliminar la firma.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while removing the signature.`),
         variant: 'destructive',
       });
     }
@@ -163,22 +166,32 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
       )}
 
       {!field.inserted && (
-        <p className="group-hover:text-primary text-muted-foreground text-lg duration-200">
-          Nombre
+        <p className="group-hover:text-primary text-muted-foreground duration-200 group-hover:text-yellow-300">
+          <Trans>Name</Trans>
         </p>
       )}
 
-      {field.inserted && <p className="text-muted-foreground duration-200">{field.customText}</p>}
+      {field.inserted && (
+        <p className="text-muted-foreground dark:text-background/80 text-[clamp(0.625rem,1cqw,0.825rem)] duration-200">
+          {field.customText}
+        </p>
+      )}
 
       <Dialog open={showFullNameModal} onOpenChange={setShowFullNameModal}>
         <DialogContent>
           <DialogTitle>
-            Firmar como {recipient.name}{' '}
-            <span className="text-muted-foreground">({recipient.email})</span>
+            <Trans>
+              Sign as
+              <div>
+                {recipient.name} <div className="text-muted-foreground">({recipient.email})</div>
+              </div>
+            </Trans>
           </DialogTitle>
 
           <div>
-            <Label htmlFor="signature">Nombre completo</Label>
+            <Label htmlFor="signature">
+              <Trans>Full Name</Trans>
+            </Label>
 
             <Input
               type="text"
@@ -199,7 +212,7 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
                   setLocalFullName('');
                 }}
               >
-                Cancelar
+                <Trans>Cancel</Trans>
               </Button>
 
               <Button
@@ -208,7 +221,7 @@ export const NameField = ({ field, recipient, onSignField, onUnsignField }: Name
                 disabled={!localFullName}
                 onClick={() => onDialogSignClick()}
               >
-                Firmar
+                <Trans>Sign</Trans>
               </Button>
             </div>
           </DialogFooter>

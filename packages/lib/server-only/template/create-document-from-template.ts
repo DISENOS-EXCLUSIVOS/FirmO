@@ -1,6 +1,6 @@
 import { nanoid } from '@documenso/lib/universal/id';
 import { prisma } from '@documenso/prisma';
-import type { Field } from '@documenso/prisma/client';
+import type { DocumentSigningOrder, Field } from '@documenso/prisma/client';
 import {
   DocumentSource,
   type Recipient,
@@ -13,6 +13,7 @@ import {
 import { AppError, AppErrorCode } from '../../errors/app-error';
 import { DOCUMENT_AUDIT_LOG_TYPE } from '../../types/document-audit-logs';
 import { ZRecipientAuthOptionsSchema } from '../../types/document-auth';
+import { ZFieldMetaSchema } from '../../types/field-meta';
 import type { RequestMetadata } from '../../universal/extract-request-metadata';
 import { createDocumentAuditLogData } from '../../utils/document-audit-logs';
 import {
@@ -40,6 +41,7 @@ export type CreateDocumentFromTemplateOptions = {
     id: number;
     name?: string;
     email: string;
+    signingOrder?: number | null;
   }[];
 
   /**
@@ -53,6 +55,7 @@ export type CreateDocumentFromTemplateOptions = {
     password?: string;
     dateFormat?: string;
     redirectUrl?: string;
+    signingOrder?: DocumentSigningOrder;
   };
   requestMetadata?: RequestMetadata;
 };
@@ -133,6 +136,7 @@ export const createDocumentFromTemplate = async ({
       name: foundRecipient ? foundRecipient.name ?? '' : templateRecipient.name,
       email: foundRecipient ? foundRecipient.email : templateRecipient.email,
       role: templateRecipient.role,
+      signingOrder: foundRecipient?.signingOrder ?? templateRecipient.signingOrder,
       authOptions: templateRecipient.authOptions,
     };
   });
@@ -167,6 +171,8 @@ export const createDocumentFromTemplate = async ({
             password: override?.password || template.templateMeta?.password,
             dateFormat: override?.dateFormat || template.templateMeta?.dateFormat,
             redirectUrl: override?.redirectUrl || template.templateMeta?.redirectUrl,
+            signingOrder:
+              override?.signingOrder || template.templateMeta?.signingOrder || undefined,
           },
         },
         Recipient: {
@@ -225,12 +231,16 @@ export const createDocumentFromTemplate = async ({
           height: field.height,
           customText: '',
           inserted: false,
+          fieldMeta: field.fieldMeta,
         })),
       );
     });
 
     await tx.field.createMany({
-      data: fieldsToCreate,
+      data: fieldsToCreate.map((field) => ({
+        ...field,
+        fieldMeta: field.fieldMeta ? ZFieldMetaSchema.parse(field.fieldMeta) : undefined,
+      })),
     });
 
     await tx.documentAuditLog.create({

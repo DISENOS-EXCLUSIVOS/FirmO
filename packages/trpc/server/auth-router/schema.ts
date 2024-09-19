@@ -10,14 +10,14 @@ export const ZCurrentPasswordSchema = z
 
 export const ZPasswordSchema = z
   .string()
-  .regex(new RegExp('.*[A-Z].*'), { message: 'Al menos una mayúscula' })
-  .regex(new RegExp('.*[a-z].*'), { message: 'Al menos una minúscula' })
-  .regex(new RegExp('.*\\d.*'), { message: 'Al menos un número' })
+  .regex(new RegExp('.*[A-Z].*'), { message: 'One uppercase character' })
+  .regex(new RegExp('.*[a-z].*'), { message: 'One lowercase character' })
+  .regex(new RegExp('.*\\d.*'), { message: 'One number' })
   .regex(new RegExp('.*[`~<>?,./!@#$%^&*()\\-_+="\'|{}\\[\\];:\\\\].*'), {
-    message: 'Al menos un carácter especial',
+    message: 'One special character is required',
   })
-  .min(8, { message: 'Al menos 8 caractéres' })
-  .max(72, { message: 'No más de 72 caractéres' });
+  .min(8, { message: 'Must be at least 8 characters in length' })
+  .max(72, { message: 'Cannot be more than 72 characters in length' });
 
 export const ZSignUpMutationSchema = z.object({
   name: z.string().min(1),
@@ -30,7 +30,7 @@ export const ZSignUpMutationSchema = z.object({
     .toLowerCase()
     .min(1)
     .regex(/^[a-z0-9-]+$/, {
-      message: 'El nombre de usuario solo debe tener letras minúsculas, números y guiones',
+      message: 'Username can only container alphanumeric characters and dashes.',
     })
     .optional(),
 });

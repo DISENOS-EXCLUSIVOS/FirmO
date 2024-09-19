@@ -13,6 +13,7 @@ import {
   DocumentSource,
   DocumentStatus,
   FieldType,
+  Prisma,
   RecipientRole,
   SendStatus,
   SigningStatus,
@@ -26,6 +27,7 @@ import { AppError, AppErrorCode } from '../../errors/app-error';
 import { DOCUMENT_AUDIT_LOG_TYPE } from '../../types/document-audit-logs';
 import type { TRecipientActionAuthTypes } from '../../types/document-auth';
 import { DocumentAccessAuth, ZRecipientAuthOptionsSchema } from '../../types/document-auth';
+import { ZFieldMetaSchema } from '../../types/field-meta';
 import type { RequestMetadata } from '../../universal/extract-request-metadata';
 import type { CreateDocumentAuditLogDataResponse } from '../../utils/document-audit-logs';
 import { createDocumentAuditLogData } from '../../utils/document-audit-logs';
@@ -42,6 +44,7 @@ export type CreateDocumentFromDirectTemplateOptions = {
   directRecipientName?: string;
   directRecipientEmail: string;
   directTemplateToken: string;
+  directTemplateExternalId?: string;
   signedFieldValues: TSignFieldWithTokenMutationSchema[];
   templateUpdatedAt: Date;
   requestMetadata: RequestMetadata;
@@ -61,6 +64,7 @@ export const createDocumentFromDirectTemplate = async ({
   directRecipientName: initialDirectRecipientName,
   directRecipientEmail,
   directTemplateToken,
+  directTemplateExternalId,
   signedFieldValues,
   templateUpdatedAt,
   requestMetadata,
@@ -145,7 +149,7 @@ export const createDocumentFromDirectTemplate = async ({
       );
 
       if (!signedFieldValue) {
-        throw new AppError(AppErrorCode.INVALID_BODY, 'Campos no válidos, faltantes o modificados');
+        throw new AppError(AppErrorCode.INVALID_BODY, 'Invalid, missing or changed fields');
       }
 
       if (templateField.type === FieldType.NAME && directRecipientName === undefined) {
@@ -179,7 +183,7 @@ export const createDocumentFromDirectTemplate = async ({
       }
 
       if (isSignatureField && !signatureImageAsBase64 && !typedSignature) {
-        throw new Error('El campo de firma debe tener una firma.');
+        throw new Error('Signature field must have a signature');
       }
 
       return {
@@ -206,7 +210,7 @@ export const createDocumentFromDirectTemplate = async ({
 
   const initialRequestTime = new Date();
 
-  const { documentId, directRecipientToken } = await prisma.$transaction(async (tx) => {
+  const { documentId, recipientId, token } = await prisma.$transaction(async (tx) => {
     const documentData = await tx.documentData.create({
       data: {
         type: template.templateDocumentData.type,
@@ -225,6 +229,7 @@ export const createDocumentFromDirectTemplate = async ({
         title: template.title,
         createdAt: initialRequestTime,
         status: DocumentStatus.PENDING,
+        externalId: directTemplateExternalId,
         documentDataId: documentData.id,
         authOptions: createDocumentAuthOptions({
           globalAccessAuth: templateAuthOptions.globalAccessAuth,
@@ -281,7 +286,7 @@ export const createDocumentFromDirectTemplate = async ({
       );
 
       if (!recipient) {
-        throw new Error('Destinatario no encontrado.');
+        throw new Error('Recipient not found.');
       }
 
       nonDirectRecipientFieldsToCreate = nonDirectRecipientFieldsToCreate.concat(
@@ -296,12 +301,16 @@ export const createDocumentFromDirectTemplate = async ({
           height: field.height,
           customText: '',
           inserted: false,
+          fieldMeta: field.fieldMeta,
         })),
       );
     });
 
     await tx.field.createMany({
-      data: nonDirectRecipientFieldsToCreate,
+      data: nonDirectRecipientFieldsToCreate.map((field) => ({
+        ...field,
+        fieldMeta: field.fieldMeta ? ZFieldMetaSchema.parse(field.fieldMeta) : undefined,
+      })),
     });
 
     // Create the direct recipient and their non signature fields.
@@ -331,6 +340,7 @@ export const createDocumentFromDirectTemplate = async ({
               height: templateField.height,
               customText,
               inserted: true,
+              fieldMeta: templateField.fieldMeta || Prisma.JsonNull,
             })),
           },
         },
@@ -361,6 +371,7 @@ export const createDocumentFromDirectTemplate = async ({
               height: templateField.height,
               customText: '',
               inserted: true,
+              fieldMeta: templateField.fieldMeta || Prisma.JsonNull,
               Signature: {
                 create: {
                   recipientId: createdDirectRecipient.id,
@@ -454,10 +465,21 @@ export const createDocumentFromDirectTemplate = async ({
                 data:
                   field.Signature?.signatureImageAsBase64 || field.Signature?.typedSignature || '',
               }))
-              .with(FieldType.DATE, FieldType.EMAIL, FieldType.NAME, FieldType.TEXT, (type) => ({
-                type,
-                data: field.customText,
-              }))
+              .with(
+                FieldType.DATE,
+                FieldType.EMAIL,
+                FieldType.INITIALS,
+                FieldType.NAME,
+                FieldType.TEXT,
+                FieldType.NUMBER,
+                FieldType.CHECKBOX,
+                FieldType.DROPDOWN,
+                FieldType.RADIO,
+                (type) => ({
+                  type,
+                  data: field.customText,
+                }),
+              )
               .exhaustive(),
             fieldSecurity: derivedRecipientActionAuth
               ? {
@@ -508,17 +530,18 @@ export const createDocumentFromDirectTemplate = async ({
         },
       ],
       from: {
-        name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'FirmO',
-        address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@FirmO.com',
+        name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'Documenso',
+        address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@documenso.com',
       },
-      subject: 'Documento creado a partir de plantilla directa',
+      subject: 'Document created from direct template',
       html: render(emailTemplate),
       text: render(emailTemplate, { plainText: true }),
     });
 
     return {
+      token: createdDirectRecipient.token,
       documentId: document.id,
-      directRecipientToken: createdDirectRecipient.token,
+      recipientId: createdDirectRecipient.id,
     };
   });
 
@@ -537,5 +560,9 @@ export const createDocumentFromDirectTemplate = async ({
     // Log and reseal as required until we configure middleware.
   }
 
-  return directRecipientToken;
+  return {
+    token,
+    documentId,
+    recipientId,
+  };
 };

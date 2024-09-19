@@ -4,6 +4,9 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+
 import type { Document } from '@documenso/prisma/client';
 import { TRPCClientError } from '@documenso/trpc/client';
 import { trpc } from '@documenso/trpc/react';
@@ -26,7 +29,9 @@ export type SuperDeleteDocumentDialogProps = {
 };
 
 export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialogProps) => {
+  const { _ } = useLingui();
   const { toast } = useToast();
+
   const router = useRouter();
 
   const [reason, setReason] = useState('');
@@ -43,8 +48,8 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
       await deleteDocument({ id: document.id, reason });
 
       toast({
-        title: 'Documento eliminado',
-        description: 'El documento se ha eliminado correctamente.',
+        title: _(msg`Document deleted`),
+        description: 'The Document has been deleted successfully.',
         duration: 5000,
       });
 
@@ -52,17 +57,17 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
     } catch (err) {
       if (err instanceof TRPCClientError && err.data?.code === 'BAD_REQUEST') {
         toast({
-          title: 'A ocurrido un error',
+          title: _(msg`An error occurred`),
           description: err.message,
           variant: 'destructive',
         });
       } else {
         toast({
-          title: 'A ocurrido un error desconocido',
+          title: _(msg`An unknown error occurred`),
           variant: 'destructive',
           description:
             err.message ??
-            'Encontramos un error desconocido al intentar eliminar su documento. Por favor, inténtelo de nuevo más tarde.',
+            'We encountered an unknown error while attempting to delete your document. Please try again later.',
         });
       }
     }
@@ -76,32 +81,40 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
           variant="neutral"
         >
           <div>
-            <AlertTitle>Eliminar el Documento</AlertTitle>
+            <AlertTitle>
+              <Trans>Delete Document</Trans>
+            </AlertTitle>
             <AlertDescription className="mr-2">
-              Eliminar el documento. Esta acción es irreversible así que proceda con precaución.
+              <Trans>
+                Delete the document. This action is irreversible so proceed with caution.
+              </Trans>
             </AlertDescription>
           </div>
 
           <div className="flex-shrink-0">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="destructive">Eliminar el Documento</Button>
+                <Button variant="destructive">
+                  <Trans>Delete Document</Trans>
+                </Button>
               </DialogTrigger>
 
               <DialogContent>
                 <DialogHeader className="space-y-4">
-                  <DialogTitle>Eliminar el Documento</DialogTitle>
+                  <DialogTitle>
+                    <Trans>Delete Document</Trans>
+                  </DialogTitle>
 
                   <Alert variant="destructive">
                     <AlertDescription className="selection:bg-red-100">
-                      Esta acción no es reversible. Por favor esté seguro.
+                      <Trans>This action is not reversible. Please be certain.</Trans>
                     </AlertDescription>
                   </Alert>
                 </DialogHeader>
 
                 <div>
                   <DialogDescription>
-                    Para confirmar, por favor introduce el motivo.
+                    <Trans>To confirm, please enter the reason</Trans>
                   </DialogDescription>
 
                   <Input
@@ -119,7 +132,7 @@ export const SuperDeleteDocumentDialog = ({ document }: SuperDeleteDocumentDialo
                     variant="destructive"
                     disabled={!reason}
                   >
-                    {isDeletingDocument ? 'Eliminando documento...' : 'Eliminar documento'}
+                    <Trans>Delete document</Trans>
                   </Button>
                 </DialogFooter>
               </DialogContent>

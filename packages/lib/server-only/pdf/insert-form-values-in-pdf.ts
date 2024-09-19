@@ -43,9 +43,9 @@ export const insertFormValuesInPdf = async ({ pdf, formValues }: InsertFormValue
       }
     } catch (err) {
       if (err instanceof Error) {
-        console.error(`Error al configurar el valor del campo ${key}: ${err.message}`);
+        console.error(`Error setting value for field ${key}: ${err.message}`);
       } else {
-        console.error(`Error al configurar el valor del campo ${key}`);
+        console.error(`Error setting value for field ${key}`);
       }
     }
   }

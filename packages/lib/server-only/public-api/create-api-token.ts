@@ -42,7 +42,7 @@ export const createApiToken = async ({
     });
 
     if (!member) {
-      throw new Error('No tienes permiso para crear un token para este equipo');
+      throw new Error('You do not have permission to create a token for this team');
     }
   }
 
@@ -57,7 +57,7 @@ export const createApiToken = async ({
   });
 
   if (!storedToken) {
-    throw new Error('No se pudo crear el token API');
+    throw new Error('Failed to create the API token');
   }
 
   return {

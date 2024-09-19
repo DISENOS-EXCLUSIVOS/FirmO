@@ -27,6 +27,7 @@ export interface SetRecipientsForDocumentOptions {
     email: string;
     name: string;
     role: RecipientRole;
+    signingOrder?: number | null;
     actionAuth?: TRecipientActionAuthTypes | null;
   }[];
   requestMetadata?: RequestMetadata;
@@ -72,11 +73,11 @@ export const setRecipientsForDocument = async ({
   });
 
   if (!document) {
-    throw new Error('Documento no encontrado');
+    throw new Error('Document not found');
   }
 
   if (document.completedAt) {
-    throw new Error('Documento ya completo');
+    throw new Error('Document already complete');
   }
 
   const recipientsHaveActionAuth = recipients.some((recipient) => recipient.actionAuth);
@@ -156,6 +157,7 @@ export const setRecipientsForDocument = async ({
             name: recipient.name,
             email: recipient.email,
             role: recipient.role,
+            signingOrder: recipient.signingOrder,
             documentId,
             sendStatus: recipient.role === RecipientRole.CC ? SendStatus.SENT : SendStatus.NOT_SENT,
             signingStatus:
@@ -166,6 +168,7 @@ export const setRecipientsForDocument = async ({
             name: recipient.name,
             email: recipient.email,
             role: recipient.role,
+            signingOrder: recipient.signingOrder,
             token: nanoid(),
             documentId,
             sendStatus: recipient.role === RecipientRole.CC ? SendStatus.SENT : SendStatus.NOT_SENT,

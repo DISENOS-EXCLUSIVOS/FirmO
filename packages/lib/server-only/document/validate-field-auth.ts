@@ -45,7 +45,7 @@ export const validateFieldAuth = async ({
   });
 
   if (!isValid) {
-    throw new AppError(AppErrorCode.UNAUTHORIZED, 'Valores de autenticación no válidos');
+    throw new AppError(AppErrorCode.UNAUTHORIZED, 'Invalid authentication values');
   }
 
   return derivedRecipientActionAuth;

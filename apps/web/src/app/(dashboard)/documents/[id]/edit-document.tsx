@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+
 import {
   DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
   SKIP_QUERY_BATCH_META,
@@ -45,6 +48,7 @@ export const EditDocumentForm = ({
   isDocumentEnterprise,
 }: EditDocumentFormProps) => {
   const { toast } = useToast();
+  const { _ } = useLingui();
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -80,6 +84,20 @@ export const EditDocumentForm = ({
       );
     },
   });
+
+  const { mutateAsync: setSigningOrderForDocument } =
+    trpc.document.setSigningOrderForDocument.useMutation({
+      ...DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
+      onSuccess: (newData) => {
+        utils.document.getDocumentWithDetailsById.setData(
+          {
+            id: initialDocument.id,
+            teamId: team?.id,
+          },
+          (oldData) => ({ ...(oldData || initialDocument), ...newData, id: Number(newData.id) }),
+        );
+      },
+    });
 
   const { mutateAsync: addFields } = trpc.field.addFields.useMutation({
     ...DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
@@ -125,23 +143,23 @@ export const EditDocumentForm = ({
 
   const documentFlow: Record<EditDocumentStep, DocumentFlowStep> = {
     settings: {
-      title: 'General',
-      description: 'Configure los ajustes generales del documento.',
+      title: msg`General`,
+      description: msg`Configure general settings for the document.`,
       stepIndex: 1,
     },
     signers: {
-      title: 'Agregar firmantes',
-      description: 'Añade las personas que firmarán el documento.',
+      title: msg`Add Signers`,
+      description: msg`Add the people who will sign the document.`,
       stepIndex: 2,
     },
     fields: {
-      title: 'Agregar campos',
-      description: 'Agregue todos los campos relevantes para cada destinatario.',
+      title: msg`Add Fields`,
+      description: msg`Add all relevant fields for each recipient.`,
       stepIndex: 3,
     },
     subject: {
-      title: 'Añadir asunto',
-      description: 'Agregue el asunto y el mensaje que desea enviar a los firmantes.',
+      title: msg`Add Subject`,
+      description: msg`Add the subject and message you wish to send to signers.`,
       stepIndex: 4,
     },
   };
@@ -173,6 +191,7 @@ export const EditDocumentForm = ({
         data: {
           title: data.title,
           externalId: data.externalId || null,
+          visibility: data.visibility,
           globalAccessAuth: data.globalAccessAuth ?? null,
           globalActionAuth: data.globalActionAuth ?? null,
         },
@@ -191,8 +210,8 @@ export const EditDocumentForm = ({
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al actualizar la configuración del documento.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while updating the document settings.`),
         variant: 'destructive',
       });
     }
@@ -200,15 +219,22 @@ export const EditDocumentForm = ({
 
   const onAddSignersFormSubmit = async (data: TAddSignersFormSchema) => {
     try {
-      await addSigners({
-        documentId: document.id,
-        teamId: team?.id,
-        signers: data.signers.map((signer) => ({
-          ...signer,
-          // Explicitly set to null to indicate we want to remove auth if required.
-          actionAuth: signer.actionAuth || null,
-        })),
-      });
+      await Promise.all([
+        setSigningOrderForDocument({
+          documentId: document.id,
+          signingOrder: data.signingOrder,
+        }),
+
+        addSigners({
+          documentId: document.id,
+          teamId: team?.id,
+          signers: data.signers.map((signer) => ({
+            ...signer,
+            // Explicitly set to null to indicate we want to remove auth if required.
+            actionAuth: signer.actionAuth || null,
+          })),
+        }),
+      ]);
 
       // Router refresh is here to clear the router cache for when navigating to /documents.
       router.refresh();
@@ -218,8 +244,8 @@ export const EditDocumentForm = ({
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al agregar firmantes.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while adding signers.`),
         variant: 'destructive',
       });
     }
@@ -232,6 +258,14 @@ export const EditDocumentForm = ({
         fields: data.fields,
       });
 
+      // Clear all field data from localStorage
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('field_')) {
+          localStorage.removeItem(key);
+        }
+      }
+
       // Router refresh is here to clear the router cache for when navigating to /documents.
       router.refresh();
 
@@ -240,8 +274,8 @@ export const EditDocumentForm = ({
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al agregar firmantes.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while adding the fields.`),
         variant: 'destructive',
       });
     }
@@ -261,8 +295,8 @@ export const EditDocumentForm = ({
       });
 
       toast({
-        title: 'Documento enviado',
-        description: 'Su documento ha sido enviado exitosamente.',
+        title: _(msg`Document sent`),
+        description: _(msg`Your document has been sent successfully.`),
         duration: 5000,
       });
 
@@ -271,8 +305,8 @@ export const EditDocumentForm = ({
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al enviar el documento.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while sending the document.`),
         variant: 'destructive',
       });
     }
@@ -300,8 +334,7 @@ export const EditDocumentForm = ({
     <div className={cn('grid w-full grid-cols-12 gap-8', className)}>
       <Card
         className="relative col-span-12 rounded-xl before:rounded-xl lg:col-span-6 xl:col-span-7"
-        
-        
+        gradient
       >
         <CardContent className="p-2">
           <LazyPDFViewer
@@ -328,6 +361,7 @@ export const EditDocumentForm = ({
               key={recipients.length}
               documentFlow={documentFlow.settings}
               document={document}
+              currentTeamMemberRole={team?.currentTeamMember?.role}
               recipients={recipients}
               fields={fields}
               isDocumentEnterprise={isDocumentEnterprise}
@@ -339,6 +373,7 @@ export const EditDocumentForm = ({
               key={recipients.length}
               documentFlow={documentFlow.signers}
               recipients={recipients}
+              signingOrder={document.documentMeta?.signingOrder}
               fields={fields}
               isDocumentEnterprise={isDocumentEnterprise}
               onSubmit={onAddSignersFormSubmit}
@@ -352,6 +387,7 @@ export const EditDocumentForm = ({
               fields={fields}
               onSubmit={onAddFieldsFormSubmit}
               isDocumentPdfLoaded={isDocumentPdfLoaded}
+              teamId={team?.id}
             />
 
             <AddSubjectFormPartial

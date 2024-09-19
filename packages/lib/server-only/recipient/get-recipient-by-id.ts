@@ -14,7 +14,7 @@ export const getRecipientById = async ({ documentId, id }: GetRecipientByIdOptio
   });
 
   if (!recipient) {
-    throw new Error('Destinatario no encontrado');
+    throw new Error('Recipient not found');
   }
 
   return recipient;

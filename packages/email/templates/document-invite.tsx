@@ -1,4 +1,4 @@
-import { RECIPIENT_ROLES_DESCRIPTION } from '@documenso/lib/constants/recipient-roles';
+import { RECIPIENT_ROLES_DESCRIPTION_ENG } from '@documenso/lib/constants/recipient-roles';
 import type { RecipientRole } from '@documenso/prisma/client';
 import config from '@documenso/tailwind-config';
 
@@ -23,23 +23,30 @@ export type DocumentInviteEmailTemplateProps = Partial<TemplateDocumentInvitePro
   customBody?: string;
   role: RecipientRole;
   selfSigner?: boolean;
+  isTeamInvite?: boolean;
+  teamName?: string;
+  teamEmail?: string;
 };
 
 export const DocumentInviteEmailTemplate = ({
   inviterName = 'Lucas Smith',
-  inviterEmail = 'lucas@disex.com.co',
+  inviterEmail = 'lucas@documenso.com',
   documentName = 'Open Source Pledge.pdf',
-  signDocumentLink = 'https://disex.com.co',
+  signDocumentLink = 'https://documenso.com',
   assetBaseUrl = 'http://localhost:3002',
   customBody,
   role,
   selfSigner = false,
+  isTeamInvite = false,
+  teamName,
 }: DocumentInviteEmailTemplateProps) => {
-  const action = RECIPIENT_ROLES_DESCRIPTION[role].actionVerb.toLowerCase();
+  const action = RECIPIENT_ROLES_DESCRIPTION_ENG[role].actionVerb.toLowerCase();
 
   const previewText = selfSigner
-    ? `Por favor ${action} tu documento ${documentName}`
-    : `${inviterName} te ha invitado a ${action} ${documentName}`;
+    ? `Please ${action} your document ${documentName}`
+    : isTeamInvite
+    ? `${inviterName} on behalf of ${teamName} has invited you to ${action} ${documentName}`
+    : `${inviterName} has invited you to ${action} ${documentName}`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
@@ -62,8 +69,12 @@ export const DocumentInviteEmailTemplate = ({
           <Section>
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img src={'https://ibb.co/f0T5w3j'} alt="FirmO Logo" className="mb-4 h-6" />{' '}
-                {/*getAssetUrl('/static/logo.png') */}
+                <Img
+                  src={getAssetUrl('/static/logo.png')}
+                  alt="Documenso Logo"
+                  className="mb-4 h-6"
+                />
+
                 <TemplateDocumentInvite
                   inviterName={inviterName}
                   inviterEmail={inviterEmail}
@@ -72,6 +83,8 @@ export const DocumentInviteEmailTemplate = ({
                   assetBaseUrl={assetBaseUrl}
                   role={role}
                   selfSigner={selfSigner}
+                  isTeamInvite={isTeamInvite}
+                  teamName={teamName}
                 />
               </Section>
             </Container>
@@ -89,7 +102,7 @@ export const DocumentInviteEmailTemplate = ({
                   {customBody ? (
                     <pre className="font-sans text-base text-slate-400">{customBody}</pre>
                   ) : (
-                    `${inviterName} te ha invitado a ${action} el documento "${documentName}".`
+                    `${inviterName} has invited you to ${action} the document "${documentName}".`
                   )}
                 </Text>
               </Section>

@@ -16,20 +16,19 @@ export const TemplateForgotPassword = ({
 
       <Section className="flex-row items-center justify-center">
         <Text className="text-primary mx-auto mb-0 max-w-[80%] text-center text-lg font-semibold">
-          ¿Olvidaste tu contraseña?
+          Forgot your password?
         </Text>
 
         <Text className="my-1 text-center text-base text-slate-400">
-          ¡No hay problema! Haga clic en el botón a continuación para restablecer su contraseña.
+          That's okay, it happens! Click the button below to reset your password.
         </Text>
 
         <Section className="mb-6 mt-8 text-center">
           <Button
             className="bg-documenso-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-black no-underline"
             href={resetPasswordLink}
-            style={{ backgroundColor: '#FFFFF', color: '#000000' }}
           >
-            Restablecer contraseña
+            Reset Password
           </Button>
         </Section>
       </Section>

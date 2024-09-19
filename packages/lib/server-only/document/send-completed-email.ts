@@ -78,7 +78,7 @@ export const sendCompletedEmail = async ({ documentId, requestMetadata }: SendDo
       ],
       from: {
         name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'Documenso',
-        address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@disex.com.co',
+        address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@documenso.com',
       },
       subject: 'Signing Complete!',
       html: render(template),
@@ -137,13 +137,13 @@ export const sendCompletedEmail = async ({ documentId, requestMetadata }: SendDo
           },
         ],
         from: {
-          name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'FirmO',
-          address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@disex.com.co',
+          name: process.env.NEXT_PRIVATE_SMTP_FROM_NAME || 'Documenso',
+          address: process.env.NEXT_PRIVATE_SMTP_FROM_ADDRESS || 'noreply@documenso.com',
         },
         subject:
           isDirectTemplate && document.documentMeta?.subject
             ? renderCustomEmailTemplate(document.documentMeta.subject, customEmailTemplate)
-            : '¡Firma completa!',
+            : 'Signing Complete!',
         html: render(template),
         text: render(template, { plainText: true }),
         attachments: [

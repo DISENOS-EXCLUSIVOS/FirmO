@@ -4,17 +4,11 @@ import {
   extractUserVerificationToken,
   seedTestEmail,
   seedUser,
-  unseedUser,
-  unseedUserByEmail,
 } from '@documenso/prisma/seed/users';
 
 test.use({ storageState: { cookies: [], origins: [] } });
 
-test('[USER] puede registrarse con correo electrónico y contraseña', async ({
-  page,
-}: {
-  page: Page;
-}) => {
+test('[USER] can sign up with email and password', async ({ page }: { page: Page }) => {
   const username = 'Test User';
   const email = seedTestEmail();
   const password = 'Password123#';
@@ -47,12 +41,12 @@ test('[USER] puede registrarse con correo electrónico y contraseña', async ({
 
   await expect(page.getByRole('heading')).toContainText('Email Confirmed!');
 
-  await page.getByRole('link', { name: 'Go back home' }).click();
+  // We now automatically redirect to the home page
+  // await page.getByRole('link', { name: 'Go back home' }).click();
 
   await page.waitForURL('/documents');
 
   await expect(page).toHaveURL('/documents');
-  await unseedUserByEmail(email);
 });
 
 test('[USER] can sign in using email and password', async ({ page }: { page: Page }) => {
@@ -65,6 +59,4 @@ test('[USER] can sign in using email and password', async ({ page }: { page: Pag
 
   await page.waitForURL('/documents');
   await expect(page).toHaveURL('/documents');
-
-  await unseedUser(user.id);
 });

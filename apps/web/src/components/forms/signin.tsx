@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { browserSupportsWebAuthn, startAuthentication } from '@simplewebauthn/browser';
 import { KeyRoundIcon } from 'lucide-react';
 import { signIn } from 'next-auth/react';
@@ -42,13 +44,9 @@ import { PasswordInput } from '@documenso/ui/primitives/password-input';
 import { PinInput, PinInputGroup, PinInputSlot } from '@documenso/ui/primitives/pin-input';
 import { useToast } from '@documenso/ui/primitives/use-toast';
 
-import Background from './background.jpg';
-
 const ERROR_MESSAGES: Partial<Record<keyof typeof ErrorCode, string>> = {
-  [ErrorCode.CREDENTIALS_NOT_FOUND]:
-    'El correo electrónico o la contraseña proporcionada son incorrectos',
-  [ErrorCode.INCORRECT_EMAIL_PASSWORD]:
-    'El correo electrónico o la contraseña proporcionada son incorrectos',
+  [ErrorCode.CREDENTIALS_NOT_FOUND]: 'The email or password provided is incorrect',
+  [ErrorCode.INCORRECT_EMAIL_PASSWORD]: 'The email or password provided is incorrect',
   [ErrorCode.USER_MISSING_PASSWORD]:
     'This account appears to be using a social login method, please sign in using that method',
   [ErrorCode.INCORRECT_TWO_FACTOR_CODE]: 'The two-factor authentication code provided is incorrect',
@@ -75,6 +73,8 @@ export type SignInFormProps = {
   initialEmail?: string;
   isGoogleSSOEnabled?: boolean;
   isOIDCSSOEnabled?: boolean;
+  oidcProviderLabel?: string;
+  returnTo?: string;
 };
 
 export const SignInForm = ({
@@ -82,7 +82,10 @@ export const SignInForm = ({
   initialEmail,
   isGoogleSSOEnabled,
   isOIDCSSOEnabled,
+  oidcProviderLabel,
+  returnTo,
 }: SignInFormProps) => {
+  const { _ } = useLingui();
   const { toast } = useToast();
   const { getFlag } = useFeatureFlags();
 
@@ -98,6 +101,22 @@ export const SignInForm = ({
   const [isPasskeyLoading, setIsPasskeyLoading] = useState(false);
 
   const isPasskeyEnabled = getFlag('app_passkey');
+
+  const callbackUrl = useMemo(() => {
+    // Handle SSR
+    if (typeof window === 'undefined') {
+      return LOGIN_REDIRECT_PATH;
+    }
+
+    let url = new URL(returnTo || LOGIN_REDIRECT_PATH, window.location.origin);
+
+    // Don't allow different origins
+    if (url.origin !== window.location.origin) {
+      url = new URL(LOGIN_REDIRECT_PATH, window.location.origin);
+    }
+
+    return url.toString();
+  }, [returnTo]);
 
   const { mutateAsync: createPasskeySigninOptions } =
     trpc.auth.createPasskeySigninOptions.useMutation();
@@ -135,6 +154,63 @@ export const SignInForm = ({
     setTwoFactorAuthenticationMethod(method);
   };
 
+  const onSignInWithPasskey = async () => {
+    if (!browserSupportsWebAuthn()) {
+      toast({
+        title: _(msg`Not supported`),
+        description: _(msg`Passkeys are not supported on this browser`),
+        duration: 10000,
+        variant: 'destructive',
+      });
+
+      return;
+    }
+
+    try {
+      setIsPasskeyLoading(true);
+
+      const options = await createPasskeySigninOptions();
+
+      const credential = await startAuthentication(options);
+
+      const result = await signIn('webauthn', {
+        credential: JSON.stringify(credential),
+        callbackUrl,
+        redirect: false,
+      });
+
+      if (!result?.url || result.error) {
+        throw new AppError(result?.error ?? '');
+      }
+
+      window.location.href = result.url;
+    } catch (err) {
+      setIsPasskeyLoading(false);
+
+      if (err.name === 'NotAllowedError') {
+        return;
+      }
+
+      const error = AppError.parseError(err);
+
+      const errorMessage = match(error.code)
+        .with(
+          AppErrorCode.NOT_SETUP,
+          () =>
+            msg`This passkey is not configured for this application. Please login and add one in the user settings.`,
+        )
+        .with(AppErrorCode.EXPIRED_CODE, () => msg`This session has expired. Please try again.`)
+        .otherwise(() => msg`Please try again later or login using your normal details`);
+
+      toast({
+        title: 'Something went wrong',
+        description: _(errorMessage),
+        duration: 10000,
+        variant: 'destructive',
+      });
+    }
+  };
+
   const onFormSubmit = async ({ email, password, totpCode, backupCode }: TSignInFormSchema) => {
     try {
       const credentials: Record<string, string> = {
@@ -152,7 +228,7 @@ export const SignInForm = ({
 
       const result = await signIn('credentials', {
         ...credentials,
-        callbackUrl: LOGIN_REDIRECT_PATH,
+        callbackUrl,
         redirect: false,
       });
 
@@ -168,38 +244,70 @@ export const SignInForm = ({
           router.push(`/unverified-account`);
 
           toast({
-            title: 'No fue posible iniciar sesión',
-            description: errorMessage ?? 'A ocurrido un Error!',
+            title: _(msg`Unable to sign in`),
+            description: errorMessage ?? _(msg`An unknown error occurred`),
           });
 
           return;
         }
 
         toast({
+          title: _(msg`Unable to sign in`),
+          description: errorMessage ?? _(msg`An unknown error occurred`),
           variant: 'destructive',
-          title: 'No fue posible iniciar sesión',
-          description: errorMessage ?? 'A ocurrido un Error!',
         });
 
         return;
       }
 
       if (!result?.url) {
-        throw new Error('A ocurrido un Error!');
+        throw new Error('An unknown error occurred');
       }
 
       window.location.href = result.url;
     } catch (err) {
       toast({
-        title: 'A ocurrido un Error!',
-        description:
-          'Encontramos un error desconocido al intentar iniciar sesión. Por favor, inténtelo de nuevo más tarde.',
+        title: _(msg`An unknown error occurred`),
+        description: _(
+          msg`We encountered an unknown error while attempting to sign you In. Please try again later.`,
+        ),
+      });
+    }
+  };
+
+  const onSignInWithGoogleClick = async () => {
+    try {
+      await signIn('google', {
+        callbackUrl,
+      });
+    } catch (err) {
+      toast({
+        title: _(msg`An unknown error occurred`),
+        description: _(
+          msg`We encountered an unknown error while attempting to sign you In. Please try again later.`,
+        ),
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const onSignInWithOIDCClick = async () => {
+    try {
+      await signIn('oidc', {
+        callbackUrl,
+      });
+    } catch (err) {
+      toast({
+        title: _(msg`An unknown error occurred`),
+        description: _(
+          msg`We encountered an unknown error while attempting to sign you In. Please try again later.`,
+        ),
+        variant: 'destructive',
       });
     }
   };
 
   return (
-    //Use Background Image
     <Form {...form}>
       <form
         className={cn('flex w-full flex-col gap-y-4', className)}
@@ -214,7 +322,9 @@ export const SignInForm = ({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo</FormLabel>
+                <FormLabel>
+                  <Trans>Email</Trans>
+                </FormLabel>
 
                 <FormControl>
                   <Input type="email" {...field} />
@@ -230,13 +340,24 @@ export const SignInForm = ({
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Contraseña</FormLabel>
+                <FormLabel>
+                  <Trans>Password</Trans>
+                </FormLabel>
 
                 <FormControl>
                   <PasswordInput {...field} />
                 </FormControl>
 
                 <FormMessage />
+
+                <p className="mt-2 text-right">
+                  <Link
+                    href="/forgot-password"
+                    className="text-muted-foreground text-sm duration-200 hover:opacity-70"
+                  >
+                    <Trans>Forgot your password?</Trans>
+                  </Link>
+                </p>
               </FormItem>
             )}
           />
@@ -245,11 +366,63 @@ export const SignInForm = ({
             type="submit"
             size="lg"
             loading={isSubmitting}
-            className="dark dark:hover:opacity-90"
-            style={{ color: 'black' }}
+            className="dark:bg-documenso dark:hover:opacity-90"
           >
-            {isSubmitting ? 'Signing in...' : 'Sign In'}
+            {isSubmitting ? <Trans>Signing in...</Trans> : <Trans>Sign In</Trans>}
           </Button>
+
+          {(isGoogleSSOEnabled || isPasskeyEnabled || isOIDCSSOEnabled) && (
+            <div className="relative flex items-center justify-center gap-x-4 py-2 text-xs uppercase">
+              <div className="bg-border h-px flex-1" />
+              <span className="text-muted-foreground bg-transparent">
+                <Trans>Or continue with</Trans>
+              </span>
+              <div className="bg-border h-px flex-1" />
+            </div>
+          )}
+
+          {isGoogleSSOEnabled && (
+            <Button
+              type="button"
+              size="lg"
+              variant="outline"
+              className="bg-background text-muted-foreground border"
+              disabled={isSubmitting}
+              onClick={onSignInWithGoogleClick}
+            >
+              <FcGoogle className="mr-2 h-5 w-5" />
+              Google
+            </Button>
+          )}
+
+          {isOIDCSSOEnabled && (
+            <Button
+              type="button"
+              size="lg"
+              variant="outline"
+              className="bg-background text-muted-foreground border"
+              disabled={isSubmitting}
+              onClick={onSignInWithOIDCClick}
+            >
+              <FaIdCardClip className="mr-2 h-5 w-5" />
+              {oidcProviderLabel || 'OIDC'}
+            </Button>
+          )}
+
+          {isPasskeyEnabled && (
+            <Button
+              type="button"
+              size="lg"
+              variant="outline"
+              disabled={isSubmitting}
+              loading={isPasskeyLoading}
+              className="bg-background text-muted-foreground border"
+              onClick={onSignInWithPasskey}
+            >
+              {!isPasskeyLoading && <KeyRoundIcon className="-ml-1 mr-1 h-5 w-5" />}
+              <Trans>Passkey</Trans>
+            </Button>
+          )}
         </fieldset>
       </form>
 
@@ -259,7 +432,9 @@ export const SignInForm = ({
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Autenticación de dos pasos</DialogTitle>
+            <DialogTitle>
+              <Trans>Two-Factor Authentication</Trans>
+            </DialogTitle>
           </DialogHeader>
 
           <form onSubmit={form.handleSubmit(onFormSubmit)}>
@@ -294,7 +469,9 @@ export const SignInForm = ({
                   name="backupCode"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel> Backup Code</FormLabel>
+                      <FormLabel>
+                        <Trans>Backup Code</Trans>
+                      </FormLabel>
                       <FormControl>
                         <Input type="text" {...field} />
                       </FormControl>
@@ -310,13 +487,15 @@ export const SignInForm = ({
                   variant="secondary"
                   onClick={onToggleTwoFactorAuthenticationMethodClick}
                 >
-                  {twoFactorAuthenticationMethod === 'totp'
-                    ? 'Use Backup Code'
-                    : 'Use Authenticator'}
+                  {twoFactorAuthenticationMethod === 'totp' ? (
+                    <Trans>Use Backup Code</Trans>
+                  ) : (
+                    <Trans>Use Authenticator</Trans>
+                  )}
                 </Button>
 
                 <Button type="submit" loading={isSubmitting}>
-                  {isSubmitting ? 'Signing in...' : 'Sign In'}
+                  {isSubmitting ? <Trans>Signing in...</Trans> : <Trans>Sign In</Trans>}
                 </Button>
               </DialogFooter>
             </fieldset>

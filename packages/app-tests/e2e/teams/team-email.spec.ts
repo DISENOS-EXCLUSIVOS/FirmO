@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 import { WEBAPP_BASE_URL } from '@documenso/lib/constants/app';
-import { seedTeam, seedTeamEmailVerification, unseedTeam } from '@documenso/prisma/seed/teams';
-import { seedUser, unseedUser } from '@documenso/prisma/seed/users';
+import { seedTeam, seedTeamEmailVerification } from '@documenso/prisma/seed/teams';
+import { seedUser } from '@documenso/prisma/seed/users';
 
 import { apiSignin } from '../fixtures/authentication';
 
@@ -20,9 +20,9 @@ test('[TEAMS]: send team email request', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Add email' }).click();
   await page.getByPlaceholder('eg. Legal').click();
-  await page.getByPlaceholder('eg. Legal').fill('test@test.disex.com.co');
+  await page.getByPlaceholder('eg. Legal').fill('test@test.documenso.com');
   await page.getByPlaceholder('example@example.com').click();
-  await page.getByPlaceholder('example@example.com').fill('test@test.disex.com.co');
+  await page.getByPlaceholder('example@example.com').fill('test@test.documenso.com');
   await page.getByRole('button', { name: 'Add' }).click();
 
   await expect(
@@ -31,8 +31,6 @@ test('[TEAMS]: send team email request', async ({ page }) => {
       .filter({ hasText: 'We have sent a confirmation email for verification.' })
       .first(),
   ).toBeVisible();
-
-  await unseedTeam(team.url);
 });
 
 test('[TEAMS]: accept team email request', async ({ page }) => {
@@ -41,14 +39,12 @@ test('[TEAMS]: accept team email request', async ({ page }) => {
   });
 
   const teamEmailVerification = await seedTeamEmailVerification({
-    email: 'team-email-verification@test.disex.com.co',
+    email: `team-email-verification--${team.url}@test.documenso.com`,
     teamId: team.id,
   });
 
   await page.goto(`${WEBAPP_BASE_URL}/team/verify/email/${teamEmailVerification.token}`);
   await expect(page.getByRole('heading')).toContainText('Team email verified!');
-
-  await unseedTeam(team.url);
 });
 
 test('[TEAMS]: delete team email', async ({ page }) => {
@@ -66,10 +62,9 @@ test('[TEAMS]: delete team email', async ({ page }) => {
   await page.locator('section div').filter({ hasText: 'Team email' }).getByRole('button').click();
 
   await page.getByRole('menuitem', { name: 'Remove' }).click();
+  await page.getByRole('button', { name: 'Remove' }).click();
 
   await expect(page.getByText('Team email has been removed').first()).toBeVisible();
-
-  await unseedTeam(team.url);
 });
 
 test('[TEAMS]: team email owner removes access', async ({ page }) => {
@@ -96,7 +91,4 @@ test('[TEAMS]: team email owner removes access', async ({ page }) => {
   await page.getByRole('button', { name: 'Revoke' }).click();
 
   await expect(page.getByText('You have successfully revoked').first()).toBeVisible();
-
-  await unseedTeam(team.url);
-  await unseedUser(teamEmailOwner.id);
 });

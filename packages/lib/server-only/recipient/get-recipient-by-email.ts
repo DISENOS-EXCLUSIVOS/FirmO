@@ -14,7 +14,7 @@ export const getRecipientByEmail = async ({ documentId, email }: GetRecipientByE
   });
 
   if (!recipient) {
-    throw new Error('Destinatario no encontrado');
+    throw new Error('Recipient not found');
   }
 
   return recipient;

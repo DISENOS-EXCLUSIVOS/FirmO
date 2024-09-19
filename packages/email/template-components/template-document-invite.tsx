@@ -1,4 +1,4 @@
-import { RECIPIENT_ROLES_DESCRIPTION } from '@documenso/lib/constants/recipient-roles';
+import { RECIPIENT_ROLES_DESCRIPTION_ENG } from '@documenso/lib/constants/recipient-roles';
 import type { RecipientRole } from '@documenso/prisma/client';
 
 import { Button, Section, Text } from '../components';
@@ -12,6 +12,8 @@ export interface TemplateDocumentInviteProps {
   assetBaseUrl: string;
   role: RecipientRole;
   selfSigner: boolean;
+  isTeamInvite: boolean;
+  teamName?: string;
 }
 
 export const TemplateDocumentInvite = ({
@@ -21,8 +23,10 @@ export const TemplateDocumentInvite = ({
   assetBaseUrl,
   role,
   selfSigner,
+  isTeamInvite,
+  teamName,
 }: TemplateDocumentInviteProps) => {
-  const { actionVerb, progressiveVerb } = RECIPIENT_ROLES_DESCRIPTION[role];
+  const { actionVerb, progressiveVerb } = RECIPIENT_ROLES_DESCRIPTION_ENG[role];
 
   return (
     <>
@@ -32,13 +36,19 @@ export const TemplateDocumentInvite = ({
         <Text className="text-primary mx-auto mb-0 max-w-[80%] text-center text-lg font-semibold">
           {selfSigner ? (
             <>
-              {`Por favor ${actionVerb.toLowerCase()} tu documento`}
+              {`Please ${actionVerb.toLowerCase()} your document`}
+              <br />
+              {`"${documentName}"`}
+            </>
+          ) : isTeamInvite ? (
+            <>
+              {`${inviterName} on behalf of ${teamName} has invited you to ${actionVerb.toLowerCase()}`}
               <br />
               {`"${documentName}"`}
             </>
           ) : (
             <>
-              {`${inviterName} te a invitado a ${actionVerb.toLowerCase()}`}
+              {`${inviterName} has invited you to ${actionVerb.toLowerCase()}`}
               <br />
               {`"${documentName}"`}
             </>
@@ -46,16 +56,15 @@ export const TemplateDocumentInvite = ({
         </Text>
 
         <Text className="my-1 text-center text-base text-slate-400">
-          Continua {progressiveVerb.toLowerCase()} el documento.
+          Continue by {progressiveVerb.toLowerCase()} the document.
         </Text>
 
         <Section className="mb-6 mt-8 text-center">
           <Button
             className="bg-documenso-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-black no-underline"
             href={signDocumentLink}
-            style={{ backgroundColor: '#FFFFF', color: '#000000' }}
           >
-            {actionVerb} Documento
+            {actionVerb} Document
           </Button>
         </Section>
       </Section>

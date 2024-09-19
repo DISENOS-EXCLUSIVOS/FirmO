@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -31,8 +33,10 @@ export type ForgotPasswordFormProps = {
 };
 
 export const ForgotPasswordForm = ({ className }: ForgotPasswordFormProps) => {
-  const router = useRouter();
+  const { _ } = useLingui();
   const { toast } = useToast();
+
+  const router = useRouter();
 
   const form = useForm<TForgotPasswordFormSchema>({
     values: {
@@ -49,9 +53,10 @@ export const ForgotPasswordForm = ({ className }: ForgotPasswordFormProps) => {
     await forgotPassword({ email }).catch(() => null);
 
     toast({
-      title: 'Reenviar Correo Electrónico',
-      description:
-        'Se ha enviado un correo electrónico para restablecer la contraseña. Si tiene una cuenta, debería verlo en su bandeja de entrada en breve.',
+      title: _(msg`Reset email sent`),
+      description: _(
+        msg`A password reset email has been sent, if you have an account you should see it in your inbox shortly.`,
+      ),
       duration: 5000,
     });
 
@@ -72,7 +77,9 @@ export const ForgotPasswordForm = ({ className }: ForgotPasswordFormProps) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo</FormLabel>
+                <FormLabel>
+                  <Trans>Email</Trans>
+                </FormLabel>
                 <FormControl>
                   <Input type="email" {...field} />
                 </FormControl>
@@ -83,7 +90,7 @@ export const ForgotPasswordForm = ({ className }: ForgotPasswordFormProps) => {
         </fieldset>
 
         <Button size="lg" loading={isSubmitting}>
-          {isSubmitting ? 'Sending Reset Email...' : 'Reset Password'}
+          {isSubmitting ? <Trans>Sending Reset Email...</Trans> : <Trans>Reset Password</Trans>}
         </Button>
       </form>
     </Form>

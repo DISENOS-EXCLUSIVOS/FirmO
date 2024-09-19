@@ -10,12 +10,12 @@ export type DocumentCompletedEmailTemplateProps = Partial<TemplateDocumentComple
 };
 
 export const DocumentCompletedEmailTemplate = ({
-  downloadLink = 'https://disex.com.co',
+  downloadLink = 'https://documenso.com',
   documentName = 'Open Source Pledge.pdf',
   assetBaseUrl = 'http://localhost:3002',
   customBody,
 }: DocumentCompletedEmailTemplateProps) => {
-  const previewText = `Documento Completado`;
+  const previewText = `Completed Document`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();

@@ -17,6 +17,7 @@ import { AppError, AppErrorCode } from '../errors/app-error';
 import { jobsClient } from '../jobs/client';
 import { isTwoFactorAuthenticationEnabled } from '../server-only/2fa/is-2fa-availble';
 import { validateTwoFactorAuthentication } from '../server-only/2fa/validate-2fa';
+import { decryptSecondaryData } from '../server-only/crypto/decrypt';
 import { getMostRecentVerificationTokenByUserId } from '../server-only/user/get-most-recent-verification-token-by-user-id';
 import { getUserByEmail } from '../server-only/user/get-user-by-email';
 import type { TAuthenticationResponseJSONSchema } from '../types/webauthn';
@@ -33,20 +34,16 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      name: 'Credenciales',
+      name: 'Credentials',
       credentials: {
-        email: { label: 'Correo', type: 'email' },
-        password: { label: 'Contraseña', type: 'password' },
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
         totpCode: {
-          label: 'Código de dos factores',
+          label: 'Two-factor Code',
           type: 'input',
-          placeholder: 'Código de autenticación de la aplicación  ',
+          placeholder: 'Code from authenticator app',
         },
-        backupCode: {
-          label: 'Código de respaldo',
-          type: 'input',
-          placeholder: 'Código de respaldo de dos factores',
-        },
+        backupCode: { label: 'Backup Code', type: 'input', placeholder: 'Two-factor backup code' },
       },
       authorize: async (credentials, req) => {
         if (!credentials) {
@@ -165,7 +162,10 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
           id: profile.sub,
           email: profile.email || profile.preferred_username,
           name: profile.name || `${profile.given_name} ${profile.family_name}`.trim(),
-          emailVerified: profile.email_verified ? new Date().toISOString() : null,
+          emailVerified:
+            process.env.NEXT_PRIVATE_OIDC_SKIP_VERIFY === 'true' || profile.email_verified
+              ? new Date().toISOString()
+              : null,
         };
       },
     },
@@ -276,6 +276,55 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
         } satisfies User;
       },
     }),
+    CredentialsProvider({
+      id: 'manual',
+      name: 'Manual',
+      credentials: {
+        credential: { label: 'Credential', type: 'credential' },
+      },
+      async authorize(credentials, req) {
+        const credential = credentials?.credential;
+
+        if (typeof credential !== 'string' || credential.length === 0) {
+          throw new AppError(AppErrorCode.INVALID_REQUEST);
+        }
+
+        const decryptedCredential = decryptSecondaryData(credential);
+
+        if (!decryptedCredential) {
+          throw new AppError(AppErrorCode.INVALID_REQUEST);
+        }
+
+        const parsedCredential = JSON.parse(decryptedCredential);
+
+        if (typeof parsedCredential !== 'object' || parsedCredential === null) {
+          throw new AppError(AppErrorCode.INVALID_REQUEST);
+        }
+
+        const { userId, email } = parsedCredential;
+
+        if (typeof userId !== 'number' || typeof email !== 'string') {
+          throw new AppError(AppErrorCode.INVALID_REQUEST);
+        }
+
+        const user = await prisma.user.findFirst({
+          where: {
+            id: userId,
+          },
+        });
+
+        if (!user) {
+          throw new AppError(AppErrorCode.INVALID_REQUEST);
+        }
+
+        return {
+          id: Number(user.id),
+          email: user.email,
+          name: user.name,
+          emailVerified: user.emailVerified?.toISOString() ?? null,
+        } satisfies User;
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user, trigger, account }) {
@@ -365,6 +414,12 @@ export const NEXT_AUTH_OPTIONS: AuthOptions = {
     },
 
     async signIn({ user }) {
+      // This statement appears above so we can stil allow `oidc` connections
+      // while other signups are disabled.
+      if (env('NEXT_PRIVATE_OIDC_ALLOW_SIGNUP') === 'true') {
+        return true;
+      }
+
       // We do this to stop OAuth providers from creating an account
       // when signups are disabled
       if (env('NEXT_PUBLIC_DISABLE_SIGNUP') === 'true') {

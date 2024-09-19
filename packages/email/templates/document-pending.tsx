@@ -11,7 +11,7 @@ export const DocumentPendingEmailTemplate = ({
   documentName = 'Open Source Pledge.pdf',
   assetBaseUrl = 'http://localhost:3002',
 }: DocumentPendingEmailTemplateProps) => {
-  const previewText = `Documento Pendiente`;
+  const previewText = `Pending Document`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();
@@ -34,7 +34,11 @@ export const DocumentPendingEmailTemplate = ({
           <Section className="bg-white">
             <Container className="mx-auto mb-2 mt-8 max-w-xl rounded-lg border border-solid border-slate-200 p-4 backdrop-blur-sm">
               <Section>
-                <Img src={'https://ibb.co/f0T5w3j'} alt="FirmO Logo" className="mb-4 h-6" />
+                <Img
+                  src={getAssetUrl('/static/logo.png')}
+                  alt="Documenso Logo"
+                  className="mb-4 h-6"
+                />
 
                 <TemplateDocumentPending documentName={documentName} assetBaseUrl={assetBaseUrl} />
               </Section>

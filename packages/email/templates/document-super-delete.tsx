@@ -12,9 +12,9 @@ export type DocumentDeleteEmailTemplateProps = Partial<TemplateDocumentDeletePro
 export const DocumentSuperDeleteEmailTemplate = ({
   documentName = 'Open Source Pledge.pdf',
   assetBaseUrl = 'http://localhost:3002',
-  reason = 'Desconodida',
+  reason = 'Unknown',
 }: DocumentDeleteEmailTemplateProps) => {
-  const previewText = `Un administrador ha eliminado su documento "${documentName}".`;
+  const previewText = `An admin has deleted your document "${documentName}".`;
 
   const getAssetUrl = (path: string) => {
     return new URL(path, assetBaseUrl).toString();

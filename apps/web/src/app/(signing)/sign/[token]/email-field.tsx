@@ -4,6 +4,8 @@ import { useTransition } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { Loader } from 'lucide-react';
 
 import { DO_NOT_INVALIDATE_QUERY_ON_MUTATION } from '@documenso/lib/constants/trpc';
@@ -31,6 +33,7 @@ export type EmailFieldProps = {
 export const EmailField = ({ field, recipient, onSignField, onUnsignField }: EmailFieldProps) => {
   const router = useRouter();
 
+  const { _ } = useLingui();
   const { toast } = useToast();
 
   const { email: providedEmail } = useRequiredSigningContext();
@@ -77,8 +80,8 @@ export const EmailField = ({ field, recipient, onSignField, onUnsignField }: Ema
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al firmar el documento.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while signing the document.`),
         variant: 'destructive',
       });
     }
@@ -103,8 +106,8 @@ export const EmailField = ({ field, recipient, onSignField, onUnsignField }: Ema
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'Se produjo un error al eliminar la firma.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while removing the signature.`),
         variant: 'destructive',
       });
     }
@@ -119,10 +122,16 @@ export const EmailField = ({ field, recipient, onSignField, onUnsignField }: Ema
       )}
 
       {!field.inserted && (
-        <p className="group-hover:text-primary text-muted-foreground text-lg duration-200">Email</p>
+        <p className="group-hover:text-primary text-muted-foreground duration-200 group-hover:text-yellow-300">
+          <Trans>Email</Trans>
+        </p>
       )}
 
-      {field.inserted && <p className="text-muted-foreground duration-200">{field.customText}</p>}
+      {field.inserted && (
+        <p className="text-muted-foreground dark:text-background/80 text-[clamp(0.625rem,1cqw,0.825rem)] duration-200">
+          {field.customText}
+        </p>
+      )}
     </SigningFieldContainer>
   );
 };

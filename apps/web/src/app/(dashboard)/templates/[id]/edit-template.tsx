@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+
 import {
   DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
   SKIP_QUERY_BATCH_META,
@@ -12,10 +15,7 @@ import type { TemplateWithDetails } from '@documenso/prisma/types/template';
 import { trpc } from '@documenso/trpc/react';
 import { cn } from '@documenso/ui/lib/utils';
 import { Card, CardContent } from '@documenso/ui/primitives/card';
-import {
-  DocumentFlowFormContainer,
-  DocumentFlowFormContainerHeader,
-} from '@documenso/ui/primitives/document-flow/document-flow-root';
+import { DocumentFlowFormContainer } from '@documenso/ui/primitives/document-flow/document-flow-root';
 import type { DocumentFlowStep } from '@documenso/ui/primitives/document-flow/types';
 import { LazyPDFViewer } from '@documenso/ui/primitives/lazy-pdf-viewer';
 import { Stepper } from '@documenso/ui/primitives/stepper';
@@ -45,7 +45,9 @@ export const EditTemplateForm = ({
   isEnterprise,
   templateRootPath,
 }: EditTemplateFormProps) => {
+  const { _ } = useLingui();
   const { toast } = useToast();
+
   const router = useRouter();
 
   const team = useOptionalCurrentTeam();
@@ -71,18 +73,18 @@ export const EditTemplateForm = ({
 
   const documentFlow: Record<EditTemplateStep, DocumentFlowStep> = {
     settings: {
-      title: 'General',
-      description: 'Configure general settings for the template.',
+      title: msg`General`,
+      description: msg`Configure general settings for the template.`,
       stepIndex: 1,
     },
     signers: {
-      title: 'Add Placeholders',
-      description: 'Add all relevant placeholders for each recipient.',
+      title: msg`Add Placeholders`,
+      description: msg`Add all relevant placeholders for each recipient.`,
       stepIndex: 2,
     },
     fields: {
-      title: 'Add Fields',
-      description: 'Add all relevant fields for each recipient.',
+      title: msg`Add Fields`,
+      description: msg`Add all relevant fields for each recipient.`,
       stepIndex: 3,
     },
   };
@@ -100,6 +102,19 @@ export const EditTemplateForm = ({
       );
     },
   });
+
+  const { mutateAsync: setSigningOrderForTemplate } =
+    trpc.template.setSigningOrderForTemplate.useMutation({
+      ...DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
+      onSuccess: (newData) => {
+        utils.template.getTemplateWithDetailsById.setData(
+          {
+            id: initialTemplate.id,
+          },
+          (oldData) => ({ ...(oldData || initialTemplate), ...newData }),
+        );
+      },
+    });
 
   const { mutateAsync: addTemplateFields } = trpc.field.addTemplateFields.useMutation({
     ...DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
@@ -147,8 +162,8 @@ export const EditTemplateForm = ({
       console.error(err);
 
       toast({
-        title: 'Error',
-        description: 'An error occurred while updating the document settings.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while updating the document settings.`),
         variant: 'destructive',
       });
     }
@@ -158,11 +173,19 @@ export const EditTemplateForm = ({
     data: TAddTemplatePlacholderRecipientsFormSchema,
   ) => {
     try {
-      await addTemplateSigners({
-        templateId: template.id,
-        teamId: team?.id,
-        signers: data.signers,
-      });
+      await Promise.all([
+        setSigningOrderForTemplate({
+          templateId: template.id,
+          teamId: team?.id,
+          signingOrder: data.signingOrder,
+        }),
+
+        addTemplateSigners({
+          templateId: template.id,
+          teamId: team?.id,
+          signers: data.signers,
+        }),
+      ]);
 
       // Router refresh is here to clear the router cache for when navigating to /documents.
       router.refresh();
@@ -170,8 +193,8 @@ export const EditTemplateForm = ({
       setStep('fields');
     } catch (err) {
       toast({
-        title: 'Error',
-        description: 'An error occurred while adding signers.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while adding signers.`),
         variant: 'destructive',
       });
     }
@@ -184,9 +207,17 @@ export const EditTemplateForm = ({
         fields: data.fields,
       });
 
+      // Clear all field data from localStorage
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('field_')) {
+          localStorage.removeItem(key);
+        }
+      }
+
       toast({
-        title: 'Template saved',
-        description: 'Your templates has been saved successfully.',
+        title: _(msg`Template saved`),
+        description: _(msg`Your templates has been saved successfully.`),
         duration: 5000,
       });
 
@@ -196,8 +227,8 @@ export const EditTemplateForm = ({
       router.push(templateRootPath);
     } catch (err) {
       toast({
-        title: 'Error',
-        description: 'An error occurred while adding signers.',
+        title: _(msg`Error`),
+        description: _(msg`An error occurred while adding signers.`),
         variant: 'destructive',
       });
     }
@@ -232,11 +263,6 @@ export const EditTemplateForm = ({
           className="lg:h-[calc(100vh-6rem)]"
           onSubmit={(e) => e.preventDefault()}
         >
-          <DocumentFlowFormContainerHeader
-            title={currentDocumentFlow.title}
-            description={currentDocumentFlow.description}
-          />
-
           <Stepper
             currentStep={currentDocumentFlow.stepIndex}
             setCurrentStep={(step) => setStep(EditTemplateSteps[step - 1])}
@@ -257,6 +283,7 @@ export const EditTemplateForm = ({
               documentFlow={documentFlow.signers}
               recipients={recipients}
               fields={fields}
+              signingOrder={template.templateMeta?.signingOrder}
               templateDirectLink={template.directLink}
               onSubmit={onAddTemplatePlaceholderFormSubmit}
               isEnterprise={isEnterprise}
@@ -269,6 +296,7 @@ export const EditTemplateForm = ({
               recipients={recipients}
               fields={fields}
               onSubmit={onAddFieldsFormSubmit}
+              teamId={team?.id}
             />
           </Stepper>
         </DocumentFlowFormContainer>

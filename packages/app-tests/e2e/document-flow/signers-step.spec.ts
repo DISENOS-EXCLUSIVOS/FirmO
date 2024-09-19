@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 import { seedBlankDocument } from '@documenso/prisma/seed/documents';
 import { seedUserSubscription } from '@documenso/prisma/seed/subscriptions';
-import { seedUser, unseedUser } from '@documenso/prisma/seed/users';
+import { seedUser } from '@documenso/prisma/seed/users';
 
 import { apiSignin } from '../fixtures/authentication';
 
@@ -39,11 +39,12 @@ test.describe('[EE_ONLY]', () => {
     await expect(page.getByRole('heading', { name: 'Add Signers' })).toBeVisible();
 
     // Add 2 signers.
-    await page.getByPlaceholder('Email').fill('recipient1@disex.com.co');
+    await page.getByPlaceholder('Email').fill('recipient1@documenso.com');
     await page.getByPlaceholder('Name').fill('Recipient 1');
+
     await page.getByRole('button', { name: 'Add Signer' }).click();
-    await page.getByRole('textbox', { name: 'Email', exact: true }).fill('recipient2@disex.com.co');
-    await page.getByRole('textbox', { name: 'Name', exact: true }).nth(1).fill('Recipient 2');
+    await page.getByLabel('Email').nth(1).fill('recipient2@documenso.com');
+    await page.getByLabel('Name').nth(1).fill('Recipient 2');
 
     // Display advanced settings.
     await page.getByLabel('Show advanced settings').check();
@@ -55,8 +56,6 @@ test.describe('[EE_ONLY]', () => {
     await expect(page.getByRole('heading', { name: 'Add Signers' })).toBeVisible();
 
     // Todo: Fix stepper component back issue before finishing test.
-
-    await unseedUser(user.id);
   });
 });
 
@@ -75,11 +74,13 @@ test('[DOCUMENT_FLOW]: add signers', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Add Signers' })).toBeVisible();
 
   // Add 2 signers.
-  await page.getByPlaceholder('Email').fill('recipient1@disex.com.co');
+  await page.getByPlaceholder('Email').fill('recipient1@documenso.com');
   await page.getByPlaceholder('Name').fill('Recipient 1');
+
   await page.getByRole('button', { name: 'Add Signer' }).click();
-  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('recipient2@disex.com.co');
-  await page.getByRole('textbox', { name: 'Name', exact: true }).nth(1).fill('Recipient 2');
+
+  await page.getByLabel('Email').nth(1).fill('recipient2@documenso.com');
+  await page.getByLabel('Name').nth(1).fill('Recipient 2');
 
   // Advanced settings should not be visible for non EE users.
   await expect(page.getByLabel('Show advanced settings')).toBeHidden();
@@ -89,6 +90,4 @@ test('[DOCUMENT_FLOW]: add signers', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Add Fields' })).toBeVisible();
   await page.getByRole('button', { name: 'Go Back' }).click();
   await expect(page.getByRole('heading', { name: 'Add Signers' })).toBeVisible();
-
-  await unseedUser(user.id);
 });

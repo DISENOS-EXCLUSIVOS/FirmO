@@ -16,12 +16,11 @@ export const TemplateConfirmationEmail = ({
 
       <Section className="flex-row items-center justify-center">
         <Text className="text-primary mx-auto mb-0 max-w-[80%] text-center text-lg font-semibold">
-          Bienvenido a FirmO!
+          Welcome to Documenso!
         </Text>
 
         <Text className="my-1 text-center text-base text-slate-400">
-          Antes de comenzar, confirme su dirección de correo electrónico haciendo clic en el botón a
-          continuación:
+          Before you get started, please confirm your email address by clicking the button below:
         </Text>
 
         <Section className="mb-6 mt-8 text-center">
@@ -29,11 +28,11 @@ export const TemplateConfirmationEmail = ({
             className="bg-documenso-500 inline-flex items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-black no-underline"
             href={confirmationLink}
           >
-            Confirmar Correo
+            Confirm email
           </Button>
           <Text className="mt-8 text-center text-sm italic text-slate-400">
-            También puedes copiar y pegar este enlace en tu navegador: {confirmationLink} (el enlace
-            expira en 1 hora)
+            You can also copy and paste this link into your browser: {confirmationLink} (link
+            expires in 1 hour)
           </Text>
         </Section>
       </Section>

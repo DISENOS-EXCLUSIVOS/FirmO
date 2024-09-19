@@ -3,13 +3,14 @@ import { redirect } from 'next/navigation';
 
 import { env } from 'next-runtime-env';
 
+import { setupI18nSSR } from '@documenso/lib/client-only/providers/i18n.server';
 import { IS_GOOGLE_SSO_ENABLED, IS_OIDC_SSO_ENABLED } from '@documenso/lib/constants/auth';
 import { decryptSecondaryData } from '@documenso/lib/server-only/crypto/decrypt';
 
 import { SignUpFormV2 } from '~/components/forms/v2/signup';
 
 export const metadata: Metadata = {
-  title: 'Registrarse',
+  title: 'Sign Up',
 };
 
 type SignUpPageProps = {
@@ -19,6 +20,8 @@ type SignUpPageProps = {
 };
 
 export default function SignUpPage({ searchParams }: SignUpPageProps) {
+  setupI18nSSR();
+
   const NEXT_PUBLIC_DISABLE_SIGNUP = env('NEXT_PUBLIC_DISABLE_SIGNUP');
 
   if (NEXT_PUBLIC_DISABLE_SIGNUP === 'true') {

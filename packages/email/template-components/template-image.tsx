@@ -11,7 +11,7 @@ export const TemplateImage = ({ assetBaseUrl, className, staticAsset }: Template
     return new URL(path, assetBaseUrl).toString();
   };
 
-  return <Img className={className} src={'https://ibb.co/f0T5w3j'} />;
+  return <Img className={className} src={getAssetUrl(`/static/${staticAsset}`)} />;
 };
 
 export default TemplateImage;

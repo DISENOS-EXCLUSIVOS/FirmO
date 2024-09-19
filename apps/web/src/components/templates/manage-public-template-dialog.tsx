@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Plural, Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import type * as DialogPrimitive from '@radix-ui/react-dialog';
 import { CheckCircle2Icon, CircleIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -50,8 +52,6 @@ import { useToast } from '@documenso/ui/primitives/use-toast';
 
 import { useOptionalCurrentTeam } from '~/providers/team';
 
-import { LocaleDate } from '../formatter/locale-date';
-
 export type ManagePublicTemplateDialogProps = {
   directTemplates: (Template & {
     directLink: Pick<TemplateDirectLink, 'token' | 'enabled'>;
@@ -91,6 +91,7 @@ export const ManagePublicTemplateDialog = ({
   onIsOpenChange,
   ...props
 }: ManagePublicTemplateDialogProps) => {
+  const { _, i18n } = useLingui();
   const { toast } = useToast();
 
   const [open, onOpenChange] = useState(isOpen);
@@ -129,18 +130,19 @@ export const ManagePublicTemplateDialog = ({
       });
 
       toast({
-        title: 'Success',
-        description: 'Template has been removed from your public profile.',
+        title: _(msg`Success`),
+        description: _(msg`Template has been removed from your public profile.`),
         duration: 5000,
       });
 
       handleOnOpenChange(false);
     } catch {
       toast({
-        title: 'A ocurrido un error desconocido',
+        title: _(msg`An unknown error occurred`),
+        description: _(
+          msg`We encountered an unknown error while attempting to remove this template from your profile. Please try again later.`,
+        ),
         variant: 'destructive',
-        description:
-          'Encontramos un error desconocido al intentar eliminar esta plantilla de su perfil. Por favor, inténtelo de nuevo más tarde.',
       });
     }
   };
@@ -165,18 +167,19 @@ export const ManagePublicTemplateDialog = ({
       });
 
       toast({
-        title: 'Éxito',
-        description: 'La plantilla ha sido actualizada',
+        title: _(msg`Success`),
+        description: _(msg`Template has been updated.`),
         duration: 5000,
       });
 
       onOpenChange(false);
     } catch {
       toast({
-        title: 'Un error desconocido ha ocurrido',
+        title: _(msg`An unknown error occurred`),
+        description: _(
+          msg`We encountered an unknown error while attempting to update the template. Please try again later.`,
+        ),
         variant: 'destructive',
-        description:
-          'Encontramos un error desconocido al intentar actualizar la plantilla. Por favor, inténtelo de nuevo más tarde.',
       });
     }
   };
@@ -241,11 +244,22 @@ export const ManagePublicTemplateDialog = ({
             .with({ currentStep: 'SELECT_TEMPLATE' }, () => (
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>{team?.name || 'Your'} plantillas de firma directa</DialogTitle>
+                  <DialogTitle>
+                    {team?.name ? (
+                      <Trans>{team.name} direct signing templates</Trans>
+                    ) : (
+                      <Trans>Your direct signing templates</Trans>
+                    )}
+                  </DialogTitle>
 
                   <DialogDescription>
-                    Seleccione una plantilla que le gustaría mostrar en su {team && `team's`} perfil
-                    público
+                    {team ? (
+                      <Trans>
+                        Select a template you'd like to display on your team's public profile
+                      </Trans>
+                    ) : (
+                      <Trans>Select a template you'd like to display on your public profile</Trans>
+                    )}
                   </DialogDescription>
                 </DialogHeader>
 
@@ -253,8 +267,12 @@ export const ManagePublicTemplateDialog = ({
                   <Table overflowHidden>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Plantilla</TableHead>
-                        <TableHead>Creado</TableHead>
+                        <TableHead>
+                          <Trans>Template</Trans>
+                        </TableHead>
+                        <TableHead>
+                          <Trans>Created</Trans>
+                        </TableHead>
                         <TableHead></TableHead>
                       </TableRow>
                     </TableHeader>
@@ -263,7 +281,7 @@ export const ManagePublicTemplateDialog = ({
                         <TableRow>
                           <TableCell colSpan={3} className="h-16 text-center">
                             <p className="text-muted-foreground">
-                              No se encontraron plantillas directas válidas
+                              <Trans>No valid direct templates found</Trans>
                             </p>
                           </TableCell>
                         </TableRow>
@@ -280,7 +298,7 @@ export const ManagePublicTemplateDialog = ({
                           </TableCell>
 
                           <TableCell className="text-muted-foreground text-sm">
-                            <LocaleDate date={row.createdAt} />
+                            {i18n.date(row.createdAt)}
                           </TableCell>
 
                           <TableCell>
@@ -298,7 +316,7 @@ export const ManagePublicTemplateDialog = ({
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button type="button" variant="secondary">
-                      Cerrar
+                      <Trans>Close</Trans>
                     </Button>
                   </DialogClose>
 
@@ -307,7 +325,7 @@ export const ManagePublicTemplateDialog = ({
                     disabled={selectedTemplateId === null}
                     onClick={() => onManageStep()}
                   >
-                    Continue
+                    <Trans>Continue</Trans>
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -315,10 +333,12 @@ export const ManagePublicTemplateDialog = ({
             .with({ templateId: P.number, currentStep: 'MANAGE' }, () => (
               <DialogContent className="relative">
                 <DialogHeader>
-                  <DialogTitle>Configurar plantilla</DialogTitle>
+                  <DialogTitle>
+                    <Trans>Configure template</Trans>
+                  </DialogTitle>
 
                   <DialogDescription>
-                    Administrar detalles para esta plantilla pública
+                    <Trans>Manage details for this public template</Trans>
                   </DialogDescription>
                 </DialogHeader>
 
@@ -334,7 +354,10 @@ export const ManagePublicTemplateDialog = ({
                         <FormItem>
                           <FormLabel required>Title</FormLabel>
                           <FormControl>
-                            <Input placeholder="The public name for your template" {...field} />
+                            <Input
+                              placeholder={_(msg`The public name for your template`)}
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -347,24 +370,34 @@ export const ManagePublicTemplateDialog = ({
                       render={({ field }) => {
                         const remaningLength =
                           MAX_TEMPLATE_PUBLIC_DESCRIPTION_LENGTH - (field.value || '').length;
-                        const pluralWord =
-                          Math.abs(remaningLength) === 1 ? 'character' : 'characters';
 
                         return (
                           <FormItem>
-                            <FormLabel required>Descripción</FormLabel>
+                            <FormLabel required>Description</FormLabel>
                             <FormControl>
                               <Textarea
-                                placeholder="The public description that will be displayed with this template"
+                                placeholder={_(
+                                  msg`The public description that will be displayed with this template`,
+                                )}
                                 {...field}
                               />
                             </FormControl>
 
                             {!form.formState.errors.publicDescription && (
                               <p className="text-muted-foreground text-sm">
-                                {remaningLength >= 0
-                                  ? `${remaningLength} ${pluralWord} remaining`
-                                  : `${Math.abs(remaningLength)} ${pluralWord} over the limit`}
+                                {remaningLength >= 0 ? (
+                                  <Plural
+                                    value={remaningLength}
+                                    one={<Trans># character remaining</Trans>}
+                                    other={<Trans># characters remaining</Trans>}
+                                  />
+                                ) : (
+                                  <Plural
+                                    value={Math.abs(remaningLength)}
+                                    one={<Trans># character over the limit</Trans>}
+                                    other={<Trans># characters over the limit</Trans>}
+                                  />
+                                )}
                               </p>
                             )}
 
@@ -381,16 +414,18 @@ export const ManagePublicTemplateDialog = ({
                           className="mr-auto w-full sm:w-auto"
                           onClick={() => setCurrentStep('CONFIRM_DISABLE')}
                         >
-                          Desactivado
+                          <Trans>Disable</Trans>
                         </Button>
                       )}
 
                       <DialogClose asChild>
-                        <Button variant="secondary">Cerrar</Button>
+                        <Button variant="secondary">
+                          <Trans>Close</Trans>
+                        </Button>
                       </DialogClose>
 
                       <Button type="submit" loading={isUpdatingTemplateSettings}>
-                        Actualizar
+                        <Trans>Update</Trans>
                       </Button>
                     </DialogFooter>
                   </form>
@@ -400,15 +435,19 @@ export const ManagePublicTemplateDialog = ({
             .with({ templateId: P.number, currentStep: 'CONFIRM_DISABLE' }, ({ templateId }) => (
               <DialogContent className="relative">
                 <DialogHeader>
-                  <DialogTitle>¿Estás seguro?</DialogTitle>
+                  <DialogTitle>
+                    <Trans>Are you sure?</Trans>
+                  </DialogTitle>
 
-                  <DialogDescription>La plantilla será eliminada de tu perfil.</DialogDescription>
+                  <DialogDescription>
+                    <Trans>The template will be removed from your profile</Trans>
+                  </DialogDescription>
                 </DialogHeader>
 
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button type="button" variant="secondary">
-                      Cancelar
+                      <Trans>Cancel</Trans>
                     </Button>
                   </DialogClose>
 
@@ -418,7 +457,7 @@ export const ManagePublicTemplateDialog = ({
                     loading={isUpdatingTemplateSettings}
                     onClick={() => void setTemplateToPrivate(templateId)}
                   >
-                    Confirmar
+                    <Trans>Confirm</Trans>
                   </Button>
                 </DialogFooter>
               </DialogContent>

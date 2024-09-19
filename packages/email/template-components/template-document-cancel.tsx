@@ -19,15 +19,17 @@ export const TemplateDocumentCancel = ({
 
       <Section>
         <Text className="text-primary mx-auto mb-0 max-w-[80%] text-center text-lg font-semibold">
-          {inviterName} Ha cancelado el documento
+          {inviterName} has cancelled the document
           <br />"{documentName}"
         </Text>
 
         <Text className="my-1 text-center text-base text-slate-400">
-          Todas las firmas han sido anuladas.
+          All signatures have been voided.
         </Text>
 
-        <Text className="my-1 text-center text-base text-slate-400">Ya no necesitas firmarlo.</Text>
+        <Text className="my-1 text-center text-base text-slate-400">
+          You don't need to sign it anymore.
+        </Text>
       </Section>
     </>
   );

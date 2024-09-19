@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { Trans, msg } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { CheckIcon, Clock, MailIcon, MailOpenIcon, PenIcon, PlusIcon } from 'lucide-react';
 import { match } from 'ts-pattern';
 
@@ -21,17 +23,21 @@ export const DocumentPageViewRecipients = ({
   document,
   documentRootPath,
 }: DocumentPageViewRecipientsProps) => {
+  const { _ } = useLingui();
+
   const recipients = document.Recipient;
 
   return (
     <section className="dark:bg-background border-border bg-widget flex flex-col rounded-xl border">
       <div className="flex flex-row items-center justify-between px-4 py-3">
-        <h1 className="text-foreground font-medium">Destinatarios</h1>
+        <h1 className="text-foreground font-medium">
+          <Trans>Recipients</Trans>
+        </h1>
 
         {document.status !== DocumentStatus.COMPLETED && (
           <Link
             href={`${documentRootPath}/${document.id}/edit?step=signers`}
-            title="Modificar destinatarios"
+            title={_(msg`Modify recipients`)}
             className="flex flex-row items-center justify-between"
           >
             {recipients.length === 0 ? (
@@ -46,7 +52,7 @@ export const DocumentPageViewRecipients = ({
       <ul className="text-muted-foreground divide-y border-t">
         {recipients.length === 0 && (
           <li className="flex flex-col items-center justify-center py-6 text-sm">
-            Sin destinatarios
+            <Trans>No recipients</Trans>
           </li>
         )}
 
@@ -57,7 +63,7 @@ export const DocumentPageViewRecipients = ({
               primaryText={<p className="text-muted-foreground text-sm">{recipient.email}</p>}
               secondaryText={
                 <p className="text-muted-foreground/70 text-xs">
-                  {RECIPIENT_ROLES_DESCRIPTION[recipient.role].roleName}
+                  {_(RECIPIENT_ROLES_DESCRIPTION[recipient.role].roleName)}
                 </p>
               }
             />
@@ -69,19 +75,19 @@ export const DocumentPageViewRecipients = ({
                     .with(RecipientRole.APPROVER, () => (
                       <>
                         <CheckIcon className="mr-1 h-3 w-3" />
-                        Aprobado
+                        <Trans>Approved</Trans>
                       </>
                     ))
                     .with(RecipientRole.CC, () =>
                       document.status === DocumentStatus.COMPLETED ? (
                         <>
                           <MailIcon className="mr-1 h-3 w-3" />
-                          Enviado
+                          <Trans>Sent</Trans>
                         </>
                       ) : (
                         <>
                           <CheckIcon className="mr-1 h-3 w-3" />
-                          Listo
+                          <Trans>Ready</Trans>
                         </>
                       ),
                     )
@@ -89,13 +95,13 @@ export const DocumentPageViewRecipients = ({
                     .with(RecipientRole.SIGNER, () => (
                       <>
                         <SignatureIcon className="mr-1 h-3 w-3" />
-                        Firmado
+                        <Trans>Signed</Trans>
                       </>
                     ))
                     .with(RecipientRole.VIEWER, () => (
                       <>
                         <MailOpenIcon className="mr-1 h-3 w-3" />
-                        Visto
+                        <Trans>Viewed</Trans>
                       </>
                     ))
                     .exhaustive()}
@@ -106,7 +112,7 @@ export const DocumentPageViewRecipients = ({
               recipient.signingStatus === SigningStatus.NOT_SIGNED && (
                 <Badge variant="secondary">
                   <Clock className="mr-1 h-3 w-3" />
-                  Pendiente
+                  <Trans>Pending</Trans>
                 </Badge>
               )}
           </li>

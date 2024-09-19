@@ -1,8 +1,19 @@
+import { extendZodWithOpenApi } from '@anatine/zod-openapi';
 import { z } from 'zod';
 
+import { DATE_FORMATS, DEFAULT_DOCUMENT_DATE_FORMAT } from '@documenso/lib/constants/date-formats';
+import '@documenso/lib/constants/time-zones';
+import { DEFAULT_DOCUMENT_TIME_ZONE, TIME_ZONES } from '@documenso/lib/constants/time-zones';
 import { ZUrlSchema } from '@documenso/lib/schemas/common';
 import {
+  ZDocumentAccessAuthTypesSchema,
+  ZDocumentActionAuthTypesSchema,
+  ZRecipientActionAuthTypesSchema,
+} from '@documenso/lib/types/document-auth';
+import { ZFieldMetaSchema } from '@documenso/lib/types/field-meta';
+import {
   DocumentDataType,
+  DocumentSigningOrder,
   FieldType,
   ReadStatus,
   RecipientRole,
@@ -10,6 +21,8 @@ import {
   SigningStatus,
   TemplateType,
 } from '@documenso/prisma/client';
+
+extendZodWithOpenApi(z);
 
 export const ZNoBodyMutationSchema = null;
 
@@ -91,17 +104,36 @@ export const ZCreateDocumentMutationSchema = z.object({
       name: z.string().min(1),
       email: z.string().email().min(1),
       role: z.nativeEnum(RecipientRole).optional().default(RecipientRole.SIGNER),
+      signingOrder: z.number().nullish(),
     }),
   ),
   meta: z
     .object({
       subject: z.string(),
       message: z.string(),
-      timezone: z.string(),
-      dateFormat: z.string(),
+      timezone: z.string().default(DEFAULT_DOCUMENT_TIME_ZONE).openapi({
+        description:
+          'The timezone of the date. Must be one of the options listed in the list below.',
+        enum: TIME_ZONES,
+      }),
+      dateFormat: z
+        .string()
+        .default(DEFAULT_DOCUMENT_DATE_FORMAT)
+        .openapi({
+          description:
+            'The format of the date. Must be one of the options listed in the list below.',
+          enum: DATE_FORMATS.map((format) => format.value),
+        }),
       redirectUrl: z.string(),
+      signingOrder: z.nativeEnum(DocumentSigningOrder).optional(),
     })
     .partial(),
+  authOptions: z
+    .object({
+      globalAccessAuth: ZDocumentAccessAuthTypesSchema.optional(),
+      globalActionAuth: ZDocumentActionAuthTypesSchema.optional(),
+    })
+    .optional(),
   formValues: z.record(z.string(), z.union([z.string(), z.boolean(), z.number()])).optional(),
 });
 
@@ -118,6 +150,7 @@ export const ZCreateDocumentMutationResponseSchema = z.object({
       email: z.string().email().min(1),
       token: z.string(),
       role: z.nativeEnum(RecipientRole),
+      signingOrder: z.number().nullish(),
 
       signingUrl: z.string(),
     }),
@@ -136,6 +169,7 @@ export const ZCreateDocumentFromTemplateMutationSchema = z.object({
       name: z.string().min(1),
       email: z.string().email().min(1),
       role: z.nativeEnum(RecipientRole).optional().default(RecipientRole.SIGNER),
+      signingOrder: z.number().nullish(),
     }),
   ),
   meta: z
@@ -145,8 +179,15 @@ export const ZCreateDocumentFromTemplateMutationSchema = z.object({
       timezone: z.string(),
       dateFormat: z.string(),
       redirectUrl: z.string(),
+      signingOrder: z.nativeEnum(DocumentSigningOrder).optional(),
     })
     .partial()
+    .optional(),
+  authOptions: z
+    .object({
+      globalAccessAuth: ZDocumentAccessAuthTypesSchema.optional(),
+      globalActionAuth: ZDocumentActionAuthTypesSchema.optional(),
+    })
     .optional(),
   formValues: z.record(z.string(), z.union([z.string(), z.boolean(), z.number()])).optional(),
 });
@@ -165,6 +206,7 @@ export const ZCreateDocumentFromTemplateMutationResponseSchema = z.object({
       email: z.string().email().min(1),
       token: z.string(),
       role: z.nativeEnum(RecipientRole).optional().default(RecipientRole.SIGNER),
+      signingOrder: z.number().nullish(),
 
       signingUrl: z.string(),
     }),
@@ -184,6 +226,7 @@ export const ZGenerateDocumentFromTemplateMutationSchema = z.object({
         id: z.number(),
         name: z.string().optional(),
         email: z.string().email().min(1),
+        signingOrder: z.number().nullish(),
       }),
     )
     .refine(
@@ -202,8 +245,15 @@ export const ZGenerateDocumentFromTemplateMutationSchema = z.object({
       timezone: z.string(),
       dateFormat: z.string(),
       redirectUrl: ZUrlSchema,
+      signingOrder: z.nativeEnum(DocumentSigningOrder).optional(),
     })
     .partial()
+    .optional(),
+  authOptions: z
+    .object({
+      globalAccessAuth: ZDocumentAccessAuthTypesSchema.optional(),
+      globalActionAuth: ZDocumentActionAuthTypesSchema.optional(),
+    })
     .optional(),
   formValues: z.record(z.string(), z.union([z.string(), z.boolean(), z.number()])).optional(),
 });
@@ -222,6 +272,7 @@ export const ZGenerateDocumentFromTemplateMutationResponseSchema = z.object({
       email: z.string().email().min(1),
       token: z.string(),
       role: z.nativeEnum(RecipientRole),
+      signingOrder: z.number().nullish(),
 
       signingUrl: z.string(),
     }),
@@ -236,6 +287,12 @@ export const ZCreateRecipientMutationSchema = z.object({
   name: z.string().min(1),
   email: z.string().email().min(1),
   role: z.nativeEnum(RecipientRole).optional().default(RecipientRole.SIGNER),
+  signingOrder: z.number().nullish(),
+  authOptions: z
+    .object({
+      actionAuth: ZRecipientActionAuthTypesSchema.optional(),
+    })
+    .optional(),
 });
 
 /**
@@ -259,6 +316,7 @@ export const ZSuccessfulRecipientResponseSchema = z.object({
   email: z.string().email().min(1),
   name: z.string(),
   role: z.nativeEnum(RecipientRole),
+  signingOrder: z.number().nullish(),
   token: z.string(),
   // !: Not used for now
   // expired: z.string(),
@@ -275,7 +333,7 @@ export type TSuccessfulRecipientResponseSchema = z.infer<typeof ZSuccessfulRecip
 /**
  * Fields
  */
-export const ZCreateFieldMutationSchema = z.object({
+const ZCreateFieldSchema = z.object({
   recipientId: z.number(),
   type: z.nativeEnum(FieldType),
   pageNumber: z.number(),
@@ -283,17 +341,43 @@ export const ZCreateFieldMutationSchema = z.object({
   pageY: z.number(),
   pageWidth: z.number(),
   pageHeight: z.number(),
+  fieldMeta: ZFieldMetaSchema.openapi({}),
 });
+
+export const ZCreateFieldMutationSchema = z.union([
+  ZCreateFieldSchema,
+  z.array(ZCreateFieldSchema).min(1),
+]);
 
 export type TCreateFieldMutationSchema = z.infer<typeof ZCreateFieldMutationSchema>;
 
-export const ZUpdateFieldMutationSchema = ZCreateFieldMutationSchema.partial();
+export const ZUpdateFieldMutationSchema = ZCreateFieldSchema.partial();
 
 export type TUpdateFieldMutationSchema = z.infer<typeof ZUpdateFieldMutationSchema>;
 
 export const ZDeleteFieldMutationSchema = null;
 
 export type TDeleteFieldMutationSchema = typeof ZDeleteFieldMutationSchema;
+
+const ZSuccessfulFieldSchema = z.object({
+  id: z.number(),
+  documentId: z.number(),
+  recipientId: z.number(),
+  type: z.nativeEnum(FieldType),
+  pageNumber: z.number(),
+  pageX: z.number(),
+  pageY: z.number(),
+  pageWidth: z.number(),
+  pageHeight: z.number(),
+  customText: z.string(),
+  fieldMeta: ZFieldMetaSchema,
+  inserted: z.boolean(),
+});
+
+export const ZSuccessfulFieldCreationResponseSchema = z.object({
+  fields: z.union([ZSuccessfulFieldSchema, z.array(ZSuccessfulFieldSchema)]),
+  documentId: z.number(),
+});
 
 export const ZSuccessfulFieldResponseSchema = z.object({
   id: z.number(),
@@ -306,6 +390,7 @@ export const ZSuccessfulFieldResponseSchema = z.object({
   pageWidth: z.number(),
   pageHeight: z.number(),
   customText: z.string(),
+  fieldMeta: ZFieldMetaSchema,
   inserted: z.boolean(),
 });
 
@@ -349,6 +434,7 @@ export const ZTemplateMetaSchema = z.object({
   dateFormat: z.string().nullish(),
   templateId: z.number(),
   redirectUrl: z.string().nullish(),
+  signingOrder: z.nativeEnum(DocumentSigningOrder).nullish().default(DocumentSigningOrder.PARALLEL),
 });
 
 export const ZTemplateSchema = z.object({
@@ -370,6 +456,7 @@ export const ZRecipientSchema = z.object({
   email: z.string().email().min(1),
   name: z.string(),
   token: z.string(),
+  signingOrder: z.number().nullish(),
   documentDeletedAt: z.date().nullish(),
   expired: z.date().nullish(),
   signedAt: z.date().nullish(),
@@ -423,6 +510,7 @@ export const ZTemplateWithDataSchema = ZTemplateSchema.extend({
     id: true,
     email: true,
     name: true,
+    signingOrder: true,
     authOptions: true,
     role: true,
   }).array(),

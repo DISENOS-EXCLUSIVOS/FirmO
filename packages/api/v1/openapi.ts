@@ -9,7 +9,7 @@ export const OpenAPIV1 = Object.assign(
       info: {
         title: 'Documenso API',
         version: '1.0.0',
-        description: 'La API de Documenso para recuperar, crear, actualizar y eliminar documentos',
+        description: 'The Documenso API for retrieving, creating, updating and deleting documents.',
       },
     },
     {

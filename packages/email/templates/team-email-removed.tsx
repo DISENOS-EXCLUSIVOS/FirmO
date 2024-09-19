@@ -15,12 +15,12 @@ export type TeamEmailRemovedTemplateProps = {
 
 export const TeamEmailRemovedTemplate = ({
   assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://disex.com.co',
-  teamEmail = 'example@disex.com.co',
+  baseUrl = 'https://documenso.com',
+  teamEmail = 'example@documenso.com',
   teamName = 'Team Name',
   teamUrl = 'demo',
 }: TeamEmailRemovedTemplateProps) => {
-  const previewText = `Correo electrónico del equipo eliminado por ${teamName} en FirmO`;
+  const previewText = `Team email removed for ${teamName} on Documenso`;
 
   return (
     <Html>
@@ -54,12 +54,12 @@ export const TeamEmailRemovedTemplate = ({
 
               <Section className="p-2 text-slate-500">
                 <Text className="text-center text-lg font-medium text-black">
-                  Correo electrónico del equipo eliminado
+                  Team email removed
                 </Text>
 
                 <Text className="my-1 text-center text-base">
-                  El correo electrónico del equipo. <span className="font-bold">{teamEmail}</span>{' '}
-                  ha sido eliminado por <span className="font-bold">{teamName}</span> en FirmO.
+                  The team email <span className="font-bold">{teamEmail}</span> has been removed
+                  from the following team
                 </Text>
 
                 <div className="mx-auto mb-6 mt-2 w-fit rounded-lg bg-gray-50 px-4 py-2 text-base font-medium text-slate-600">
